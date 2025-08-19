@@ -35,6 +35,15 @@ module.exports = function(eleventyConfig) {
     return tagColors[key] || "#6b7280";
   });
 
+  // Return the first N items of an array (like Eleventy sample)
+  eleventyConfig.addFilter("head", (arr, n) => {
+    if (!Array.isArray(arr)) return arr;
+    if (n < 0) {
+      return arr.slice(n);
+    }
+    return arr.slice(0, n);
+  });
+
   // Passthrough copy for static assets (CSS, JS, images)
   // Copies from src/assets/* to _site/assets/*
   eleventyConfig.addPassthroughCopy({ "src/assets": "assets" });
