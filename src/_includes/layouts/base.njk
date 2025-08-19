@@ -61,6 +61,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
   <meta name="theme-color" content="#a78bfa" />
+  <link rel="manifest" href="/manifest.webmanifest">
   {# Syntax highlighting via Highlight.js CDN - vivid color scheme #}
   <link id="hljs-light" rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@11.9.0/styles/tokyo-night-light.min.css">
   <link id="hljs-dark" rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@11.9.0/styles/tokyo-night-dark.min.css" disabled>
@@ -95,6 +96,93 @@
     .reduce-motion * { transition: none !important; animation: none !important; }
   </style>
   {% include "partials/analytics.njk" %}
+
+  {# SEO: Structured Data (JSON-LD) #}
+  {% if site.url %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "url": "{{ site.url }}",
+        "name": "{{ site.name }}",
+        "description": "{{ site.description }}"
+      },
+      {
+        "@type": "Organization",
+        "name": "{{ site.author }}",
+        "url": "{{ site.url }}",
+        "sameAs": [
+          {% set sameAs = [] %}
+          {% if site.social and site.social.github %}
+            {% set sameAs = sameAs.concat(['https://github.com/' + site.social.github]) %}
+          {% endif %}
+          {% if site.social and site.social.twitter %}
+            {% set sameAs = sameAs.concat(['https://twitter.com/' + (site.social.twitter | replace('@',''))]) %}
+          {% endif %}
+          {% for link in sameAs %}
+            "{{ link }}"{% if not loop.last %},{% endif %}
+          {% endfor %}
+        ]
+      }
+    ]
+  }
+  </script>
+
+  {# Breadcrumbs: Home > Current #}
+  {% set isHome = (page.url or '/') == '/' %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "{{ site.url }}"
+      }{% if not isHome %},
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "{{ title or site.name }}",
+        "item": "{{ site.url }}{{ page.url or '/' }}"
+      }
+      {% endif %}
+    ]
+  }
+  </script>
+
+  {# BlogPosting for content pages (#blog, #notes, #poetry, #journal) #}
+  {% set url = page.url or '/' %}
+  {% set isPostLike = (url | slice(0,6) == '/blog/' ) or (url | slice(0,7) == '/notes/' ) or (url | slice(0,8) == '/poetry/' ) or (url | slice(0,9) == '/journal/' ) %}
+  {% if isPostLike %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "{{ (site.url and (site.url + (page.url or '/'))) or '' }}"
+    },
+    "headline": "{{ title or site.name }}",
+    {% if ogImage %}"image": ["{{ ogImage }}"],{% endif %}
+    "datePublished": "{{ page.date | htmlDateString }}",
+    "dateModified": "{{ page.date | htmlDateString }}",
+    "author": {
+      "@type": "Person",
+      "name": "{{ author or site.author }}"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "{{ site.name }}"
+    },
+    "description": "{{ description or site.description }}"
+  }
+  </script>
+  {% endif %}
+  {% endif %}
 </head>
 <body class="bg-[var(--bg)] text-[var(--text)] min-h-screen flex flex-col">
   <div id="progress-bar" aria-hidden="true"></div>
