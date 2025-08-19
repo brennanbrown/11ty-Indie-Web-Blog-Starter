@@ -109,6 +109,25 @@ module.exports = function(eleventyConfig) {
       .sort((a, b) => (a.date > b.date ? -1 : 1));
   });
 
+  // Additional content collections
+  eleventyConfig.addCollection("notes", (collectionApi) => {
+    return collectionApi
+      .getFilteredByGlob("src/notes/**/*.md")
+      .sort((a, b) => (a.date > b.date ? -1 : 1));
+  });
+
+  eleventyConfig.addCollection("poetry", (collectionApi) => {
+    return collectionApi
+      .getFilteredByGlob("src/poetry/**/*.md")
+      .sort((a, b) => (a.date > b.date ? -1 : 1));
+  });
+
+  eleventyConfig.addCollection("journal", (collectionApi) => {
+    return collectionApi
+      .getFilteredByGlob("src/journal/**/*.md")
+      .sort((a, b) => (a.date > b.date ? -1 : 1));
+  });
+
   // Unique list of tags used across posts
   eleventyConfig.addCollection("tagList", (collectionApi) => {
     const ignore = new Set(["all", "nav", "post", "posts"]);
