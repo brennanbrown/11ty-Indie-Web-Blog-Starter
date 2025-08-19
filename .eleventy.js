@@ -30,9 +30,46 @@ module.exports = function(eleventyConfig) {
 
   // Map tag to color using src/_data/tagColors.json
   eleventyConfig.addFilter("tagColor", (tag) => {
-    if (!tag) return "#6b7280"; // gray-500 default
+    if (!tag) return "#6b7280";
     const key = String(tag).toLowerCase();
-    return tagColors[key] || "#6b7280";
+    if (tagColors[key]) return tagColors[key];
+    // Deterministic color from tag text: hash -> HSL -> HEX
+    const str = key;
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+      hash = (hash * 31 + str.charCodeAt(i)) >>> 0;
+    }
+    // Hue across full 360, with pleasant saturation/lightness
+    const hue = hash % 360;
+    const sat = 65;   // 0-100
+    const light = 45; // 0-100
+    // Convert HSL to HEX
+    const h = hue / 360;
+    const s = sat / 100;
+    const l = light / 100;
+    const hue2rgb = (p, q, t) => {
+      if (t < 0) t += 1;
+      if (t > 1) t -= 1;
+      if (t < 1 / 6) return p + (q - p) * 6 * t;
+      if (t < 1 / 2) return q;
+      if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
+      return p;
+    };
+    let r, g, b;
+    if (s === 0) {
+      r = g = b = l; // achromatic
+    } else {
+      const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+      const p = 2 * l - q; // standard HSL -> RGB conversion
+      r = hue2rgb(p, q, h + 1 / 3);
+      g = hue2rgb(p, q, h);
+      b = hue2rgb(p, q, h - 1 / 3);
+    }
+    const toHex = (x) => {
+      const v = Math.round(x * 255);
+      return (v < 16 ? "0" : "") + v.toString(16);
+    };
+    return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
   });
 
   // Return the first N items of an array (like Eleventy sample)
