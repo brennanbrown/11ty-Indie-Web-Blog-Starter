@@ -8,11 +8,16 @@ eleventyExcludeFromCollections: true
   <subtitle>{{ site.description }}</subtitle>
   <link href="{{ site.url }}/feed.xml" rel="self"/>
   <link href="{{ site.url }}/"/>
+  {% if collections.posts and (collections.posts | length) %}
   <updated>{{ collections.posts[0].date | htmlDateString }}T00:00:00Z</updated>
+  {% else %}
+  <updated>{{ '1970-01-01' }}</updated>
+  {% endif %}
   <id>{{ site.url }}/</id>
   <author>
     <name>{{ site.author }}</name>
   </author>
+  {% if collections.posts and (collections.posts | length) %}
   {% for post in collections.posts | slice(0, 20) %}
   <entry>
     <title>{{ post.data.title }}</title>
@@ -28,4 +33,5 @@ eleventyExcludeFromCollections: true
     {% endfor %}
   </entry>
   {% endfor %}
+  {% endif %}
 </feed>
