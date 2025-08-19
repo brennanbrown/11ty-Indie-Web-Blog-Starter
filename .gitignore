@@ -1,0 +1,140 @@
+# ----------------------------
+# OS / Editor / IDE
+# ----------------------------
+.DS_Store
+.DS_Store?
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# VS Code (keep common recommended files if you want)
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/launch.json
+!.vscode/tasks.json
+
+# JetBrains / IntelliJ
+.idea/
+*.iml
+
+# Local history plugins
+.history/
+.vscode-test/
+
+# ----------------------------
+# Environment / Secrets
+# ----------------------------
+.env
+.env.*
+!.env.example
+
+# ----------------------------
+# Node / Package Managers
+# ----------------------------
+node_modules/
+.npm/
+.npmrc.local
+package-lock.json.*   # partial/backup locks created by tools
+
+# If you standardize on npm, ignore other lockfiles:
+yarn.lock
+pnpm-lock.yaml
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+*.log
+
+# ----------------------------
+# Eleventy / Build Outputs
+# ----------------------------
+# Default Eleventy output (change if custom in .eleventy.js)
+_site/
+
+# Common dist directories if you export elsewhere
+dist/
+build/
+public/
+
+# Eleventy/11ty caches (plugins, transforms, image/cache)
+.11tycache/
+.eleventycache/
+.cache/
+cache/
+
+# ----------------------------
+# Frontend Tooling Caches
+# ----------------------------
+# PostCSS / Style tooling
+.stylelintcache
+.eslintcache
+
+# Vite / Parcel (if used in the stack or locally)
+.vite/
+.parcel-cache/
+
+# Turborepo / Nx (if used)
+.turbo/
+nx-out/
+
+# ----------------------------
+# Testing / Coverage
+# ----------------------------
+coverage/
+nyc_output/
+.nyc_output/
+
+# Playwright
+playwright-report/
+test-results/
+.playwright/
+.cache/ms-playwright/
+
+# Vitest / Jest (if used)
+.vitest/
+jest-html-reporters-*.html
+jest-stare/
+
+# Cypress (if ever used locally)
+cypress/videos/
+cypress/screenshots/
+cypress/downloads/
+
+# ----------------------------
+# Netlify
+# ----------------------------
+.netlify/
+# Keep config tracked:
+!netlify.toml
+
+# Netlify dev/serve artifacts
+netlify/functions-serve/
+
+# ----------------------------
+# Images / Generated assets (if you generate locally)
+# Adjust paths based on your pipeline; _site is already ignored.
+*.tmp
+*.temp
+
+# ----------------------------
+# Misc / Temporary
+# ----------------------------
+tmp/
+temp/
+*.swp
+*.swo
+*.orig
+*.rej
+
+# Lock files created by merges or tools
+*.lock
+# (Allow package-lock.json specifically)
+!package-lock.json
