@@ -1,5 +1,5 @@
 ---
-layout: layouts/base.njk
+layout: layouts/poem.njk
 title: Static Garden
 description: A short poem about websites as gardens.
 ---

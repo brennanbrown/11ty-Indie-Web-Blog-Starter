@@ -1,5 +1,5 @@
 ---
-layout: layouts/base.njk
+layout: layouts/journal.njk
 title: Day One
 description: Starting the journal as a collection.
 ---

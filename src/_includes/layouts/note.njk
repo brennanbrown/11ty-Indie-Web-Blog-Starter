@@ -1,0 +1,27 @@
+---
+layout: layouts/base.njk
+---
+<a href="/notes/" class="inline-flex items-center text-blue-600 hover:text-blue-800 mb-3">← Back to Notes</a>
+
+<nav class="text-sm text-gray-600 mb-4" aria-label="Breadcrumb">
+  <ol class="flex space-x-2">
+    <li><a href="/" class="hover:text-blue-600">Home</a></li>
+    <li><span aria-hidden="true">›</span></li>
+    <li><a href="/notes/" class="hover:text-blue-600">Notes</a></li>
+    <li><span aria-hidden="true">›</span></li>
+    <li class="text-gray-900 dark:text-gray-100">{{ title }}</li>
+  </ol>
+</nav>
+
+<article class="h-entry">
+  <header class="mb-4">
+    <h1 class="p-name text-2xl font-bold mb-2">{{ title }}</h1>
+    <div class="text-sm text-gray-600 dark:text-gray-400">
+      <time class="dt-published" datetime="{{ page.date | htmlDateString }}">{{ page.date | readableDate }}</time>
+      <a class="u-url hidden" href="{{ page.url }}">Permalink</a>
+    </div>
+  </header>
+  <div class="e-content prose max-w-none">
+    {{ content | safe }}
+  </div>
+</article>

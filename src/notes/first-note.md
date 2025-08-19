@@ -1,5 +1,5 @@
 ---
-layout: layouts/base.njk
+layout: layouts/note.njk
 title: First Note
 description: A tiny note to kick off the notes collection.
 ---

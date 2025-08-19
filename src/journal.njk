@@ -1,13 +1,18 @@
 ---
 layout: layouts/base.njk
 title: Journal
-permalink: /journal/
+pagination:
+  data: collections.journal
+  size: 10
+  alias: items
+  reverse: true
+permalink: "/journal/{% if pagination.pageNumber > 0 %}page-{{ pagination.pageNumber + 1 }}/{% endif %}"
 ---
 
 <h1 class="text-2xl font-bold mb-4">Journal</h1>
 <p class="text-gray-600 dark:text-gray-400 mb-6">Longer-form reflections and development logs.</p>
 
-{% set items = collections.journal | default([]) %}
+{% set items = items | default([]) %}
 {% if items | length == 0 %}
   <p class="text-gray-500 dark:text-gray-400 italic">No journal entries yet. Add files under <code>src/journal/</code>.</p>
 {% else %}
@@ -24,4 +29,20 @@ permalink: /journal/
   </article>
   {% endfor %}
 </section>
+
+<nav class="mt-8 flex items-center justify-between" aria-label="Pagination">
+  {% if pagination.href.previous %}
+    <a class="px-4 py-2 rounded bg-gray-100 dark:bg-gray-800 hover:bg-gray-200" href="{{ pagination.href.previous }}">← Newer</a>
+  {% else %}
+    <span class="px-4 py-2 text-gray-400">← Newer</span>
+  {% endif %}
+
+  <span class="text-sm text-gray-600 dark:text-gray-400">Page {{ pagination.pageNumber + 1 }} of {{ pagination.pages | length }}</span>
+
+  {% if pagination.href.next %}
+    <a class="px-4 py-2 rounded bg-gray-100 dark:bg-gray-800 hover:bg-gray-200" href="{{ pagination.href.next }}">Older →</a>
+  {% else %}
+    <span class="px-4 py-2 text-gray-400">Older →</span>
+  {% endif %}
+</nav>
 {% endif %}
