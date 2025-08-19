@@ -35,6 +35,10 @@ module.exports = function(eleventyConfig) {
     return tagColors[key] || "#6b7280";
   });
 
+  // Passthrough copy for static assets (CSS, JS, images)
+  // Copies from src/assets/* to _site/assets/*
+  eleventyConfig.addPassthroughCopy({ "src/assets": "assets" });
+
   return {
     dir: {
       input: "src",
