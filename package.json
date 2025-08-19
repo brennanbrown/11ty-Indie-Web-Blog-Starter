@@ -1,0 +1,37 @@
+{
+  "name": "jamstack-blog-template",
+  "version": "0.1.0",
+  "private": true,
+  "description": "JAMstack Blog Template: Eleventy + Tailwind with IndieWeb features",
+  "scripts": {
+    "dev": "run-p dev:*",
+    "dev:css": "tailwindcss -i src/assets/css/tailwind.css -o src/assets/css/build.css --watch",
+    "dev:11ty": "eleventy --serve --port=8080",
+    "build": "npm run build:icons && npm run build:css && eleventy",
+    "build:icons": "node scripts/generate-icons.js",
+    "build:css": "tailwindcss -i src/assets/css/tailwind.css -o src/assets/css/build.css --minify",
+    "clean": "rimraf _site",
+    "test": "npm run test:build && npm run test:e2e",
+    "test:build": "node tests/build-test.js",
+    "test:e2e": "playwright test",
+    "test:install": "npx playwright install"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0",
+    "@playwright/test": "^1.54.2",
+    "autoprefixer": "^10.4.20",
+    "flexsearch": "^0.7.43",
+    "luxon": "^3.5.0",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.4.47",
+    "rimraf": "^5.0.10",
+    "tailwindcss": "^3.4.13"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "markdown-it": "^14.1.0",
+    "markdown-it-anchor": "^9.2.0"
+  }
+}
