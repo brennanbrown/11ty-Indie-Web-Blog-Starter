@@ -3,7 +3,11 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>{{ title or site.name }}</title>
+  {% if title %}
+  <title>{{ title }} — {{ site.name }}</title>
+  {% else %}
+  <title>{{ site.name }}</title>
+  {% endif %}
   <meta name="description" content="{{ description or site.description }}" />
   {# Canonical URL #}
   {% if site.url %}
