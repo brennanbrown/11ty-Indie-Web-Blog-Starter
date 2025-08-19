@@ -10,6 +10,26 @@
   to = "/admin/index.html"
   status = 200
 
+[[redirects]]
+  from = "/feed"
+  to = "/feed.xml"
+  status = 301
+
+[[redirects]]
+  from = "/rss"
+  to = "/feed.xml"
+  status = 301
+
+[[redirects]]
+  from = "/rss.xml"
+  to = "/feed.xml"
+  status = 301
+
+[[redirects]]
+  from = "/atom.xml"
+  to = "/feed.xml"
+  status = 301
+
 # Optional: Set custom headers
 [[headers]]
   for = "/*"
@@ -18,3 +38,8 @@
     X-XSS-Protection = "1; mode=block"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[headers]]
+  for = "/feed.xml"
+  [headers.values]
+    Content-Type = "application/atom+xml; charset=utf-8"
