@@ -3,6 +3,14 @@ const tagColors = require("./src/_data/tagColors.json");
 
 module.exports = function(eleventyConfig) {
   // Filters
+  // JSON stringify helper for Nunjucks (used by search.json)
+  eleventyConfig.addFilter("json", (value, spaces = 0) => {
+    try {
+      return JSON.stringify(value, null, spaces);
+    } catch {
+      return "null";
+    }
+  });
   eleventyConfig.addFilter("readableDate", (dateObj) => {
     try {
       return DateTime.fromJSDate(dateObj, { zone: "utc" }).toFormat("LLLL d, yyyy");
@@ -134,6 +142,23 @@ module.exports = function(eleventyConfig) {
       if (c) cats.add(c);
     });
     return Array.from(cats).sort((a, b) => a.localeCompare(b));
+  });
+
+  // Search index: lightweight documents for FlexSearch (client-side)
+  eleventyConfig.addCollection("searchIndex", (collectionApi) => {
+    const posts = collectionApi
+      .getFilteredByGlob("src/blog/**/*.md")
+      .sort((a, b) => (a.date > b.date ? -1 : 1));
+
+    return posts.map((p) => ({
+      id: p.url,
+      title: (p.data && p.data.title) || "",
+      description: (p.data && p.data.description) || "",
+      tags: Array.isArray(p.data?.tags) ? p.data.tags : [],
+      // Avoid using templateContent here (not available during collection build in Eleventy v3)
+      content: "",
+      date: p.date,
+    }));
   });
 
   return {
