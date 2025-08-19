@@ -70,6 +70,48 @@ A modern, feature-complete blog template built with Eleventy and Tailwind CSS. D
 
 Unlike other templates that require editing dozens of files, this template uses a single configuration file (`src/_data/site.json`) for most customization:
 
+### Indie Creator Guide
+
+See the in-depth post: [Guide to Making It as an Indie Creator](/blog/guide-to-making-it-as-an-indie-creator/) for practical steps to grow an audience, accept support, and keep a simple workflow using this template.
+
+Quick reference (matches the code in `src/_includes/layouts/post.njk`, `src/contact.njk`, and `src/donate.njk`):
+
+- **Newsletter** (renders on posts when enabled):
+  ```json
+  {
+    "newsletter": {
+      "enabled": true,
+      "provider": "buttondown",
+      "action": "https://buttondown.email/api/emails/embed-subscribe/yourusername",
+      "title": "Join the Newsletter",
+      "description": "Get thoughtful updates delivered to your inbox."
+    }
+  }
+  ```
+  Use any provider by swapping the `action` with a POST endpoint.
+
+- **Contact form** (configure a backend):
+  In `src/contact.njk`, wire up Netlify Forms or a service like Formspree/Basin by adding provider attributes, e.g.:
+  ```html
+  <form name="contact" method="POST" data-netlify="true">
+    <input type="hidden" name="form-name" value="contact">
+    <!-- fields -->
+  </form>
+  ```
+
+- **Donations/Sponsorship** (renders on `/donate/`):
+  ```json
+  {
+    "donate": {
+      "enabled": true,
+      "kofi": "yourusername",
+      "buymeacoffee": "yourusername",
+      "github": "yourusername",
+      "message": "If you find value in my writing, consider supporting my work."
+    }
+  }
+  ```
+
 ### Essential Settings
 - **Site info**: Name, description, URL, author
 - **Social links**: GitHub, Mastodon, Twitter (all optional)
