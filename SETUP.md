@@ -70,6 +70,25 @@ I'm excited to own my content and join the IndieWeb community.
 }
 ```
 
+### Placeholder Assets (Profile/OG/Background)
+During the build, a small script fetches placeholders so your site looks complete without committing images. You can:
+
+- **Drop in your own files** in `src/assets/` named `profile.jpg`, `og-default.png`, `retro-stars.png`.
+- **Use environment variables** to point to your own URLs:
+  - `PROFILE_IMAGE_URL`, `OG_DEFAULT_URL`, `RETRO_STARS_URL`
+  - Example: `PROFILE_IMAGE_URL=https://example.com/me.jpg npm run build`
+- **Use site.json** by adding an `assets` section:
+  ```json
+  {
+    "assets": {
+      "profileUrl": "https://example.com/me.jpg",
+      "ogDefaultUrl": "https://example.com/og.png",
+      "retroStarsUrl": "https://example.com/retro-stars.png"
+    }
+  }
+  ```
+- **Skip entirely** by setting `SKIP_FETCH_ASSETS=1` in your environment.
+
 ### Analytics (Privacy-Friendly)
 ```json
 "analytics": {

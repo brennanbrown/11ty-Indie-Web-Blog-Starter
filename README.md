@@ -144,6 +144,38 @@ src/
 └── style.njk          # Living style guide
 ```
 
+## 🖼️ Configurable Placeholder Assets
+
+This template includes a tiny build helper that fetches placeholder images so your site looks complete out‑of‑the‑box without committing binaries. Files are saved to `src/assets/` and passed through to `/assets/` at build time.
+
+What gets fetched by default:
+
+- **profile.jpg** — used on `about` page
+- **og-default.png** — fallback Open Graph image
+- **retro-stars.png** — background tile used in one demo post
+
+How to customize:
+
+- **Drop in your own files**: place files with the same names in `src/assets/` and the fetcher will skip downloading.
+- **Environment variables**: set any of these to your own URLs
+  - `PROFILE_IMAGE_URL`
+  - `OG_DEFAULT_URL`
+  - `RETRO_STARS_URL`
+  - Example: `PROFILE_IMAGE_URL=https://example.com/me.jpg npm run build`
+- **site.json config**: add an optional `assets` section to `src/_data/site.json`:
+  ```json
+  {
+    "assets": {
+      "profileUrl": "https://example.com/me.jpg",
+      "ogDefaultUrl": "https://example.com/og.png",
+      "retroStarsUrl": "https://example.com/retro-stars.png"
+    }
+  }
+  ```
+- **Skip entirely**: set `SKIP_FETCH_ASSETS=1` (or `true`) to bypass downloading (useful for offline/CI).
+
+The fetcher runs as part of the build (`npm run build`), before CSS and Eleventy.
+
 ## 🚀 Deployment
 
 ### Netlify (One-Click Deploy)
