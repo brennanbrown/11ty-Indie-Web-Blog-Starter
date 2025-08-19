@@ -1,0 +1,24 @@
+{% macro icon(name, class="w-4 h-4", title="") %}
+  {% set t = title or name %}
+  {% if name == 'github' %}
+    <svg class="{{ class }}" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" role="img"><path d="M12 .5a12 12 0 0 0-3.79 23.39c.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.74.08-.73.08-.73 1.2.08 1.83 1.25 1.83 1.25 1.07 1.83 2.81 1.3 3.5.99.11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.34-5.47-5.95 0-1.32.47-2.39 1.24-3.23-.13-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.3-1.55 3.3-1.23 3.3-1.23.66 1.65.25 2.87.12 3.17.77.84 1.24 1.91 1.24 3.23 0 4.62-2.8 5.65-5.48 5.95.43.37.81 1.1.81 2.22v3.29c0 .32.21.69.82.58A12 12 0 0 0 12 .5z"/></svg>
+  {% elseif name == 'mastodon' %}
+    <svg class="{{ class }}" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" role="img"><path d="M21.57 13.11c-.3 1.55-2.7 3.25-5.46 3.58-1.44.17-2.86.33-4.37.26-2.47-.11-4.43-.59-4.43-.59 0 .24.02.48.05.71.35 2.67 2.64 2.83 4.8 2.9 2.18.07 4.12-.54 4.12-.54l.09 1.99s-1.52.81-4.23.96c-1.5.08-3.36-.04-5.52-.65-4.69-1.26-5.5-6.33-5.63-11.46-.04-1.5-.02-2.92-.02-4.12 0-5.3 3.47-6.86 3.47-6.86 1.74-.8 4.72-1.14 7.83-1.16h.08c3.11.02 6.09.36 7.83 1.16 0 0 3.47 1.56 3.47 6.86 0 0 .04 3.01-.08 4.98-.05.82-.16 1.63-.34 2.41z"/></svg>
+  {% elseif name == 'linkedin' %}
+    <svg class="{{ class }}" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" role="img"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V23h-4V8zm7.5 0h3.8v2.05h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V23h-4v-5.3c0-1.26-.02-2.88-1.76-2.88-1.77 0-2.04 1.38-2.04 2.8V23h-4V8z"/></svg>
+  {% elseif name == 'x' or name == 'twitter' %}
+    <svg class="{{ class }}" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" role="img"><path d="M18.244 2H21l-6.54 7.48L22 22h-6.9l-4.52-5.9L4.44 22H2l7.05-8.06L2 2h6.9l4.09 5.47L18.244 2Zm-2.42 18h1.89L8.27 4H6.38l9.444 16Z"/></svg>
+  {% elseif name == 'rss' %}
+    <svg class="{{ class }}" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" role="img"><path d="M6.18 17.82A2.18 2.18 0 1 1 2 17.82a2.18 2.18 0 0 1 4.18 0Zm5.46 2.18H8.73A8.73 8.73 0 0 0 0 11.27V8.36A11.64 11.64 0 0 1 11.64 20Zm6.36 0h-3.27A15.09 15.09 0 0 0 0 10.91V7.64A18.36 18.36 0 0 1 18 20Z"/></svg>
+  {% elseif name == 'mail' %}
+    <svg class="{{ class }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" role="img"><path d="M4 4h16v16H4z"/><path d="m22 6-10 7L2 6"/></svg>
+  {% elseif name == 'link' %}
+    <svg class="{{ class }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" role="img"><path d="M10 13a5 5 0 0 1 7 7l-3 3a5 5 0 0 1-7-7l1-1"/><path d="M14 11a5 5 0 0 1-7-7l3-3a5 5 0 0 1 7 7l-1 1"/></svg>
+  {% elseif name == 'copy' %}
+    <svg class="{{ class }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" role="img"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+  {% elseif name == 'share' %}
+    <svg class="{{ class }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" role="img"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.59 13.51l6.83 3.98"/><path d="M15.41 6.51L8.59 10.49"/></svg>
+  {% else %}
+    <span class="{{ class }}" aria-hidden="true"></span>
+  {% endif %}
+{% endmacro %}

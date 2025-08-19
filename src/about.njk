@@ -7,11 +7,29 @@ title: About
   <img class="u-photo w-24 h-24 rounded-full" src="/assets/profile.jpg" alt="{{ site.author }}" />
   <h1 class="p-name text-2xl font-bold mt-2">{{ site.author }}</h1>
   <p class="p-note mt-2">Your bio goes here. Describe yourself, your interests, and what you write about.</p>
-  <div class="contact-info mt-2 space-x-3">
-    <a class="u-url" href="{{ site.url }}" rel="me">{{ site.url | replace('https://', '') | replace('http://', '') }}</a>
-    <a class="u-email" href="mailto:your@email.com">your@email.com</a>
-    <a class="u-url" rel="me" href="https://mastodon.social/@yourhandle">Mastodon</a>
-    <a class="u-url" rel="me" href="https://github.com/yourusername">GitHub</a>
+  <div class="contact-info mt-2 flex flex-wrap gap-3 items-center">
+    {% from "partials/icons.njk" import icon %}
+    <a class="u-url inline-flex items-center gap-1" href="{{ site.url }}" rel="me">
+      {{ icon('link','w-4 h-4') }} <span>{{ site.url | replace('https://', '') | replace('http://', '') }}</span>
+    </a>
+    <a class="u-email inline-flex items-center gap-1" href="mailto:{{ site.email }}">
+      {{ icon('mail','w-4 h-4') }} <span>{{ site.email }}</span>
+    </a>
+    {% if site.social.mastodon %}
+    <a class="u-url inline-flex items-center gap-1" rel="me" href="{{ site.social.mastodon | replace('@', 'https://') | replace('@', '/') }}">
+      {{ icon('mastodon','w-4 h-4') }} <span>Mastodon</span>
+    </a>
+    {% endif %}
+    {% if site.social.github %}
+    <a class="u-url inline-flex items-center gap-1" rel="me" href="https://github.com/{{ site.social.github }}">
+      {{ icon('github','w-4 h-4') }} <span>GitHub</span>
+    </a>
+    {% endif %}
+    {% if site.social.twitter %}
+    <a class="u-url inline-flex items-center gap-1" rel="me" href="https://twitter.com/{{ site.social.twitter | replace('@','') }}">
+      {{ icon('x','w-4 h-4') }} <span>Twitter</span>
+    </a>
+    {% endif %}
   </div>
   <p class="p-locality mt-2">Your City</p>
   <p class="p-country-name">Your Country</p>

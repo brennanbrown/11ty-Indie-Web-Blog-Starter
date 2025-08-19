@@ -197,12 +197,36 @@
         <div>
           <h3 class="font-semibold mb-2">Connect</h3>
           <ul class="space-y-1 text-gray-600 dark:text-gray-400">
+            {% from "partials/icons.njk" import icon %}
             {% if site.webring and site.webring.enabled %}
             <li><a href="{{ site.webring.url }}" target="_blank" rel="noopener" class="hover:text-blue-600">Indie Webring</a></li>
             {% endif %}
-            <li><a href="mailto:{{ site.email }}" rel="me" class="hover:text-blue-600">Email</a></li>
-            {% if site.social.github %}<li><a href="https://github.com/{{ site.social.github }}" target="_blank" rel="me noopener" class="hover:text-blue-600">GitHub</a></li>{% endif %}
-            {% if site.social.mastodon %}<li><a href="{{ site.social.mastodon | replace('@', 'https://') | replace('@', '/') }}" target="_blank" rel="me noopener" class="hover:text-blue-600">Mastodon</a></li>{% endif %}
+            <li>
+              <a href="mailto:{{ site.email }}" rel="me" class="inline-flex items-center gap-2 hover:text-blue-600">
+                {{ icon('mail', 'w-4 h-4') }} <span>Email</span>
+              </a>
+            </li>
+            {% if site.social.github %}
+            <li>
+              <a href="https://github.com/{{ site.social.github }}" target="_blank" rel="me noopener" class="inline-flex items-center gap-2 hover:text-blue-600">
+                {{ icon('github', 'w-4 h-4') }} <span>GitHub</span>
+              </a>
+            </li>
+            {% endif %}
+            {% if site.social.mastodon %}
+            <li>
+              <a href="{{ site.social.mastodon | replace('@', 'https://') | replace('@', '/') }}" target="_blank" rel="me noopener" class="inline-flex items-center gap-2 hover:text-blue-600">
+                {{ icon('mastodon', 'w-4 h-4') }} <span>Mastodon</span>
+              </a>
+            </li>
+            {% endif %}
+            {% if site.social.twitter %}
+            <li>
+              <a href="https://twitter.com/{{ site.social.twitter | replace('@','') }}" target="_blank" rel="me noopener" class="inline-flex items-center gap-2 hover:text-blue-600">
+                {{ icon('x', 'w-4 h-4') }} <span>Twitter</span>
+              </a>
+            </li>
+            {% endif %}
           </ul>
         </div>
       </div>

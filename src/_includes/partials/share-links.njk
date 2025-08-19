@@ -1,22 +1,24 @@
 <div class="flex items-center space-x-4 text-sm">
   <span class="text-gray-600 dark:text-gray-400">Share:</span>
+  {% from "partials/icons.njk" import icon %}
   <a href="https://twitter.com/intent/tweet?url={{ site.url }}{{ page.url }}&text={{ title | urlencode }}" 
      target="_blank" rel="noopener" 
-     class="text-blue-500 hover:text-blue-700">
-    Twitter
+     class="inline-flex items-center gap-1 text-blue-500 hover:text-blue-700">
+    {{ icon('x', 'w-4 h-4') }} <span>Twitter</span>
   </a>
   <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ site.url }}{{ page.url }}" 
      target="_blank" rel="noopener" 
-     class="text-blue-600 hover:text-blue-800">
-    LinkedIn
+     class="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800">
+    {{ icon('linkedin', 'w-4 h-4') }} <span>LinkedIn</span>
   </a>
   <a href="https://mastodon.social/share?text={{ title | urlencode }}%20{{ site.url }}{{ page.url }}" 
      target="_blank" rel="noopener" 
-     class="text-purple-600 hover:text-purple-800">
-    Mastodon
+     class="inline-flex items-center gap-1 text-purple-600 hover:text-purple-800">
+    {{ icon('mastodon', 'w-4 h-4') }} <span>Mastodon</span>
   </a>
   <button onclick="navigator.share ? navigator.share({title: '{{ title }}', url: '{{ site.url }}{{ page.url }}'}) : navigator.clipboard.writeText('{{ site.url }}{{ page.url }}')" 
-          class="text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200">
-    Copy Link
+          class="inline-flex items-center gap-1 text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200">
+    {{ icon('copy', 'w-4 h-4') }} <span>Copy Link</span>
   </button>
 </div>
+
