@@ -39,6 +39,13 @@ module.exports = function(eleventyConfig) {
   // Copies from src/assets/* to _site/assets/*
   eleventyConfig.addPassthroughCopy({ "src/assets": "assets" });
 
+  // Collections
+  eleventyConfig.addCollection("posts", (collectionApi) => {
+    return collectionApi
+      .getFilteredByGlob("src/blog/**/*.md")
+      .sort((a, b) => (a.date > b.date ? -1 : 1));
+  });
+
   return {
     dir: {
       input: "src",
