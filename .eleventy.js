@@ -1,4 +1,5 @@
 const { DateTime } = require("luxon");
+const tagColors = require("./src/_data/tagColors.json");
 
 module.exports = function(eleventyConfig) {
   // Filters
@@ -25,6 +26,13 @@ module.exports = function(eleventyConfig) {
     const words = (content.trim().match(/\S+/g) || []).length;
     const minutes = Math.ceil(words / 200);
     return Math.max(1, minutes);
+  });
+
+  // Map tag to color using src/_data/tagColors.json
+  eleventyConfig.addFilter("tagColor", (tag) => {
+    if (!tag) return "#6b7280"; // gray-500 default
+    const key = String(tag).toLowerCase();
+    return tagColors[key] || "#6b7280";
   });
 
   return {
