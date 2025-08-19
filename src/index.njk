@@ -1,0 +1,126 @@
+---
+layout: layouts/base.njk
+permalink: "/"
+title: "Indieweb Starter Blog"
+---
+<div class="h-feed">
+  <!-- Hero Section -->
+  <div class="text-center mb-12 py-8">
+    <h1 class="p-name text-4xl font-bold mb-4 float-animation">{{ site.name }}</h1>
+    <p class="p-summary text-xl text-gray-600 dark:text-gray-400 mb-6">{{ site.description }}</p>
+    <a class="u-url hidden" href="{{ site.url }}/"></a>
+    
+    <div class="max-w-2xl mx-auto mb-8">
+      <p class="text-lg leading-relaxed text-gray-700 dark:text-gray-300 mb-6">
+        Welcome to my corner of the independent web! This is where I share thoughts, discoveries, and conversations 
+        away from the noise of social media algorithms. 
+      </p>
+      
+      <div class="flex flex-wrap justify-center gap-4 text-sm">
+        <span class="bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-200 px-3 py-1 rounded-full">
+          🌱 IndieWeb
+        </span>
+        <span class="bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-200 px-3 py-1 rounded-full">
+          📡 RSS Ready
+        </span>
+        <span class="bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-200 px-3 py-1 rounded-full">
+          🔒 Privacy First
+        </span>
+        <span class="bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-200 px-3 py-1 rounded-full">
+          ♿ Accessible
+        </span>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap justify-center gap-4">
+      <a href="/about/" class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg transition-colors">
+        👋 Learn more about me
+      </a>
+      <a href="/feed.xml" class="border border-purple-600 text-purple-600 hover:bg-purple-50 dark:hover:bg-purple-900/20 px-6 py-2 rounded-lg transition-colors">
+        📡 Subscribe via RSS
+      </a>
+    </div>
+  </div>
+
+  <!-- Recent Posts -->
+  <div class="mb-8">
+    <h2 class="text-2xl font-semibold mb-6 flex items-center gap-2">
+      ✍️ Recent Posts
+    </h2>
+
+    {% set recent = collections.posts | default([]) %}
+    {% if (recent | length) == 0 %}
+      {% set recent = collections.searchIndex | default([]) %}
+    {% endif %}
+
+    {% if recent | length > 0 %}
+    <div class="space-y-8">
+      {% for post in recent | head(5) %}
+        {% set url = post.url or post.id %}
+        {% set title = (post.data and post.data.title) or post.title %}
+        {% set dateVal = post.date %}
+        {% set desc = (post.data and post.data.description) or post.description or (post.templateContent | default('') | striptags | truncate(160)) %}
+        {% set tags = (post.data and post.data.tags) or post.tags or [] %}
+        <article class="h-entry border-b border-gray-200 dark:border-gray-700 pb-6 last:border-b-0">
+          <h3 class="p-name text-xl font-semibold mb-2">
+            <a class="u-url hover:text-purple-600 dark:hover:text-purple-400 transition-colors" href="{{ url }}">
+              {{ title }}
+            </a>
+          </h3>
+          {% if dateVal %}
+          <time class="dt-published text-sm text-gray-500 dark:text-gray-400 block mb-3" datetime="{{ dateVal | htmlDateString }}">
+            {{ dateVal | readableDate }}
+          </time>
+          {% endif %}
+          {% if desc %}
+          <p class="p-summary text-gray-700 dark:text-gray-300 mb-3 leading-relaxed">
+            {{ desc }}
+          </p>
+          {% endif %}
+          {% if tags %}
+          <div class="flex flex-wrap gap-2">
+            {% for tag in tags %}
+              <a class="p-category px-2 py-1 rounded text-white text-xs hover:opacity-80 transition-opacity" 
+                 style="background-color: {{ tag | tagColor }}" 
+                 href="/tags/{{ tag | slug }}/">#{{ tag }}</a>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </article>
+      {% endfor %}
+    </div>
+
+    <div class="text-center mt-8">
+      <a href="/blog/" class="inline-flex items-center gap-2 text-purple-600 dark:text-purple-400 hover:underline">
+        View all posts →
+      </a>
+    </div>
+    {% else %}
+    <div class="text-center py-12 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
+      <p class="text-gray-500 dark:text-gray-400 text-lg mb-4">No posts yet!</p>
+      <p class="text-gray-600 dark:text-gray-300">This is where thoughtful writing will appear. Stay tuned! 📝</p>
+    </div>
+    {% endif %}
+  </div>
+
+  <!-- Quick Links -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-12">
+    <a href="/now/" class="block p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors">
+      <div class="text-2xl mb-2">📍</div>
+      <h3 class="font-semibold text-blue-800 dark:text-blue-200">What I'm up to now</h3>
+      <p class="text-sm text-blue-600 dark:text-blue-300">Current projects and focus</p>
+    </a>
+    
+    <a href="/uses/" class="block p-4 bg-green-50 dark:bg-green-900/20 rounded-lg hover:bg-green-100 dark:hover:bg-green-900/30 transition-colors">
+      <div class="text-2xl mb-2">🛠️</div>
+      <h3 class="font-semibold text-green-800 dark:text-green-200">Tools I use</h3>
+      <p class="text-sm text-green-600 dark:text-green-300">Hardware, software, and setup</p>
+    </a>
+    
+    <a href="/sitemap/" class="block p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg hover:bg-purple-100 dark:hover:bg-purple-900/30 transition-colors">
+      <div class="text-2xl mb-2">🗺️</div>
+      <h3 class="font-semibold text-purple-800 dark:text-purple-200">Explore this site</h3>
+      <p class="text-sm text-purple-600 dark:text-purple-300">Complete directory of pages</p>
+    </a>
+  </div>
+</div>

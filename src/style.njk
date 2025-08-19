@@ -1,0 +1,105 @@
+---
+layout: layouts/base.njk
+permalink: "/style/"
+title: Style Guide
+---
+<h1 class="text-2xl font-bold mb-6">Style Guide</h1>
+
+<div class="space-y-12">
+  <section>
+    <h2 class="text-xl font-semibold mb-4">Typography</h2>
+    <div class="space-y-4">
+      <div>
+        <h1 class="text-3xl font-bold">Heading 1</h1>
+        <h2 class="text-2xl font-semibold">Heading 2</h2>
+        <h3 class="text-xl font-medium">Heading 3</h3>
+        <h4 class="text-lg">Heading 4</h4>
+      </div>
+      <p class="text-base">This is regular paragraph text. It should be readable and comfortable for extended reading sessions.</p>
+      <p class="text-sm text-gray-600 dark:text-gray-400">This is smaller text used for metadata and secondary information.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="text-xl font-semibold mb-4">Colors</h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="space-y-2">
+        <div class="w-full h-16 bg-blue-600 rounded"></div>
+        <p class="text-sm">Primary Blue</p>
+      </div>
+      <div class="space-y-2">
+        <div class="w-full h-16 bg-gray-600 rounded"></div>
+        <p class="text-sm">Gray</p>
+      </div>
+      <div class="space-y-2">
+        <div class="w-full h-16 bg-green-600 rounded"></div>
+        <p class="text-sm">Success Green</p>
+      </div>
+      <div class="space-y-2">
+        <div class="w-full h-16 bg-red-600 rounded"></div>
+        <p class="text-sm">Error Red</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="text-xl font-semibold mb-4">Components</h2>
+    
+    <div class="space-y-6">
+      <div>
+        <h3 class="text-lg font-medium mb-2">Buttons</h3>
+        <div class="flex space-x-4">
+          <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Primary</button>
+          <button class="px-4 py-2 border border-gray-300 rounded hover:bg-gray-50">Secondary</button>
+        </div>
+      </div>
+
+      <div>
+        <h3 class="text-lg font-medium mb-2">Tags</h3>
+        <div class="flex space-x-2">
+          <span class="px-3 py-1 text-sm rounded-full bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200">#example</span>
+          <span class="px-3 py-1 text-sm rounded-full bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200">#tag</span>
+          <span class="px-3 py-1 text-sm rounded-full bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200">#demo</span>
+        </div>
+      </div>
+
+      <div>
+        <h3 class="text-lg font-medium mb-2">Cards</h3>
+        <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-6 max-w-md">
+          <h4 class="font-semibold mb-2">Card Title</h4>
+          <p class="text-gray-600 dark:text-gray-400">This is an example card component with some content.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="text-xl font-semibold mb-4">Prose Styles</h2>
+    <div class="prose prose-lg dark:prose-invert max-w-none">
+      <p>This section demonstrates the prose styling used for blog content.</p>
+      
+      <blockquote>
+        <p>This is a blockquote. It should stand out from regular text and be easily identifiable.</p>
+      </blockquote>
+
+      <ul>
+        <li>Unordered list item one</li>
+        <li>Unordered list item two</li>
+        <li>Unordered list item three</li>
+      </ul>
+
+      <ol>
+        <li>Ordered list item one</li>
+        <li>Ordered list item two</li>
+        <li>Ordered list item three</li>
+      </ol>
+
+      <pre><code>// Code block example
+function example() {
+  return "Hello, world!";
+}</code></pre>
+
+      <p>Here's some text with <code>inline code</code> and a <a href="#">link example</a>.</p>
+    </div>
+  </section>
+</div>

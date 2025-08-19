@@ -1,0 +1,22 @@
+{
+  "intro": "#3b82f6",
+  "meta": "#8b5cf6",
+  "javascript": "#f59e0b",
+  "css": "#06b6d4",
+  "html": "#ef4444",
+  "eleventy": "#10b981",
+  "tailwind": "#06b6d4",
+  "tutorial": "#f97316",
+  "guide": "#84cc16",
+  "tips": "#eab308",
+  "review": "#6366f1",
+  "opinion": "#ec4899",
+  "personal": "#14b8a6",
+  "tech": "#6b7280",
+  "web": "#3b82f6",
+  "design": "#8b5cf6",
+  "accessibility": "#10b981",
+  "performance": "#f59e0b",
+  "seo": "#ef4444",
+  "indieweb": "#06b6d4"
+}

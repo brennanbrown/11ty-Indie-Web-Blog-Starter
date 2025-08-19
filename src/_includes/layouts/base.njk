@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{ title or site.name }}</title>
+  <meta name="description" content="{{ description or site.description }}" />
+  {# Canonical URL #}
+  {% if site.url %}
+  <link rel="canonical" href="{{ site.url }}{{ page.url or '/' }}" />
+  {% endif %}
+
+  {# Open Graph (Facebook, LinkedIn, etc.) #}
+  {% set ogTitle = title or site.name %}
+  {% set ogDescription = description or site.description %}
+  {% set ogUrl = (site.url and (site.url + (page.url or '/'))) or '' %}
+  {# Resolve image: allow per-page front matter `image` or default to /screenshot.png #}
+  {% set rawImage = image or '/screenshot.png' %}
+  {% if site.url %}
+    {% if rawImage | slice(0,4) == 'http' %}
+      {% set ogImage = rawImage %}
+    {% elseif rawImage | slice(0,1) == '/' %}
+      {% set ogImage = site.url + rawImage %}
+    {% else %}
+      {% set ogImage = site.url + '/' + rawImage %}
+    {% endif %}
+  {% else %}
+    {% set ogImage = rawImage %}
+  {% endif %}
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="{{ site.name }}" />
+  {% if ogUrl %}<meta property="og:url" content="{{ ogUrl }}" />{% endif %}
+  <meta property="og:title" content="{{ ogTitle }}" />
+  <meta property="og:description" content="{{ ogDescription }}" />
+  <meta property="og:image" content="{{ ogImage }}" />
+  <meta property="og:image:alt" content="{{ site.name }} preview" />
+
+  {# Twitter Card #}
+  <meta name="twitter:card" content="summary_large_image" />
+  {% if site.social and site.social.twitter %}
+    <meta name="twitter:site" content="{{ site.social.twitter }}" />
+    <meta name="twitter:creator" content="{{ site.social.twitter }}" />
+  {% endif %}
+  <meta name="twitter:title" content="{{ ogTitle }}" />
+  <meta name="twitter:description" content="{{ ogDescription }}" />
+  <meta name="twitter:image" content="{{ ogImage }}" />
+  <meta name="twitter:image:alt" content="{{ site.name }} preview" />
+  <link rel="webmention" href="https://webmention.io/{{ site.url | replace('https://', '') | replace('http://', '') }}/webmention" />
+  <link rel="pingback" href="https://webmention.io/{{ site.url | replace('https://', '') | replace('http://', '') }}/xmlrpc" />
+  <link rel="stylesheet" href="/assets/css/build.css" />
+  <link rel="alternate" type="application/atom+xml" title="{{ site.name }} Feed" href="/feed.xml" />
+  {# Favicon and theme color #}
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="shortcut icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="mask-icon" href="/assets/favicon.svg" color="#a78bfa">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+  <meta name="theme-color" content="#a78bfa" />
+  {# Syntax highlighting via Highlight.js CDN - vivid color scheme #}
+  <link id="hljs-light" rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@11.9.0/styles/tokyo-night-light.min.css">
+  <link id="hljs-dark" rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@11.9.0/styles/tokyo-night-dark.min.css" disabled>
+  <script src="https://unpkg.com/@highlightjs/cdn-assets@11.9.0/highlight.min.js" defer></script>
+  <script defer>
+    document.addEventListener('DOMContentLoaded', function () {
+      const html = document.documentElement;
+      const light = document.getElementById('hljs-light');
+      const dark = document.getElementById('hljs-dark');
+      function applyTheme() {
+        const isDark = html.classList.contains('dark');
+        if (light && dark) {
+          light.disabled = !!isDark;
+          dark.disabled = !isDark;
+        }
+      }
+      // Initial apply
+      applyTheme();
+      // Observe class changes on <html> to react to dark-mode toggle
+      const observer = new MutationObserver(applyTheme);
+      observer.observe(html, { attributes: true, attributeFilter: ['class'] });
+      // Highlight code blocks
+      document.querySelectorAll('pre code').forEach((el) => {
+        if (window.hljs && typeof window.hljs.highlightElement === 'function') {
+          window.hljs.highlightElement(el);
+        }
+      });
+    });
+  </script>
+  <style>
+    .contrast { filter: contrast(1.2) saturate(1.1); }
+    .reduce-motion * { transition: none !important; animation: none !important; }
+  </style>
+  {% include "partials/analytics.njk" %}
+</head>
+<body class="bg-[var(--bg)] text-[var(--text)] min-h-screen flex flex-col">
+  <div id="progress-bar" aria-hidden="true"></div>
+  <header class="bg-[var(--surface)] border-b border-gray-200 dark:border-gray-700">
+    <div class="container mx-auto px-4 py-3 flex items-center gap-3">
+      <button id="hamburger" class="md:hidden p-2 rounded border border-gray-300 dark:border-gray-600" aria-label="Toggle menu" aria-controls="primary-nav" aria-expanded="false">
+        <span class="bar-1 block w-5 h-0.5 bg-gray-700 dark:bg-gray-200 mb-1 transition-transform"></span>
+        <span class="bar-2 block w-5 h-0.5 bg-gray-700 dark:bg-gray-200 mb-1 transition-opacity"></span>
+        <span class="bar-3 block w-5 h-0.5 bg-gray-700 dark:bg-gray-200 transition-transform"></span>
+      </button>
+      <a class="text-lg font-semibold" href="/">{{ site.name }}</a>
+      <form class="ml-auto hidden sm:block" role="search" aria-label="Site" action="/search/" method="get">
+        <label class="sr-only" for="q">Search</label>
+        <input id="q" name="q" type="search" placeholder="Search…" class="px-3 py-2 border rounded w-64" />
+      </form>
+      <div class="flex items-center gap-2 ml-2">
+        <button id="dark-toggle" class="px-2 py-1 text-sm border rounded" aria-pressed="false" aria-label="Toggle dark mode">🌙</button>
+        <div class="relative">
+          <button id="a11y-toggle" class="px-2 py-1 text-sm border rounded" aria-expanded="false" aria-controls="a11y-menu">A11y</button>
+          <div id="a11y-menu" class="absolute right-0 mt-1 bg-[var(--surface)] border rounded p-2 text-sm space-x-2 whitespace-nowrap hidden">
+            <button id="font-dec" class="px-2 py-1 border rounded">A-</button>
+            <button id="font-inc" class="px-2 py-1 border rounded">A+</button>
+            <button id="contrast-toggle" class="px-2 py-1 border rounded">Contrast</button>
+            <button id="motion-toggle" class="px-2 py-1 border rounded">Reduce motion</button>
+            <button id="font-toggle" type="button" aria-pressed="false" class="px-2 py-1 border rounded hidden md:inline-block">System Fonts</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="bg-[var(--surface)] border-b border-gray-200 dark:border-gray-700">
+    <div id="primary-nav" class="container mx-auto px-4 py-2 hidden md:block">
+      {% set url = page.url or '/' %}
+      {% set isHome = url == '/' %}
+      {% set isBlog = (url and (url | slice(0, 6) == '/blog/')) %}
+      {% set isAbout = url == '/about/' %}
+      {% set isUses = url == '/uses/' %}
+      {% set isNow = url == '/now/' %}
+      {% set isContact = url == '/contact/' %}
+      <ul class="flex flex-col md:flex-row text-base md:text-sm space-y-3 md:space-y-0 md:space-x-6">
+        <li>
+          <a href="/" class="nav-item block py-2 text-purple-600 dark:text-purple-400 {% if isHome %}underline font-semibold{% endif %}"
+             {% if isHome %}aria-current="page"{% endif %}>🏠 Home</a>
+        </li>
+        <li>
+          <a href="/blog/" class="nav-item block py-2 text-purple-600 dark:text-purple-400 {% if isBlog %}underline font-semibold{% endif %}"
+             {% if isBlog %}aria-current="page"{% endif %}>✍️ Blog</a>
+        </li>
+        <li>
+          <a href="/about/" class="nav-item block py-2 text-purple-600 dark:text-purple-400 {% if isAbout %}underline font-semibold{% endif %}"
+             {% if isAbout %}aria-current="page"{% endif %}>👋 About</a>
+        </li>
+        <li>
+          <a href="/uses/" class="nav-item block py-2 text-purple-600 dark:text-purple-400 {% if isUses %}underline font-semibold{% endif %}"
+             {% if isUses %}aria-current="page"{% endif %}>🛠️ Uses</a>
+        </li>
+        <li>
+          <a href="/now/" class="nav-item block py-2 text-purple-600 dark:text-purple-400 {% if isNow %}underline font-semibold{% endif %}"
+             {% if isNow %}aria-current="page"{% endif %}>📍 Now</a>
+        </li>
+        <li>
+          <a href="/contact/" class="nav-item block py-2 text-purple-600 dark:text-purple-400 {% if isContact %}underline font-semibold{% endif %}"
+             {% if isContact %}aria-current="page"{% endif %}>💬 Contact</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container mx-auto px-4 py-6 max-w-4xl flex-1">
+    <main>
+      {{ content | safe }}
+    </main>
+  </div>
+
+  <footer class="bg-[var(--surface)] border-t border-gray-200 dark:border-gray-700 mt-12">
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
+        <div>
+          <h3 class="font-semibold mb-2">Technical</h3>
+          <ul class="space-y-1 text-gray-600 dark:text-gray-400">
+            <li><a href="https://11ty.dev" target="_blank" rel="noopener">Built with Eleventy</a></li>
+            <li><a href="/style/" class="hover:text-blue-600">Style Guide</a></li>
+            {% set cleanedPath = (page.inputPath or '') | replace('./', '') %}
+            {% if site.repo and site.repo.url %}
+              {% set editUrl = site.repo.url + '/edit/' + (site.repo.branch or 'main') + '/' + cleanedPath %}
+              {% set guideUrl = site.repo.url + '/blob/' + (site.repo.branch or 'main') + '/GUIDE.md' %}
+            {% else %}
+              {% set editUrl = '#' %}
+              {% set guideUrl = '#' %}
+            {% endif %}
+            <li><a href="{{ editUrl }}" class="hover:text-blue-600" target="_blank" rel="noopener">Edit This Page</a></li>
+            <li><a href="{{ guideUrl }}" class="hover:text-blue-600" target="_blank" rel="noopener">Project Guide</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="font-semibold mb-2">Navigation</h3>
+          <ul class="space-y-1 text-gray-600 dark:text-gray-400">
+            <li><a href="/sitemap/" class="hover:text-blue-600">Sitemap</a></li>
+            <li><a href="/archive/" class="hover:text-blue-600">Archive</a></li>
+            <li><a href="/categories/" class="hover:text-blue-600">Categories</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="font-semibold mb-2">Connect</h3>
+          <ul class="space-y-1 text-gray-600 dark:text-gray-400">
+            {% if site.webring and site.webring.enabled %}
+            <li><a href="{{ site.webring.url }}" target="_blank" rel="noopener" class="hover:text-blue-600">Indie Webring</a></li>
+            {% endif %}
+            <li><a href="mailto:{{ site.email }}" rel="me" class="hover:text-blue-600">Email</a></li>
+            {% if site.social.github %}<li><a href="https://github.com/{{ site.social.github }}" target="_blank" rel="me noopener" class="hover:text-blue-600">GitHub</a></li>{% endif %}
+            {% if site.social.mastodon %}<li><a href="{{ site.social.mastodon | replace('@', 'https://') | replace('@', '/') }}" target="_blank" rel="me noopener" class="hover:text-blue-600">Mastodon</a></li>{% endif %}
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-gray-200 dark:border-gray-700 mt-6 pt-6 text-center text-gray-500">
+        <p>
+          2025 {{ site.name }} •
+          <a href="/feed.xml" class="hover:text-blue-600">RSS</a> •
+          Code: <a href="https://opensource.org/license/mit" target="_blank" rel="noopener" class="hover:text-blue-600">MIT</a> •
+          Content: <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener" class="hover:text-blue-600">CC BY-NC-SA 4.0</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/assets/js/main.js"></script>
+  <script src="/assets/js/flexsearch.min.js"></script>
+  <script src="/assets/js/search.js"></script>
+  <script src="/assets/js/easter-eggs.js"></script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+{#
+Analytics integration - Choose one:
+1. Plausible Analytics (privacy-friendly)
+2. Fathom Analytics (privacy-friendly)
+3. Simple Analytics (privacy-friendly)
+
+To enable, uncomment one of the sections below and configure in site.json
+#}
+
+{% if site.analytics and site.analytics.enabled %}
+  {% if site.analytics.provider == 'plausible' %}
+    <!-- Plausible Analytics -->
+    <script defer data-domain="{{ site.analytics.domain or (site.url | replace('https://', '') | replace('http://', '')) }}" src="https://plausible.io/js/script.js"></script>
+  {% elif site.analytics.provider == 'fathom' %}
+    <!-- Fathom Analytics -->
+    <script src="https://cdn.usefathom.com/script.js" data-site="{{ site.analytics.siteId }}" defer></script>
+  {% elif site.analytics.provider == 'simple' %}
+    <!-- Simple Analytics -->
+    <script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+    <noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif" alt="" referrerpolicy="no-referrer-when-downgrade" /></noscript>
+  {% endif %}
+
+  {#
+  Privacy notice: Add this to your privacy policy
+  - We use privacy-friendly analytics that don't track personal information
+  - No cookies are stored
+  - Data is aggregated and anonymous
+  #}
+{% endif %}

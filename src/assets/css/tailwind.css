@@ -1,0 +1,269 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Blog post typography styles */
+.prose {
+  @apply max-w-none text-gray-900 dark:text-gray-100;
+}
+
+.prose p {
+  @apply mb-6 leading-relaxed;
+}
+
+.prose h1 {
+  @apply text-3xl font-bold mb-6 mt-8 text-gray-900 dark:text-gray-100;
+}
+
+.prose h2 {
+  @apply text-2xl font-bold mb-4 mt-8 text-gray-900 dark:text-gray-100;
+}
+
+.prose h3 {
+  @apply text-xl font-semibold mb-3 mt-6 text-gray-900 dark:text-gray-100;
+}
+
+.prose h4 {
+  @apply text-lg font-semibold mb-2 mt-4 text-gray-900 dark:text-gray-100;
+}
+
+.prose h5 {
+  @apply text-base font-semibold mb-2 mt-4 text-gray-900 dark:text-gray-100;
+}
+
+.prose h6 {
+  @apply text-sm font-semibold mb-2 mt-4 text-gray-900 dark:text-gray-100;
+}
+
+.prose ul {
+  @apply mb-6 pl-6;
+}
+
+.prose ol {
+  @apply mb-6 pl-6;
+}
+
+.prose li {
+  @apply mb-2;
+}
+
+.prose ul li {
+  @apply list-disc;
+}
+
+.prose ol li {
+  @apply list-decimal;
+}
+
+.prose blockquote {
+  @apply border-l-4 border-purple-500 pl-6 py-2 mb-6 italic text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-800/50;
+}
+
+.prose code {
+  @apply bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-sm font-mono text-purple-700 dark:text-purple-300;
+}
+
+.prose pre {
+  @apply bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100 p-4 rounded-lg mb-6 overflow-x-auto;
+}
+
+.prose pre code {
+  @apply bg-transparent p-0;
+  color: inherit;
+}
+
+/* Ensure HLJS themes don't override background/text inside prose blocks */
+.prose pre code.hljs,
+.prose code.hljs,
+.prose pre .hljs {
+  background: transparent !important;
+  color: inherit;
+}
+
+/* Mobile hamburger animation */
+#hamburger .bar-1,
+#hamburger .bar-3 { transition: transform 200ms ease; }
+#hamburger .bar-2 { transition: opacity 150ms ease; }
+#hamburger.open .bar-1 { transform: translateY(6px) rotate(45deg); }
+#hamburger.open .bar-2 { opacity: 0; }
+#hamburger.open .bar-3 { transform: translateY(-6px) rotate(-45deg); }
+
+/* Wrap long links in blog posts to prevent overflow */
+.prose a {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  white-space: normal;
+}
+
+
+
+.prose img {
+  @apply rounded-lg mb-6 shadow-md;
+}
+
+.prose table {
+  @apply w-full mb-6 border-collapse;
+}
+
+.prose th {
+  @apply bg-gray-100 dark:bg-gray-800 px-4 py-2 text-left font-semibold border border-gray-300 dark:border-gray-600;
+}
+
+.prose td {
+  @apply px-4 py-2 border border-gray-300 dark:border-gray-600;
+}
+
+.prose hr {
+  @apply my-8 border-gray-300 dark:border-gray-600;
+}
+
+.prose strong {
+  @apply font-bold text-gray-900 dark:text-gray-100;
+}
+
+.prose em {
+  @apply italic;
+}
+
+.prose del {
+  @apply line-through text-gray-500 dark:text-gray-400;
+}
+
+/* Header anchors */
+.prose .header-anchor {
+  @apply text-purple-500 hover:text-purple-700 dark:text-purple-400 dark:hover:text-purple-200 no-underline ml-2 opacity-0 transition-opacity;
+}
+
+.prose h1:hover .header-anchor,
+.prose h2:hover .header-anchor,
+.prose h3:hover .header-anchor,
+.prose h4:hover .header-anchor {
+  @apply opacity-100;
+}
+
+:root {
+  --bg: #fefbff;
+  --text: #1a1625;
+  --surface: #f7f2fa;
+  --accent: #7c3aed;
+  --accent-light: #a855f7;
+  --border: #e9d5ff;
+}
+
+.dark {
+  --bg: #0f0a1a;
+  --text: #f1e8ff;
+  --surface: #1a0f2e;
+  --accent: #a855f7;
+  --accent-light: #c084fc;
+  --border: #4c1d95;
+}
+
+#progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #7c3aed, #ec4899, #f59e0b);
+  z-index: 9999;
+  transition: width 0.3s ease;
+}
+
+/* Nav items - no hover effects to prevent jitter */
+.nav-item {
+  color: inherit;
+}
+
+/* Remove hover transform that could cause layout shifts */
+
+/* Subtle animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-3px); }
+}
+
+.float-animation {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* System fonts toggle */
+.system-fonts {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-y: scroll;
+  width: 100vw;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+}
+
+/* Base accessibility improvements */
+@layer base {
+  a {
+    cursor: pointer;
+    text-decoration: none;
+  }
+  a:focus-visible {
+    outline: 2px solid #7c3aed; /* purple accent focus ring */
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+  /* Global link hover/active behavior (non-prose, non-nav links) */
+  a:hover {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  a:active {
+    text-decoration-thickness: 2px;
+  }
+  a:hover:not(.nav-item) {
+    color: var(--accent);
+    transition: color 150ms ease-in-out;
+  }
+  .dark a:hover:not(.nav-item) {
+    color: var(--accent-light);
+  }
+}
+
+/* Prose improvements */
+@layer components {
+  .prose {
+    color: var(--text);
+  }
+  .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+    color: var(--text);
+  }
+  .prose a {
+    color: #2563eb; /* readable blue on light */
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    text-decoration-thickness: 1.5px;
+    transition: color 150ms ease-in-out; /* color-only to avoid layout shift */
+  }
+  .prose a:hover {
+    color: #1d4ed8;
+  }
+  .prose a:active {
+    text-decoration-thickness: 2px;
+  }
+  .prose a:focus-visible {
+    outline: 2px solid #7c3aed;
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+  .dark .prose a {
+    color: #60a5fa;
+  }
+  .dark .prose a:hover {
+    color: #93c5fd;
+  }
+  .dark .prose a:focus-visible {
+    outline-color: #a855f7;
+  }
+}

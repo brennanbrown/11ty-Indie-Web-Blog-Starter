@@ -1,0 +1,59 @@
+---
+layout: layouts/base.njk
+permalink: "/donate/"
+title: Support My Work
+---
+<h1 class="text-2xl font-bold mb-6">Support My Work</h1>
+
+<div class="prose prose-lg dark:prose-invert max-w-none">
+  {% if site.donate.message %}
+  <p>{{ site.donate.message }}</p>
+  {% else %}
+  <p>If you find value in my writing and want to support my work, there are several ways you can help:</p>
+  {% endif %}
+
+  {% if site.donate.enabled %}
+  <h2>One-time Support</h2>
+  <p>Buy me a coffee or make a one-time contribution to help fuel my writing:</p>
+  
+  <div class="flex flex-wrap gap-4 my-6">
+    {% if site.donate.kofi %}
+    <a href="https://ko-fi.com/{{ site.donate.kofi }}" target="_blank" rel="noopener" 
+       class="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+      ☕ Ko-fi
+    </a>
+    {% endif %}
+    {% if site.donate.buymeacoffee %}
+    <a href="https://buymeacoffee.com/{{ site.donate.buymeacoffee }}" target="_blank" rel="noopener" 
+       class="inline-flex items-center px-6 py-3 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition-colors">
+      ☕ Buy Me a Coffee
+    </a>
+    {% endif %}
+  </div>
+
+  {% if site.donate.github %}
+  <h2>Ongoing Support</h2>
+  <p>For ongoing support, consider sponsoring me on GitHub:</p>
+  
+  <div class="my-6">
+    <a href="https://github.com/sponsors/{{ site.donate.github }}" target="_blank" rel="noopener" 
+       class="inline-flex items-center px-6 py-3 bg-gray-800 text-white rounded-lg hover:bg-gray-900 transition-colors">
+      💖 GitHub Sponsors
+    </a>
+  </div>
+  {% endif %}
+  {% endif %}
+
+  <h2>Other Ways to Help</h2>
+  <ul>
+    <li><strong>Share my posts</strong> with others who might find them valuable</li>
+    <li><strong>Subscribe to my newsletter</strong> to stay updated on new content</li>
+    <li><strong>Follow me on social media</strong> and engage with my content</li>
+    <li><strong>Send feedback</strong> via email or webmentions</li>
+  </ul>
+
+  <p class="text-sm text-gray-600 dark:text-gray-400 mt-8">
+    Every contribution, no matter how small, helps me continue creating thoughtful content 
+    and maintaining this blog. Thank you for your support! 🙏
+  </p>
+</div>

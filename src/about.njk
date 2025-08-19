@@ -1,0 +1,18 @@
+---
+layout: layouts/base.njk
+permalink: "/about/"
+title: About
+---
+<div class="h-card">
+  <img class="u-photo w-24 h-24 rounded-full" src="/assets/profile.jpg" alt="{{ site.author }}" />
+  <h1 class="p-name text-2xl font-bold mt-2">{{ site.author }}</h1>
+  <p class="p-note mt-2">Your bio goes here. Describe yourself, your interests, and what you write about.</p>
+  <div class="contact-info mt-2 space-x-3">
+    <a class="u-url" href="{{ site.url }}" rel="me">{{ site.url | replace('https://', '') | replace('http://', '') }}</a>
+    <a class="u-email" href="mailto:your@email.com">your@email.com</a>
+    <a class="u-url" rel="me" href="https://mastodon.social/@yourhandle">Mastodon</a>
+    <a class="u-url" rel="me" href="https://github.com/yourusername">GitHub</a>
+  </div>
+  <p class="p-locality mt-2">Your City</p>
+  <p class="p-country-name">Your Country</p>
+</div>

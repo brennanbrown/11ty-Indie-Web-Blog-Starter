@@ -1,0 +1,25 @@
+---
+layout: layouts/base.njk
+title: Categories
+permalink: /categories/
+---
+<h1 class="text-2xl font-bold mb-6">Categories</h1>
+
+{% if collections.categoryList and collections.categoryList.length %}
+<ul class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+  {% for cat in collections.categoryList %}
+    {% set count = 0 %}
+    {% for post in collections.posts %}
+      {% if post.data.category and post.data.category == cat %}
+        {% set count = count + 1 %}
+      {% endif %}
+    {% endfor %}
+    <li class="border rounded p-3 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-800">
+      <a class="font-medium hover:text-blue-600" href="/categories/{{ cat | slug }}/">{{ cat }}</a>
+      <span class="text-xs text-gray-500">{{ count }} post{% if count != 1 %}s{% endif %}</span>
+    </li>
+  {% endfor %}
+</ul>
+{% else %}
+  <p class="text-gray-500">No categories yet.</p>
+{% endif %}

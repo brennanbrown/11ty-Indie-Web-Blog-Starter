@@ -1,0 +1,59 @@
+{% if webmentions and webmentions.length > 0 %}
+  <div class="space-y-4">
+    {% for mention in webmentions %}
+      <article class="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+        <div class="flex items-start space-x-3">
+          {% if mention.author.photo %}
+            <img src="{{ mention.author.photo }}" alt="{{ mention.author.name }}" class="w-10 h-10 rounded-full" />
+          {% else %}
+            <div class="w-10 h-10 rounded-full bg-gray-300 dark:bg-gray-600 flex items-center justify-center">
+              <span class="text-sm font-medium">{{ mention.author.name | first }}</span>
+            </div>
+          {% endif %}
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center space-x-2 text-sm">
+              <a href="{{ mention.author.url }}" class="font-medium hover:text-blue-600" target="_blank" rel="noopener">
+                {{ mention.author.name }}
+              </a>
+              <span class="text-gray-500">
+                {% if mention['wm-property'] == 'like-of' %}
+                  liked this
+                {% elif mention['wm-property'] == 'repost-of' %}
+                  reposted this
+                {% elif mention['wm-property'] == 'bookmark-of' %}
+                  bookmarked this
+                {% elif mention['wm-property'] == 'mention-of' %}
+                  mentioned this
+                {% else %}
+                  replied
+                {% endif %}
+              </span>
+              <time class="text-gray-500" datetime="{{ mention.published }}">
+                {{ mention.published | readableDate }}
+              </time>
+            </div>
+            {% if mention.content and mention.content.text %}
+              <div class="mt-2 text-gray-700 dark:text-gray-300">
+                {{ mention.content.text | truncate(280) | safe }}
+              </div>
+            {% endif %}
+            <div class="mt-2">
+              <a href="{{ mention.url }}" class="text-sm text-blue-600 hover:text-blue-800" target="_blank" rel="noopener">
+                View original
+              </a>
+            </div>
+          </div>
+        </div>
+      </article>
+    {% endfor %}
+  </div>
+{% else %}
+  <div class="text-center py-8 text-gray-500">
+    <p>No webmentions yet. Be the first to respond!</p>
+    <p class="text-sm mt-2">
+      <a href="https://indieweb.org/Webmention" target="_blank" rel="noopener" class="text-blue-600 hover:text-blue-800">
+        Learn about webmentions
+      </a>
+    </p>
+  </div>
+{% endif %}

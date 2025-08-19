@@ -1,0 +1,25 @@
+---
+layout: layouts/base.njk
+title: Notes
+permalink: /notes/
+---
+
+<h1 class="text-2xl font-bold mb-4">Notes</h1>
+<p class="text-gray-600 dark:text-gray-400 mb-6">Short, linkable thoughts. Keep them lightweight, reference-friendly, and easy to write. Consider implementing these as a collection (e.g., <code>src/notes/*.md</code>) or posts tagged <em>notes</em>.</p>
+
+<section class="space-y-6">
+  <article class="border-b pb-4">
+    <time class="text-xs text-gray-500" datetime="2025-08-10">Aug 10, 2025</time>
+    <p class="mt-1">Great DX tip: design Eleventy templates with testing in mind. Stable IDs or role-based selectors make Playwright happy.</p>
+  </article>
+
+  <article class="border-b pb-4">
+    <time class="text-xs text-gray-500" datetime="2025-08-12">Aug 12, 2025</time>
+    <p class="mt-1">Avoid click interception on mobile by isolating interactive controls and testing at narrow widths early.</p>
+  </article>
+
+  <article>
+    <time class="text-xs text-gray-500" datetime="2025-08-15">Aug 15, 2025</time>
+    <p class="mt-1">Default your SEO: set OG/Twitter tags once in the base layout with sensible fallbacks.</p>
+  </article>
+</section>

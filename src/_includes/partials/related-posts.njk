@@ -1,0 +1,47 @@
+{% set relatedPosts = [] %}
+{% if tags %}
+  {% for post in collections.posts %}
+    {% if post.url != page.url %}
+      {% set commonTags = 0 %}
+      {% for tag in tags %}
+        {% if post.data.tags and post.data.tags.includes(tag) %}
+          {% set commonTags = commonTags + 1 %}
+        {% endif %}
+      {% endfor %}
+      {% if commonTags > 0 %}
+        {% set relatedPosts = (relatedPosts.push({post: post, score: commonTags}), relatedPosts) %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% if relatedPosts.length > 0 %}
+  {% set sortedPosts = relatedPosts | sort(false, false, 'score') | reverse %}
+  <section class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
+    <h2 class="text-xl font-semibold mb-6">Related Posts</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {% for item in sortedPosts | slice(0, 3) %}
+        {% set post = item.post %}
+        <article class="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:shadow-md transition-shadow">
+          <h3 class="font-semibold mb-2">
+            <a href="{{ post.url }}" class="hover:text-blue-600">{{ post.data.title }}</a>
+          </h3>
+          <time class="text-sm text-gray-500" datetime="{{ post.date | htmlDateString }}">
+            {{ post.date | readableDate }}
+          </time>
+          <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">
+            {{ post.data.description or (post.templateContent | striptags | truncate(100)) }}
+          </p>
+          {% if post.data.tags %}
+            <div class="mt-3 flex flex-wrap gap-1">
+              {% for tag in post.data.tags | slice(0, 2) %}
+                <span class="text-xs px-2 py-0.5 rounded text-white" 
+                      style="background-color: {{ tag | tagColor }}">#{{ tag }}</span>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </article>
+      {% endfor %}
+    </div>
+  </section>
+{% endif %}

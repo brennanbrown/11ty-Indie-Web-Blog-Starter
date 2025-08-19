@@ -1,0 +1,66 @@
+---
+layout: layouts/base.njk
+title: Type
+permalink: /type/
+---
+
+<h1 class="text-2xl font-bold mb-4">Type Scale & Components</h1>
+<p class="text-gray-600 dark:text-gray-400 mb-6">A living typography page for quick visual checks. Tweak sizes in <code>tailwind.config.cjs</code> or override via utilities.</p>
+
+<section class="bg-[var(--surface)] border rounded p-4 mb-8">
+  <h2 class="text-xl font-semibold">Fonts Used</h2>
+  <p class="text-gray-700 dark:text-gray-300">This template uses the system UI font stack by default for speed and readability, and a system monospace stack for code.</p>
+  <ul class="text-sm text-gray-600 dark:text-gray-400 list-disc pl-6">
+    <li><strong>Body/UI:</strong> -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif</li>
+    <li><strong>Monospace:</strong> the browser's default <code>monospace</code> stack via Tailwind's <code>font-mono</code> utility</li>
+  </ul>
+  <p class="text-sm text-gray-600 dark:text-gray-400 mt-3">Defined in <code>src/assets/css/tailwind.css</code>:</p>
+  <pre class="mt-2"><code class="language-css">/* src/assets/css/tailwind.css */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+.system-fonts {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+</code></pre>
+  <p class="text-sm text-gray-600 dark:text-gray-400 mt-3">To change fonts, you can:</p>
+  <ol class="text-sm text-gray-600 dark:text-gray-400 list-decimal pl-6">
+    <li>Swap the <code>body { font-family: ... }</code> in <code>src/assets/css/tailwind.css</code>.</li>
+    <li>Optionally add <code>fontFamily</code> under <code>theme.extend</code> in <code>tailwind.config.cjs</code> and use Tailwind utilities (e.g., <code>font-sans</code>, <code>font-mono</code>).</li>
+  </ol>
+</section>
+
+<section class="prose dark:prose-invert max-w-none">
+  <h1>Heading 1</h1>
+  <h2>Heading 2</h2>
+  <h3>Heading 3</h3>
+  <h4>Heading 4</h4>
+  <p>
+    Body copy with <strong>bold</strong> and <em>emphasis</em>. Links look like
+    <a href="#">this inline link</a>. Small text appears as
+    <small>supporting detail</small>.
+  </p>
+
+  <h3>Lists</h3>
+  <ul>
+    <li>Unordered list item</li>
+    <li>With sufficient spacing</li>
+  </ul>
+  <ol>
+    <li>Ordered list item</li>
+    <li>Use lists for steps</li>
+  </ol>
+
+  <h3>Blockquote</h3>
+  <blockquote>
+    Ship small improvements often. The garden grows one commit at a time.
+  </blockquote>
+
+  <h3>Code</h3>
+  <pre><code class="language-js">// Syntax highlighting is provided client-side via Highlight.js
+function greet(name) {
+  return `Hello, ${name}!`;
+}
+console.log(greet('world'));
+</code></pre>
+</section>

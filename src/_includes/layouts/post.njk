@@ -1,0 +1,104 @@
+---
+layout: layouts/base.njk
+---
+<a href="/blog/" class="inline-flex items-center text-blue-600 hover:text-blue-800 mb-3">
+  ← Back to Blog
+</a>
+
+<nav class="text-sm text-gray-600 mb-4" aria-label="Breadcrumb">
+  <ol class="flex space-x-2">
+    <li><a href="/" class="hover:text-blue-600">Home</a></li>
+    <li><span aria-hidden="true">›</span></li>
+    <li><a href="/blog/" class="hover:text-blue-600">Blog</a></li>
+    <li><span aria-hidden="true">›</span></li>
+    <li class="text-gray-900 dark:text-gray-100">{{ title }}</li>
+  </ol>
+</nav>
+
+<article class="h-entry">
+  {% if featuredImage %}
+    <img class="u-photo w-full rounded-lg mb-6" src="{{ featuredImage }}" alt="Featured image for {{ title }}" />
+  {% endif %}
+  
+  <header class="mb-6">
+    <h1 class="p-name text-3xl font-bold mb-2">{{ title }}</h1>
+    {% if subtitle %}
+      <p class="text-xl text-gray-600 dark:text-gray-400 mb-4">{{ subtitle }}</p>
+    {% endif %}
+    <div class="text-sm text-gray-600 dark:text-gray-400">
+      Published on <time class="dt-published" datetime="{{ page.date | htmlDateString }}">{{ page.date | readableDate }}</time>
+      by <span class="p-author h-card"><a class="u-url p-name hover:text-blue-600" href="/about/">{{ author or site.author }}</a></span>
+      • <span class="reading-time">{{ content | readingTime }} min read</span>
+    </div>
+    <a class="u-url hidden" href="{{ page.url }}">Permalink</a>
+  </header>
+  
+  <div class="e-content prose max-w-none">
+    {{ content | safe }}
+  </div>
+  
+  {% if tags %}
+  <div class="post-tags mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
+    <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2">Tags</h3>
+    <div class="flex flex-wrap gap-2">
+      {% for tag in tags %}
+        <a class="p-category px-3 py-1 text-sm rounded-full text-white hover:opacity-80" 
+           style="background-color: {{ tag | tagColor }}" 
+           href="/tags/{{ tag | slug }}/">#{{ tag }}</a>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  <section class="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
+    {% include "partials/share-links.njk" %}
+  </section>
+
+  <section class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
+    <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6">
+      <div class="flex items-start space-x-4">
+        <img class="w-16 h-16 rounded-full" src="/assets/profile.jpg" alt="{{ site.author }}" />
+        <div>
+          <h3 class="font-semibold text-lg">About {{ site.author }}</h3>
+          <p class="text-gray-600 dark:text-gray-400 mt-1">Your author bio goes here. Describe yourself and what you write about.</p>
+          <div class="mt-3 flex space-x-4 text-sm">
+            <a href="/about/" class="text-blue-600 hover:text-blue-800">More about me</a>
+            <a href="/donate/" class="text-green-600 hover:text-green-800">Support my work</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mt-8">
+    {% if site.bio.long %}
+    <div class="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-6 mb-8">
+      <h3 class="text-lg font-semibold mb-2">About {{ site.author }}</h3>
+      <p class="text-gray-700 dark:text-gray-300">
+        {{ site.bio.long }}
+      </p>
+    </div>
+    {% endif %}
+    {% if site.newsletter.enabled %}
+    <div class="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-6 text-center">
+      <h3 class="font-semibold text-lg mb-2">{{ site.newsletter.title }}</h3>
+      <p class="text-gray-600 dark:text-gray-400 mb-4">{{ site.newsletter.description }}</p>
+      <form action="{{ site.newsletter.action }}" method="post" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+        <input type="email" name="email" placeholder="your@email.com" class="flex-1 px-4 py-2 border rounded-lg" required />
+        <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Subscribe</button>
+      </form>
+    </div>
+    {% endif %}
+  </section>
+
+  {% include "partials/related-posts.njk" %}
+
+  <section id="webmentions" class="mt-12">
+    <h2 class="text-xl font-semibold mb-4">Responses</h2>
+    <div id="webmentions-list">
+      <div class="text-center py-4 text-gray-500">
+        <div class="animate-pulse">Loading webmentions...</div>
+      </div>
+    </div>
+  </section>
+</article>

@@ -1,0 +1,39 @@
+---
+layout: layouts/base.njk
+pagination:
+  data: collections.posts
+  size: 10
+  alias: posts
+permalink: "/blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber + 1 }}/{% endif %}"
+title: Blog
+---
+<div class="h-feed">
+  <h1 class="p-name text-2xl font-bold mb-6">Blog</h1>
+  <a class="u-url hidden" href="{{ site.url }}/blog/"></a>
+
+  <div class="space-y-8">
+    {% for post in posts %}
+      <article class="h-entry border-b pb-6">
+        <h2 class="p-name text-xl font-semibold"><a class="u-url" href="{{ post.url }}">{{ post.data.title }}</a></h2>
+        <time class="dt-published text-sm text-gray-500 dark:text-gray-400" datetime="{{ post.date | htmlDateString }}">{{ post.date | readableDate }}</time>
+        <div class="p-summary mt-2 text-gray-700 dark:text-gray-300">{{ post.data.description or (post.templateContent | striptags | truncate(160)) }}</div>
+        <div class="mt-2 text-sm space-x-2">
+          {% for tag in post.data.tags %}
+            <a class="p-category px-2 py-0.5 rounded bg-gray-100 dark:bg-gray-800" href="/tags/{{ tag | slug }}/">#{{ tag }}</a>
+          {% endfor %}
+        </div>
+      </article>
+    {% endfor %}
+  </div>
+
+  <nav class="mt-8 flex items-center justify-between" aria-label="Pagination">
+    {% if pagination.href.previous %}
+      <a class="px-3 py-2 border rounded" href="{{ pagination.href.previous }}">Newer</a>
+    {% else %}
+      <span></span>
+    {% endif %}
+    {% if pagination.href.next %}
+      <a class="px-3 py-2 border rounded" href="{{ pagination.href.next }}">Older</a>
+    {% endif %}
+  </nav>
+</div>

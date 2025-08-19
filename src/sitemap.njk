@@ -1,0 +1,121 @@
+---
+layout: layouts/base.njk
+permalink: "/sitemap/"
+title: Site Directory
+---
+<div class="max-w-4xl">
+  <h1 class="text-3xl font-bold mb-2 flex items-center gap-2">
+    🗺️ Site Directory
+  </h1>
+  <p class="text-gray-600 dark:text-gray-400 mb-8">
+    A complete map of everything on this site. Explore and discover!
+  </p>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <!-- Main Pages -->
+    <div class="bg-[var(--surface)] rounded-lg p-6 border border-purple-200 dark:border-purple-800">
+      <h2 class="text-lg font-semibold mb-4 text-purple-700 dark:text-purple-300">📚 Main Pages</h2>
+      <ul class="space-y-2">
+        <li><a href="/" class="flex items-center gap-2 hover:text-purple-600 dark:hover:text-purple-400">🏠 Home</a></li>
+        <li><a href="/blog/" class="flex items-center gap-2 hover:text-purple-600 dark:hover:text-purple-400">✍️ Blog</a></li>
+        <li><a href="/about/" class="flex items-center gap-2 hover:text-purple-600 dark:hover:text-purple-400">👋 About</a></li>
+        <li><a href="/contact/" class="flex items-center gap-2 hover:text-purple-600 dark:hover:text-purple-400">💬 Contact</a></li>
+      </ul>
+    </div>
+
+    <!-- Personal Pages -->
+    <div class="bg-[var(--surface)] rounded-lg p-6 border border-blue-200 dark:border-blue-800">
+      <h2 class="text-lg font-semibold mb-4 text-blue-700 dark:text-blue-300">👤 Personal</h2>
+      <ul class="space-y-2">
+        <li><a href="/uses/" class="flex items-center gap-2 hover:text-blue-600 dark:hover:text-blue-400">🛠️ Uses</a></li>
+        <li><a href="/now/" class="flex items-center gap-2 hover:text-blue-600 dark:hover:text-blue-400">📍 Now</a></li>
+        <li><a href="/donate/" class="flex items-center gap-2 hover:text-blue-600 dark:hover:text-blue-400">💖 Support</a></li>
+        <li><a href="/notes/" class="flex items-center gap-2 hover:text-blue-600 dark:hover:text-blue-400">🗒️ Notes</a></li>
+        <li><a href="/journal/" class="flex items-center gap-2 hover:text-blue-600 dark:hover:text-blue-400">📓 Journal</a></li>
+        <li><a href="/poetry/" class="flex items-center gap-2 hover:text-blue-600 dark:hover:text-blue-400">🖋️ Poetry</a></li>
+      </ul>
+    </div>
+
+    <!-- Discovery -->
+    <div class="bg-[var(--surface)] rounded-lg p-6 border border-green-200 dark:border-green-800">
+      <h2 class="text-lg font-semibold mb-4 text-green-700 dark:text-green-300">🔍 Discovery</h2>
+      <ul class="space-y-2">
+        <li><a href="/archive/" class="flex items-center gap-2 hover:text-green-600 dark:hover:text-green-400">📅 Archive</a></li>
+        <li><a href="/blogroll/" class="flex items-center gap-2 hover:text-green-600 dark:hover:text-green-400">🔗 Blogroll</a></li>
+        <li><a href="/feed.xml" class="flex items-center gap-2 hover:text-green-600 dark:hover:text-green-400">📡 RSS Feed</a></li>
+        <li><a href="/links/" class="flex items-center gap-2 hover:text-green-600 dark:hover:text-green-400">🧭 Links</a></li>
+        <li><a href="/bookshelf/" class="flex items-center gap-2 hover:text-green-600 dark:hover:text-green-400">📚 Bookshelf</a></li>
+      </ul>
+    </div>
+
+    <!-- Meta -->
+    <div class="bg-[var(--surface)] rounded-lg p-6 border border-orange-200 dark:border-orange-800">
+      <h2 class="text-lg font-semibold mb-4 text-orange-700 dark:text-orange-300">⚙️ Meta</h2>
+      <ul class="space-y-2">
+        <li><a href="/style/" class="flex items-center gap-2 hover:text-orange-600 dark:hover:text-orange-400">🎨 Style Guide</a></li>
+        <li><a href="/accessibility/" class="flex items-center gap-2 hover:text-orange-600 dark:hover:text-orange-400">♿ Accessibility</a></li>
+        <li><a href="/sitemap/" class="flex items-center gap-2 hover:text-orange-600 dark:hover:text-orange-400 font-semibold">🗺️ This Page</a></li>
+      </ul>
+    </div>
+
+    <!-- Work -->
+    <div class="bg-[var(--surface)] rounded-lg p-6 border border-teal-200 dark:border-teal-800">
+      <h2 class="text-lg font-semibold mb-4 text-teal-700 dark:text-teal-300">🧰 Work</h2>
+      <ul class="space-y-2">
+        <li><a href="/portfolio/" class="flex items-center gap-2 hover:text-teal-600 dark:hover:text-teal-400">🧩 Portfolio</a></li>
+        <li><a href="/projects/" class="flex items-center gap-2 hover:text-teal-600 dark:hover:text-teal-400">🛠️ Projects</a></li>
+        <li><a href="/resume/" class="flex items-center gap-2 hover:text-teal-600 dark:hover:text-teal-400">📄 Résumé</a></li>
+      </ul>
+    </div>
+
+    <!-- Recent Posts -->
+    <div class="bg-[var(--surface)] rounded-lg p-6 border border-pink-200 dark:border-pink-800 md:col-span-2">
+      <h2 class="text-lg font-semibold mb-4 text-pink-700 dark:text-pink-300">📝 Recent Posts</h2>
+
+      {# Fallback to searchIndex like homepage if posts collection is empty #}
+      {% set recent = collections.posts | default([]) %}
+      {% if (recent | length) == 0 %}
+        {% set recent = collections.searchIndex | default([]) %}
+      {% endif %}
+
+      {% if recent | length > 0 %}
+      <ul class="space-y-2">
+        {% for post in recent | head(5) %}
+        {% set url = post.url or post.id %}
+        {% set title = (post.data and post.data.title) or post.title %}
+        <li>
+          <a href="{{ url }}" class="block hover:text-pink-600 dark:hover:text-pink-400">
+            <span class="font-medium">{{ title }}</span>
+            {% if post.date %}
+            <span class="text-sm text-gray-500 dark:text-gray-400 block">{{ post.date | readableDate }}</span>
+            {% endif %}
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <p class="text-gray-500 dark:text-gray-400 italic">No posts yet. Start writing!</p>
+      {% endif %}
+    </div>
+
+    <!-- Fun Stuff -->
+    <div class="bg-[var(--surface)] rounded-lg p-6 border border-indigo-200 dark:border-indigo-800">
+      <h2 class="text-lg font-semibold mb-4 text-indigo-700 dark:text-indigo-300">🎪 Fun Stuff</h2>
+      <ul class="space-y-2 text-sm">
+        <li class="text-gray-600 dark:text-gray-400">🎮 Try the Konami code</li>
+        <li class="text-gray-600 dark:text-gray-400">🖱️ Click the logo 7 times</li>
+        <li class="text-gray-600 dark:text-gray-400">⌨️ Type "blog" anywhere</li>
+        <li class="text-gray-600 dark:text-gray-400">🌙 Toggle dark mode</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="mt-12 p-6 bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/20 dark:to-pink-900/20 rounded-lg">
+    <h2 class="text-xl font-semibold mb-2">🧭 Lost?</h2>
+    <p class="text-gray-700 dark:text-gray-300">
+      This site is built with <a href="https://11ty.dev" class="text-purple-600 dark:text-purple-400 hover:underline">Eleventy</a> 
+      and follows <a href="https://indieweb.org" class="text-purple-600 dark:text-purple-400 hover:underline">IndieWeb</a> principles. 
+      It's designed to be a calm, thoughtful space for writing and connecting.
+    </p>
+  </div>
+</div>
