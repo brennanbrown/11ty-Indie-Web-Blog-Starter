@@ -1,0 +1,25 @@
+---
+layout: layouts/base.njk
+title: Tags
+permalink: /tags/
+---
+<h1 class="text-2xl font-bold mb-6">Tags</h1>
+
+{% if collections.tagList and collections.tagList.length %}
+<ul class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+  {% for t in collections.tagList %}
+    {% set count = 0 %}
+    {% for post in collections.posts %}
+      {% if post.data.tags and (t in post.data.tags) %}
+        {% set count = count + 1 %}
+      {% endif %}
+    {% endfor %}
+    <li class="border rounded p-3 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-800">
+      <a class="font-medium hover:text-blue-600" href="/tags/{{ t | slug }}/">#{{ t }}</a>
+      <span class="text-xs text-gray-500">{{ count }} post{% if count != 1 %}s{% endif %}</span>
+    </li>
+  {% endfor %}
+</ul>
+{% else %}
+  <p class="text-gray-500">No tags yet.</p>
+{% endif %}
