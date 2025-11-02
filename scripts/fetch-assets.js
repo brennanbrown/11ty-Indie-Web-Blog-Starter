@@ -36,23 +36,40 @@ async function main() {
   const assetsDir = path.join(root, 'src', 'assets');
   ensureDirSync(assetsDir);
 
-  const targets = [
-    {
-      url: 'https://placehold.co/300x300.jpg?text=Profile',
-      file: 'profile.jpg',
-      desc: 'profile image placeholder'
-    },
-    {
-      url: 'https://placehold.co/1200x630/png?text=OG%20Image',
-      file: 'og-default.png',
-      desc: 'default Open Graph image placeholder'
-    },
-    {
-      url: 'https://www.transparenttextures.com/patterns/stardust.png',
-      file: 'retro-stars.png',
-      desc: 'retro stars background tile'
+  // Allow users to skip fetching in their own projects/CI
+  if (process.env.SKIP_FETCH_ASSETS === '1' || process.env.SKIP_FETCH_ASSETS === 'true') {
+    console.log('[assets] Skipping asset fetch (SKIP_FETCH_ASSETS set)');
+    return;
+  }
+
+  // Optional project-level config from site.json under `assets`
+  let siteConfigAssets = {};
+  try {
+    const siteJsonPath = path.join(root, 'src', '_data', 'site.json');
+    const raw = await fs.promises.readFile(siteJsonPath, 'utf8');
+    const parsed = JSON.parse(raw);
+    if (parsed && parsed.assets) {
+      siteConfigAssets = parsed.assets;
     }
-  ];
+  } catch {}
+
+  const defaults = {
+    profileUrl: 'https://placehold.co/300x300.jpg?text=Profile',
+    ogDefaultUrl: 'https://placehold.co/1200x630/png?text=OG%20Image',
+    retroStarsUrl: 'https://www.transparenttextures.com/patterns/stardust.png',
+  };
+
+  const cfg = {
+    profileUrl: process.env.PROFILE_IMAGE_URL || siteConfigAssets.profileUrl || defaults.profileUrl,
+    ogDefaultUrl: process.env.OG_DEFAULT_URL || siteConfigAssets.ogDefaultUrl || defaults.ogDefaultUrl,
+    retroStarsUrl: process.env.RETRO_STARS_URL || siteConfigAssets.retroStarsUrl || defaults.retroStarsUrl,
+  };
+
+  const targets = [
+    cfg.profileUrl && { url: cfg.profileUrl, file: 'profile.jpg', desc: 'profile image placeholder' },
+    cfg.ogDefaultUrl && { url: cfg.ogDefaultUrl, file: 'og-default.png', desc: 'default Open Graph image placeholder' },
+    cfg.retroStarsUrl && { url: cfg.retroStarsUrl, file: 'retro-stars.png', desc: 'retro stars background tile' },
+  ].filter(Boolean);
 
   for (const t of targets) {
     const outPath = path.join(assetsDir, t.file);

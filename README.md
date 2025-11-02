@@ -72,7 +72,7 @@ Unlike other templates that require editing dozens of files, this template uses 
 
 ### Indie Creator Guide
 
-See the in-depth post: [Guide to Making It as an Indie Creator](/blog/guide-to-making-it-as-an-indie-creator/) for practical steps to grow an audience, accept support, and keep a simple workflow using this template.
+See the in-depth post: [Guide to Making It as an Indie Creator](https://indieweb-blog-starter.windsurf.build/blog/guide-to-making-it-as-an-indie-creator/) for practical steps to grow an audience, accept support, and keep a simple workflow using this template.
 
 Quick reference (matches the code in `src/_includes/layouts/post.njk`, `src/contact.njk`, and `src/donate.njk`):
 
