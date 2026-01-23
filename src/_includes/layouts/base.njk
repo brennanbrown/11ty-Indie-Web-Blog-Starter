@@ -9,6 +9,7 @@
   <title>{{ site.name }}</title>
   {% endif %}
   <meta name="description" content="{{ description or site.description }}" />
+  <meta name="generator" content="Eleventy" />
   {# Canonical URL #}
   {% if site.url %}
   <link rel="canonical" href="{{ site.url }}{{ page.url or '/' }}" />
