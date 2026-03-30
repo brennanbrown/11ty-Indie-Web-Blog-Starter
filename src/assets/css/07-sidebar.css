@@ -1,0 +1,81 @@
+/* assets/css/07-sidebar.css
+ *
+ * Sidebar module styles.
+ */
+
+.sidebar {
+  font-size: 0.95rem;
+  font-family: var(--font-family-sans);
+}
+
+.sidebar .module {
+  border: 1px solid var(--color-lightGrey);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.sidebar .module h2 {
+  font-size: 1.05rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin: 0 0 1rem;
+}
+
+.sidebar ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  line-height: 1.7;
+}
+
+.sidebar ul li {
+  margin-bottom: 0.4rem;
+}
+
+/* Stats and "Elsewhere" use a leading icon instead of a bullet. */
+.icon-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.icon-list svg[aria-hidden="true"] {
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.sidebar .module p {
+  line-height: 1.6;
+  margin: 0 0 0.75rem;
+}
+
+.sidebar .module p:last-child {
+  margin-bottom: 0;
+}
+
+.module-about .h-card {
+  margin: 1rem 0;
+}
+
+.module-note {
+  font-size: 0.85rem;
+  color: var(--color-darkGrey);
+  margin: 0.75rem 0 0;
+}
+
+/* Fix accessibility: improve contrast for code elements in module notes */
+.module-note code {
+  color: #b91c1c; /* Darker red for better contrast against light background */
+  background-color: #e5e7eb; /* Light background for better contrast */
+  padding: 0.1rem 0.3rem;
+  border-radius: 3px;
+}
+
+/* Dark mode support for code elements */
+@media (prefers-color-scheme: dark) {
+  .module-note code {
+    color: #f87171; /* Lighter red for dark mode */
+    background-color: #3f3f46; /* Dark background for dark mode */
+  }
+}

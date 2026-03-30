@@ -1,0 +1,18 @@
+/* assets/css/03-icons.css
+ *
+ * Font Awesome icon styles.
+ */
+
+.icon-svg {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.125em;
+  display: inline-block;
+  fill: currentColor;
+}
+
+.site-nav .icon-svg,
+.site-footer .icon-svg {
+  width: 1.1em;
+  height: 1.1em;
+}

@@ -1,0 +1,49 @@
+/* assets/css/13-hero.css
+ *
+ * Hero section styles.
+ */
+
+.hero {
+  position: relative;
+  background: var(--bg-secondary-color);
+  border: 1px solid var(--color-lightGrey);
+  border-radius: 4px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  font-family: var(--font-family-sans);
+}
+
+.hero h2 {
+  margin-top: 0;
+}
+
+.hero-features {
+  font-size: 0.9rem;
+  color: var(--color-darkGrey);
+}
+
+.hero-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-darkGrey);
+  padding: 0.25rem;
+}
+
+.hero-close:hover {
+  color: var(--font-color);
+}
+
+/* A footer "Show intro" button styled to look like a text link. */
+.link-button {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--color-primary);
+  text-decoration: underline;
+  cursor: pointer;
+  font: inherit;
+}

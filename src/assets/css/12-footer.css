@@ -1,0 +1,77 @@
+/* assets/css/12-footer.css
+ *
+ * Footer styles.
+ */
+
+/* --- Footer ---
+ * Three columns (About / Pages / Support & Legal) on wider screens,
+ * stacked on narrow ones, then a row of 88x31 badges and a copyright
+ * line. Nothing here is content-specific. See partials/footer.njk. */
+.site-footer {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--color-lightGrey);
+  background: var(--bg-secondary-color);
+  font-family: var(--font-family-sans);
+}
+
+.site-footer .meta {
+  color: var(--color-darkGrey);
+  font-size: 0.9rem;
+}
+
+.site-footer-grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: 1fr;
+  padding-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .site-footer-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.site-footer-heading {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin: 0 0 0.75rem;
+}
+
+.site-footer-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.site-footer-list li {
+  margin-bottom: 0.4rem;
+}
+
+.site-footer-list a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: var(--font-color);
+}
+
+.site-footer-list a:hover {
+  text-decoration: underline;
+}
+
+.site-footer-list .icon-svg {
+  width: 1em;
+  height: 1em;
+}
+
+.site-footer-col .h-card {
+  margin-top: 0.75rem;
+}
+
+.site-footer-copyright {
+  padding: 1rem 0;
+  border-top: 1px solid var(--color-lightGrey);
+}

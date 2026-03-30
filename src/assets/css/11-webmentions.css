@@ -1,0 +1,100 @@
+/* assets/css/11-webmentions.css
+ *
+ * Webmention styles.
+ */
+
+.webmentions {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--color-lightGrey);
+}
+
+.webmentions h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.webmentions-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.webmention {
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--color-lightGrey);
+}
+
+.webmention:last-child {
+  border-bottom: none;
+}
+
+.webmention-author {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.webmention-author img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.webmention-author .p-name {
+  font-weight: 500;
+  color: var(--font-color);
+  text-decoration: none;
+}
+
+.webmention-author .p-name:hover {
+  color: var(--color-primary);
+}
+
+.webmention-type {
+  color: var(--color-darkGrey);
+  font-size: 0.875rem;
+  margin-left: 0.5rem;
+}
+
+.webmention-author .dt-published {
+  color: var(--color-darkGrey);
+  font-size: 0.8rem;
+  margin-left: auto;
+}
+
+.webmention-content {
+  margin-left: 3.25rem;
+}
+
+.webmention-content .p-content {
+  margin: 0.5rem 0;
+  color: var(--font-color);
+  line-height: 1.5;
+}
+
+.webmention-content .u-url {
+  font-size: 0.875rem;
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.webmention-content .u-url:hover {
+  text-decoration: underline;
+}
+
+.webmentions-empty {
+  color: var(--color-darkGrey);
+  margin: 1rem 0;
+}
+
+.webmentions-empty a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.webmentions-empty a:hover {
+  text-decoration: underline;
+}

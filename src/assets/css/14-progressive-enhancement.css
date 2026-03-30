@@ -1,0 +1,22 @@
+/* assets/css/14-progressive-enhancement.css
+ *
+ * Progressive enhancement styles.
+ */
+
+/* --- Progressive enhancement ---
+ * `no-js` is removed by an inline script the instant JS runs (see
+ * layouts/base.njk). Anything that depends on JS to work, the hero's
+ * dismiss button and the footer's restore link, stays hidden without it,
+ * not rendering a button that does nothing. */
+.no-js .js-required {
+  display: none !important;
+}
+
+/* --- Reduced motion --- */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

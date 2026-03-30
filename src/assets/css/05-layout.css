@@ -1,0 +1,64 @@
+/* assets/css/05-layout.css
+ *
+ * Layout grid for main content and sidebar.
+ */
+
+.site-layout {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: 1fr;
+  max-width: 120rem;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .site-layout {
+    /* A wider fixed column for the sidebar. 16rem (256px) read as
+       cramped once font-size math was fixed elsewhere in this file. */
+    grid-template-columns: minmax(0, 1fr) 20rem;
+  }
+}
+
+/* Ensure content doesn't overflow viewport on mobile */
+main {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.e-content {
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+/* Responsive tables - allow horizontal scroll on mobile */
+.e-content table {
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  white-space: nowrap;
+}
+
+/* Ensure code blocks don't overflow on mobile */
+.e-content pre,
+.e-content code {
+  max-width: 100%;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/* Override chota's container class for mobile responsiveness */
+.container {
+  max-width: 100%;
+  padding: 0 1rem;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 120rem;
+    padding: 0 2rem;
+  }
+}

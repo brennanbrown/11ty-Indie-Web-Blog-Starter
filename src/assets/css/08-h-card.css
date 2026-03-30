@@ -1,0 +1,23 @@
+/* assets/css/08-h-card.css
+ *
+ * h-card microformat styles.
+ */
+
+.h-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.h-card .u-photo {
+  border-radius: 50%;
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.h-card--compact .u-photo {
+  width: 48px;
+  height: 48px;
+}

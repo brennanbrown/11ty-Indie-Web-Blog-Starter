@@ -1,0 +1,29 @@
+/* assets/css/04-accessibility.css
+ *
+ * Accessibility features: skip links and focus states.
+ */
+
+/* --- Skip to content --- */
+#skip-to-content {
+  position: absolute;
+  top: -100px;
+  left: 6px;
+  background: var(--color-primary);
+  color: #fff;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  border-radius: 0 0 4px 4px;
+  z-index: 100;
+}
+
+#skip-to-content:focus {
+  top: 0;
+}
+
+/* Accessible focus states, audited against chota's defaults. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}

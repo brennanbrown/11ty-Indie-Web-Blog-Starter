@@ -1,0 +1,79 @@
+/* assets/css/10-archive.css
+ *
+ * Archive page styles.
+ */
+
+.archive-month {
+  margin-bottom: 2rem;
+}
+
+.archive-month-heading {
+  font-size: 1.8rem;
+  margin: 2rem 0 0.5rem 0;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--color-primary);
+  color: var(--color-primary);
+}
+
+.archive-month:first-child .archive-month-heading {
+  margin-top: 0;
+}
+
+.archive-month .post-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.archive-month .post-list li {
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--color-lightGrey);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.archive-month .post-list li:last-child {
+  border-bottom: none;
+}
+
+.post-content {
+  flex: 1;
+}
+
+.post-title-archive {
+  font-size: 1.4rem;
+  margin: 0 0 0.25rem;
+  font-weight: 600;
+}
+
+.post-title-archive a {
+  text-decoration: none;
+  color: var(--font-color);
+}
+
+.post-title-archive a:hover {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+.post-meta-archive {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+  font-size: 0.9rem;
+  color: var(--color-darkGrey);
+}
+
+.post-description {
+  margin: 0.25rem 0 0;
+  color: var(--color-darkGrey);
+  font-style: italic;
+  line-height: 1.5;
+}
+
+/* Override h-feed dashed border for archive page */
+.archive-month .h-entry {
+  border-top: none;
+  padding-top: 0;
+  margin-top: 0;
+}
