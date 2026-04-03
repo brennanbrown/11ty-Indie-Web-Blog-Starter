@@ -1,0 +1,66 @@
+{# partials/head.njk
+ #
+ # The HTML head. Contains meta tags, title, CSS links, and IndieWeb
+ # discovery links.
+ #}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% if title %}{{ title }} | {% endif %}{{ site.title }}</title>
+<meta name="description" content="{{ site.description }}">
+<link rel="canonical" href="{{ site.url }}{{ page.url }}">
+<link rel="icon" type="image/png" href="{{ '/assets/images/favicon/favicon-32x32.png' | assetHash }}" sizes="32x32">
+<link rel="icon" type="image/png" href="{{ '/assets/images/favicon/favicon-16x16.png' | assetHash }}" sizes="16x16">
+
+<!-- Open Graph -->
+<meta property="og:title" content="{% if title %}{{ title }}{% else %}{{ site.title }}{% endif %}">
+<meta property="og:description" content="{{ site.description }}">
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{ site.url }}{{ page.url }}">
+<meta property="og:image" content="{{ site.url }}{{ site.seo.ogImageDefault }}">
+
+{% if site.seo.twitterCardFallback %}
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{% if title %}{{ title }}{% else %}{{ site.title }}{% endif %}">
+  <meta name="twitter:description" content="{{ site.description }}">
+  <meta name="twitter:image" content="{{ site.url }}{{ site.seo.ogImageDefault }}">
+{% endif %}
+
+<!-- IndieWeb discovery -->
+<link rel="webmention" href="{{ site.webmention.endpoint }}">
+<link rel="authorization_endpoint" href="https://indieauth.com/auth">
+<link rel="token_endpoint" href="https://tokens.indieauth.com/token">
+
+<!-- Feeds -->
+{% if site.feed.enabled %}
+  {% if 'rss' in site.feed.formats %}
+    <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ site.url }}/feed.xml">
+  {% endif %}
+  {% if 'json' in site.feed.formats %}
+    <link rel="alternate" type="application/json" title="{{ site.title }}" href="{{ site.url }}/feed.json">
+  {% endif %}
+{% endif %}
+
+<!-- CSS -->
+<link rel="stylesheet" href="{{ '/assets/css/vendor/chota.css' | assetHash }}">
+<link rel="stylesheet" href="{{ '/assets/css/01-variables.css' | assetHash }}">
+<link rel="stylesheet" href="{{ '/assets/css/02-typography.css' | assetHash }}">
+<link rel="stylesheet" href="{{ '/assets/css/03-icons.css' | assetHash }}">
+<link rel="stylesheet" href="{{ '/assets/css/04-accessibility.css' | assetHash }}">
+<link rel="stylesheet" href="{{ '/assets/css/05-layout.css' | assetHash }}">
+<link rel="stylesheet" href="{{ '/assets/css/06-header.css' | assetHash }}">
+<link rel="stylesheet" href="{{ '/assets/css/07-sidebar.css' | assetHash }}">
+<link rel="stylesheet" href="{{ '/assets/css/08-h-card.css' | assetHash }}">
+<link rel="stylesheet" href="{{ '/assets/css/09-posts.css' | assetHash }}">
+<link rel="stylesheet" href="{{ '/assets/css/10-archive.css' | assetHash }}">
+<link rel="stylesheet" href="{{ '/assets/css/11-webmentions.css' | assetHash }}">
+<link rel="stylesheet" href="{{ '/assets/css/12-footer.css' | assetHash }}">
+<link rel="stylesheet" href="{{ '/assets/css/13-hero.css' | assetHash }}">
+<link rel="stylesheet" href="{{ '/assets/css/14-progressive-enhancement.css' | assetHash }}">
+<link rel="stylesheet" href="{{ '/assets/css/15-pagefind.css' | assetHash }}">
+<link rel="stylesheet" href="{{ '/assets/css/syntax-highlighting.css' | assetHash }}">
+
+{% if site.author.relMe %}
+  {% for relMeUrl in site.author.relMe %}
+    <link rel="me" href="{{ relMeUrl }}">
+  {% endfor %}
+{% endif %}
