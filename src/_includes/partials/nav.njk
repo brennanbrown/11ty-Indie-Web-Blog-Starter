@@ -1,0 +1,17 @@
+{# partials/nav.njk. Loops src/_data/nav.js, sorted by `order`. Add a new
+   slash page by creating the Markdown file and adding one entry to nav.js.
+   Nothing here needs to change. #}
+<nav class="site-nav" aria-label="Primary">
+  <ul>
+    {% for item in nav | sortByOrder %}
+      <li>
+        <a href="{{ item.url }}" {% if page.url == item.url %} aria-current="page" {% endif %}>
+          {% if item.icon %}
+            <i class="fa-solid {{ item.icon }}" aria-hidden="true"></i>
+          {% endif %}
+          {{ item.title }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</nav>

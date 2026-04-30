@@ -1,0 +1,73 @@
+{# partials/footer.njk. A multi-column footer, data-driven:
+   the "About" blurb comes from site.js, the page links come from
+   nav.js, and nothing here is specific to any one site's content. #}
+{# Force Font Awesome to bundle icons used in footer via SVG #}
+<div style="display:none;"><i class="fa-solid fa-rss"></i><i class="fa-brands fa-github"></i><i class="fa-solid fa-scale-balanced"></i></div>
+<footer class="site-footer" role="contentinfo">
+  <div class="site-footer-grid container">
+    <section class="site-footer-col" aria-label="About this site">
+      <h2 class="site-footer-heading">About</h2>
+      {% set compact = true %}
+      {% include "partials/h-card.njk" %}
+      <hr>
+      <p class="meta">{{ site.description }}</p>
+      <p class="meta">
+        Built with
+        <a href="https://11ty.dev">Eleventy</a>,
+                            a
+        <a href="{{ site.credits.projectUrl }}">{{ site.credits.project }}</a>
+        project.
+      </p>
+    </section>
+    <nav class="site-footer-col" aria-label="Page links">
+      <h2 class="site-footer-heading">Pages</h2>
+      <ul class="site-footer-list">
+        {% for item in nav | sortByOrder %}
+          <li>
+            <a href="{{ item.url }}">
+              {% if item.icon %}
+                <svg class="icon-svg" aria-hidden="true"><use href="#fas-{{ item.icon }}" xlink:href="#fas-{{ item.icon }}"></use></svg>
+              {% endif %}
+              {{ item.title }}
+            </a>
+          </li>
+        {% endfor %}
+        <li>
+          <a href="/feed.xml">
+            <svg class="icon-svg" aria-hidden="true"><use href="#fas-fa-rss" xlink:href="#fas-fa-rss"></use></svg>
+            RSS</a>
+        </li>
+      </ul>
+    </nav>
+    <section class="site-footer-col" aria-label="Support and legal">
+      <h2 class="site-footer-heading">Support &amp; Legal</h2>
+      <ul class="site-footer-list">
+        <li>
+          <a href="{{ site.repoUrl }}">
+            <svg class="icon-svg" aria-hidden="true"><use href="#fab-fa-github" xlink:href="#fab-fa-github"></use></svg>
+            Source</a>
+        </li>
+        <li>
+          <a href="{{ site.license.url }}">
+            <svg class="icon-svg" aria-hidden="true"><use href="#fas-fa-scale-balanced" xlink:href="#fas-fa-scale-balanced"></use></svg>
+            {{ site.license.name }}</a>
+        </li>
+        {% if site.hero.enabled and page.url == "/" %}
+          <li>
+            <button type="button" class="link-button js-required" onclick="restoreHero()">Show Hero</button>
+          </li>
+        {% endif %}
+      </ul>
+    </section>
+  </div>
+  <div class="site-footer-copyright container">
+    <p class="meta">
+      &copy; {% year %}
+      <a href="{{ site.url }}">{{ site.title }}</a>
+      · Made by
+      <a href="{{ site.credits.madeByUrl }}">{{ site.credits.madeBy }}</a>
+      ·
+      <a href="{{ site.license.url }}">{{ site.license.name }}</a>
+    </p>
+  </div>
+</footer>

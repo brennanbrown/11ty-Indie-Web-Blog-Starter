@@ -1,0 +1,12 @@
+{# partials/header.njk. Site title/tagline, then the primary nav. #}
+<header class="site-header" role="banner">
+  <div class="site-header-inner container">
+    <h1 class="site-title">
+      <a href="/">{{ site.title }}</a>
+    </h1>
+    <p class="site-tagline">{{ site.description }}</p>
+    {% if site.nav %}
+      {% include "partials/nav.njk" %}
+    {% endif %}
+  </div>
+</header>
