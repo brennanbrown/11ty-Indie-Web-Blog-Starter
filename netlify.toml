@@ -5,11 +5,7 @@
 [build.environment]
   NODE_VERSION = "20"
 
-[[redirects]]
-  from = "/admin"
-  to = "/admin/index.html"
-  status = 200
-
+# RSS feed redirects - handle common feed URL variations
 [[redirects]]
   from = "/feed"
   to = "/feed.xml"
@@ -35,7 +31,13 @@
   to = "/feed.xml"
   status = 301
 
-# Optional: Set custom headers
+# 404 catch-all (must be last)
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404
+
+# Security headers for all pages
 [[headers]]
   for = "/*"
   [headers.values]
@@ -44,6 +46,7 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
 
+# Specific headers for RSS feed
 [[headers]]
   for = "/feed.xml"
   [headers.values]
