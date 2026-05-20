@@ -1,318 +1,359 @@
-![IndieWeb Blog Starter preview](./screenshot.png)
+# IndieWeb 11ty Starter
 
-# IndieWeb Blog Starter
+![Screenshot](/assets/images/og-default.png)
 
-A modern, feature-complete blog template built with Eleventy and Tailwind CSS. Designed for writers who want to own their content and participate in the IndieWeb.
+**Demo:** [indieweb-blog-starter.netlify.app](https://indieweb-blog-starter.netlify.app/)
 
-> New to this? Read the non-technical guide: [GUIDE.md](./GUIDE.md)
+A minimal [Eleventy](https://11ty.dev) starter for people
+getting into the [IndieWeb](https://indieweb.org) for the first time. Files
+that matter are commented, conventions are visible in the file
+tree, and nothing meaningful is hardcoded into templates. It lives in
+`src/_data/site.js` or another data file instead.
 
-## Features
+This starter includes IndieWeb microformats and webmentions because they're useful and fun to explore. However, I don't believe a site needs these to be "IndieWeb." The IndieWeb is about principles, not specs.
 
-- **Simple setup** - Edit one config file and you're ready to publish
-- **IndieWeb ready** - Microformats, webmentions, and RSS built-in
-- **Modern design** - Clean, accessible, mobile-first interface
-- **Privacy focused** - No tracking by default, optional ethical analytics
-- **Full-featured** - Search, tags, dark mode, and more
+**[My IndieWeb principles](https://brennan.day/indieweb/):**
 
-## ⚡ Quick Start
+1. **Good faith code. Good faith writing.** No invasive trackers, ads, or a11y-hostile design. Write from a place of good faith, believing the internet can still be good.
+2. **A pro-social attitude.** The web is meant to be social. Your site should have some social element, even if it's just contact information.
+3. **Be fun. Be accessible. Be small.** Express yourself. Follow WCAG guidelines. Keep your site performant. Make it work without JavaScript.
 
-1. **Clone and install**:
-   ```bash
-   git clone https://github.com/yourusername/indieweb-blog-starter.git
-   cd indieweb-blog-starter
-   npm install
-   ```
+The IndieWeb is a spectrum. There's no "perfect" IndieWeb site. This starter is one path into the IndieWeb, not the only one.
 
-2. **Configure your site** (most important step!):
-   Edit `src/_data/site.json` with your information:
-   ```json
-   {
-     "name": "Your Blog Name",
-     "author": "Your Name", 
-     "email": "your@email.com",
-     "url": "https://yourdomain.com",
-     "bio": {
-       "short": "Your tagline",
-       "long": "Your longer bio..."
-     },
-     "social": {
-       "github": "yourusername",
-       "mastodon": "@you@mastodon.social"
-     }
-   }
-   ```
+**Note:** This is a complete overhaul of the original starter. If you prefer the previous version with different features (multiple content types, related posts, social sharing, enhanced tag colors, testing infrastructure), you can still use the [v1 branch](https://github.com/brennanbrown/11ty-Indie-Web-Blog-Starter/tree/v1).
 
-3. **Start writing**:
-   ```bash
-   npm run dev
-   ```
-   Visit `http://localhost:8080` and start creating!
+## 1. Who this is for
 
-4. **Deploy**:
-   ```bash
-   npm run build
-   ```
+You want a blog that:
 
-## 🎯 Features
+- uses IndieWeb microformats ([h-card](https://indieweb.org/h-card),
+  [h-entry](https://indieweb.org/h-entry)) by default
+- sends and receives [webmentions](https://indieweb.org/webmention)
+- uses almost no client-side JavaScript
+- doesn't lock you into a specific comment or guestbook system
+- you can understand by reading the comments in this repo
 
-- 🚀 **Zero Config**: Just edit one file and you're ready
-- 🌙 **Dark Mode**: Automatic system detection + manual toggle
-- ♿ **Accessible**: WCAG 2.1 AA compliant with accessibility controls
-- 🔍 **Smart Search**: Client-side FlexSearch with live results
-- 🕸️ **IndieWeb Ready**: Microformats2, Webmentions, h-card
-- 📡 **RSS Feed**: Automatic feed generation
-- 🎨 **Tag Colors**: Automatic color mapping for tags
-- 📱 **Mobile First**: Responsive design that works everywhere
-- 🔒 **Privacy Focused**: Optional analytics (Plausible/Fathom)
-- 🎪 **Easter Eggs**: Hidden interactions for fun
+## 2. Features
 
-## 🛠️ Easy Configuration
+- Eleventy 3.x, ESM config (`eleventy.config.js`)
+- Nunjucks layouts/partials, Markdown content
+- [chota.css](https://jenil.github.io/chota/), vendored, with your own
+  overrides layered on top
+- Inline SVG icons via [`@11ty/font-awesome`](https://github.com/11ty/eleventy-plugin-font-awesome)
+  . Zero icon-font requests
+- Responsive images via [`@11ty/eleventy-img`](https://www.11ty.dev/docs/plugins/image/)
+- RSS + JSON feeds
+- Webmentions: sending (passive `<link>` tag) and receiving (build-time
+  fetch, cached)
+- CSS-only dark mode (`prefers-color-scheme`)
+- Build-time search via [Pagefind](https://pagefind.app/). No server,
+  no API keys (see [Search](#8-search) for why this starter ships
+  Pagefind instead of a hosted search engine)
+- Guestbook and comments pages that link out to existing services,
+  not a bespoke system you have to maintain
 
-Unlike other templates that require editing dozens of files, this template uses a single configuration file (`src/_data/site.json`) for most customization:
+## 3. Performance & Accessibility
 
-### Indie Creator Guide
+This starter is designed for optimal performance and accessibility out of the box:
 
-See the in-depth post: [Guide to Making It as an Indie Creator](https://indieweb-blog-starter.windsurf.build/blog/guide-to-making-it-as-an-indie-creator/) for practical steps to grow an audience, accept support, and keep a simple workflow using this template.
+**Lighthouse Scores:**
+- Performance: 99/100
+- Accessibility: 100/100
+- Best Practices: 100/100
+- SEO: 100/100
 
-Quick reference (matches the code in `src/_includes/layouts/post.njk`, `src/contact.njk`, and `src/donate.njk`):
+## 4. Quickstart
 
-- **Newsletter** (renders on posts when enabled):
-  ```json
-  {
-    "newsletter": {
-      "enabled": true,
-      "provider": "buttondown",
-      "action": "https://buttondown.email/api/emails/embed-subscribe/yourusername",
-      "title": "Join the Newsletter",
-      "description": "Get thoughtful updates delivered to your inbox."
-    }
-  }
-  ```
-  Use any provider by swapping the `action` with a POST endpoint.
-
-- **Contact form** (configure a backend):
-  In `src/contact.njk`, wire up Netlify Forms or a service like Formspree/Basin by adding provider attributes, e.g.:
-  ```html
-  <form name="contact" method="POST" data-netlify="true">
-    <input type="hidden" name="form-name" value="contact">
-    <!-- fields -->
-  </form>
-  ```
-
-- **Donations/Sponsorship** (renders on `/donate/`):
-  ```json
-  {
-    "donate": {
-      "enabled": true,
-      "kofi": "yourusername",
-      "buymeacoffee": "yourusername",
-      "github": "yourusername",
-      "message": "If you find value in my writing, consider supporting my work."
-    }
-  }
-  ```
-
-### Essential Settings
-- **Site info**: Name, description, URL, author
-- **Social links**: GitHub, Mastodon, Twitter (all optional)
-- **Bio**: Short tagline and longer description
-- **Contact**: Email and location
-
-### Optional Features
-- **Newsletter**: Buttondown, ConvertKit, or custom integration
-- **Donations**: Ko-fi, Buy Me a Coffee, GitHub Sponsors
-- **Analytics**: Plausible, Fathom, or Simple Analytics
-- **Webmentions**: Automatic setup with webmention.io
-
-### Quick Setup Examples
-
-**Minimal setup** (just the essentials):
-```json
-{
-  "name": "My Blog",
-  "author": "Jane Doe",
-  "email": "jane@example.com",
-  "url": "https://janedoe.blog"
-}
-```
-
-**Full setup** with all features:
-```json
-{
-  "name": "Jane's Digital Garden",
-  "author": "Jane Doe",
-  "email": "jane@example.com", 
-  "url": "https://janedoe.blog",
-  "bio": {
-    "short": "Writer & digital minimalist",
-    "long": "I write about technology, minimalism, and intentional living."
-  },
-  "social": {
-    "github": "janedoe",
-    "mastodon": "@jane@mastodon.social"
-  },
-  "newsletter": {
-    "enabled": true,
-    "provider": "buttondown",
-    "action": "https://buttondown.email/api/emails/embed-subscribe/jane"
-  },
-  "analytics": {
-    "enabled": true,
-    "provider": "plausible"
-  }
-}
-```
-
-## 📁 Template Structure
-
-```
-src/
-├── _data/
-│   ├── site.json       # 🎯 Main config file (edit this!)
-│   └── tagColors.json  # Tag color mappings
-├── _includes/
-│   ├── layouts/        # Page layouts
-│   └── partials/       # Reusable components
-├── assets/
-│   ├── css/           # Tailwind CSS
-│   └── js/            # Interactive features
-├── blog/              # 📝 Your blog posts go here
-├── about.njk          # About page
-├── contact.njk        # Contact page  
-├── uses.njk           # Tools & setup page
-├── now.njk            # What you're up to now
-├── blogroll.njk       # Recommended blogs
-├── archive.njk        # Post archive
-└── style.njk          # Living style guide
-```
-
-## 🖼️ Configurable Placeholder Assets
-
-This template includes a tiny build helper that fetches placeholder images so your site looks complete out‑of‑the‑box without committing binaries. Files are saved to `src/assets/` and passed through to `/assets/` at build time.
-
-What gets fetched by default:
-
-- **profile.jpg** — used on `about` page
-- **og-default.png** — fallback Open Graph image
-- **retro-stars.png** — background tile used in one demo post
-
-How to customize:
-
-- **Drop in your own files**: place files with the same names in `src/assets/` and the fetcher will skip downloading.
-- **Environment variables**: set any of these to your own URLs
-  - `PROFILE_IMAGE_URL`
-  - `OG_DEFAULT_URL`
-  - `RETRO_STARS_URL`
-  - Example: `PROFILE_IMAGE_URL=https://example.com/me.jpg npm run build`
-- **site.json config**: add an optional `assets` section to `src/_data/site.json`:
-  ```json
-  {
-    "assets": {
-      "profileUrl": "https://example.com/me.jpg",
-      "ogDefaultUrl": "https://example.com/og.png",
-      "retroStarsUrl": "https://example.com/retro-stars.png"
-    }
-  }
-  ```
-- **Skip entirely**: set `SKIP_FETCH_ASSETS=1` (or `true`) to bypass downloading (useful for offline/CI).
-
-The fetcher runs as part of the build (`npm run build`), before CSS and Eleventy.
-
-## 🚀 Deployment
-
-### Netlify (One-Click Deploy)
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/yourusername/indieweb-blog-starter)
-
-### GitHub Pages
-1. Push to GitHub
-2. Enable GitHub Pages in repository settings
-3. The included workflow will build and deploy automatically
-
-### Manual Netlify
-1. Connect your GitHub repository
-2. Build command: `npm run build`
-3. Publish directory: `_site`
-
-### Manual Deployment
 ```bash
-npm run build
-# Upload _site/ folder to your web server
+git clone <this-repo>
+cd <this-repo>
+npm install
+npm start        # dev server at http://localhost:8080
+npm run build     # production build to _site/, then indexes it with Pagefind
 ```
 
-## 🌐 IndieWeb Setup
+**For detailed setup and customization instructions, see [GUIDE.md](./GUIDE.md).**
 
-This template includes IndieWeb features out of the box:
+## 5. Folder structure
 
-### Webmentions
-1. Sign up at [webmention.io](https://webmention.io)
-2. Add your domain to `site.json`:
-   ```json
-   "webmentions": {
-     "enabled": true,
-     "domain": "yourdomain.com"
-   }
-   ```
+```
+├── eleventy.config.js        # Eleventy config entry point, commented
+├── config/                   # filters.js, markdown.js, shortcodes.js, collections.js
+├── netlify.toml              # Configuration file for Netlify
+├── robots.txt                # Denying genAI crawlers
+├── src/
+│   ├── _data/                # site.js (central config), nav.js, guestbooks.js, comments.js, blogroll.js, webrings.js, webmentions.js
+│   ├── _includes/
+│   │   ├── layouts/          # base.njk, post.njk, page.njk
+│   │   └── partials/         # head, header, nav, aside, footer, h-card, webmentions
+│   ├── assets/
+│   │   ├── css/              # vendor/chota.css, 01-variables.css, 02-15 split CSS files
+│   │   └── images/
+│   ├── posts/                # your posts live here
+│   ├── about.md, contact.md, colophon.md, guestbook.md, comments.md, search.md, etc.
+│   ├── index.njk, posts.njk, feed.njk, feed.json.njk, etc.
+```
 
-### Microformats
-- h-card for your identity
-- h-entry for blog posts  
-- h-feed for your blog listing
-- All automatically included!
+## 6. Configuration reference (`src/_data/site.js`)
 
-## 🎨 Customization
+Configuration a beginner should touch lives in this one file:
 
-### Colors & Styling
-- Edit `tailwind.config.cjs` for theme colors
-- Modify `src/assets/css/build.css` for custom styles
-- Update `src/_data/tagColors.json` for tag colors
+| Field                                     | What it does                                                                                                                      |
+| ----------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| `title`, `description`, `url`, `language` | Basic site identity                                                                                                               |
+| `author.*`                                | Your [h-card](https://indieweb.org/h-card): name, url, photo, email, bio, `relMe` links                                           |
+| `seo.*`                                   | Default OG image, whether to also emit Twitter Card tags                                                                          |
+| `nav`                                     | Whether the nav (driven by `nav.js`) renders                                                                                      |
+| `sidebar`                                 | Whether the optional `<aside>` renders (about card, stats, recent posts, elsewhere, blogroll, webrings. See `partials/aside.njk`) |
+| `homepagePostsLimit`                     | Number of posts to show on the homepage                                                                                           |
+| `webmention.*`                            | Endpoint URLs and your token (from the environment, never hardcoded)                                                              |
+| `feed.*`                                  | Which feed formats to emit                                                                                                        |
+| `fonts.*`                                 | Font stacks. Mirror any change into `assets/css/01-variables.css` too                                                                |
+| `license.*`, `credits.*`                  | Rendered in the footer                                                                                                            |
 
-### Adding Pages
-1. Create a new `.njk` file in `src/`
-2. Add front matter with layout and permalink
-3. Add navigation link in `src/_includes/layouts/base.njk`
+## 6.1 Post front matter
 
-### Newsletter Integration
-Supports multiple providers:
-- **Buttondown**: Set `newsletter.provider` to `"buttondown"`
-- **ConvertKit**: Set to `"convertkit"` 
-- **Custom**: Use any form action URL
+Posts support optional featured images with alt text and captions:
 
-## 🗺️ Roadmap
+|| Field                        | What it does                                                                 |
+|| ---------------------------- | --------------------------------------------------------------------------- |
+|| `featured_image`             | Path to the featured image (e.g., `/assets/images/posts/example.jpg`)       |
+|| `featured_image_alt`         | Alt text for the image (required for accessibility)                        |
+|| `featured_image_caption`    | Caption displayed below the image (supports Markdown links)                 |
 
-The following improvements are planned to keep this template modern, accessible, and fun to use:
-
-- [ ] __Themes__: additional vibrant code themes and optional color presets
-- [ ] __PWA/Offline__: add service worker for basic offline reading
-- [ ] __i18n__: language switcher and localized date formatting
-- [ ] __Webmentions UI__: simple moderation/preview UI and richer templates
-- [ ] __SEO__: JSON-LD schema and improved link previews
-- [ ] __Accessibility__: periodic audits and keyboard interaction tests
-- [ ] __Testing__: expand Playwright e2e coverage (mobile and dark mode)
-- [ ] __Content Starter__: more sample posts and page templates
-
-Have suggestions? Open an issue or PR.
-
-## 🤝 Contributing
-
-Found a bug or want to improve something? Contributions welcome!
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
-
-## 📄 License
-
-MIT License - feel free to use this template for any project!
-
-## 🙏 Acknowledgments
-
-Built with:
-- [Eleventy](https://11ty.dev) - Static site generator
-- [Tailwind CSS](https://tailwindcss.com) - Utility-first CSS
-- [FlexSearch](https://github.com/nextapps-de/flexsearch) - Client-side search
-- IndieWeb principles and community wisdom
-
+Example:
+```yaml
 ---
+title: "My Post"
+date: 2026-03-01
+featured_image: /assets/images/posts/example.jpg
+featured_image_alt: "Description of the image for screen readers"
+featured_image_caption: "Photo by [Author](https://example.com)"
+---
+```
 
-**Ready to break free from social media?** Clone this template and start building your corner of the independent web! 🌱
+## 7. Fonts
+
+The default fonts are system font stacks. Zero font loading, zero layout
+shift. The tradeoff is not controlling exact rendering across devices. To
+swap in a Google Fonts or [Bunny Fonts](https://fonts.bunny.net/) stack
+instead:
+
+1. Add the `<link>` tag to `src/_includes/partials/head.njk`
+2. Update `--font-family-sans` / `--font-family-heading` in
+   `src/assets/css/01-variables.css`
+3. Update `site.fonts` in `src/_data/site.js` to match (used for
+   documentation purposes / future automation)
+
+## 7.1 Favicons
+
+The starter includes a comprehensive favicon set in `src/assets/images/favicon/`:
+- `favicon.ico`: Legacy browser support
+- `favicon-16x16.png`: Small icon for older browsers
+- `favicon-32x32.png`: Standard favicon size
+- `apple-touch-icon.png`: iOS home screen icon
+- `android-chrome-192x192.png`: Android home screen
+- `android-chrome-512x512.png`: Android splash screen
+- `site.webmanifest`: Web app manifest
+
+To generate your own favicon set:
+- **Easy option**: [favicon.io](https://favicon.io/emoji-favicons/): Generate emoji-based favicons quickly
+- **Comprehensive option**: [RealFaviconGenerator.net](https://realfavicongenerator.net/): Generate a complete favicon set from a single image with PWA support
+
+To replace the favicons:
+1. Generate your favicon set using one of the tools above
+2. Replace the files in `src/assets/images/favicon/`
+3. Update `site.webmanifest` if you change the manifest content
+
+## 7.3 Templating languages
+
+Eleventy supports many templating languages: HTML, Markdown, WebC, JavaScript (.11ty.js), Liquid, Nunjucks, Handlebars, Mustache, EJS, Haml, Pug, and more. Each has its own syntax and tradeoffs.
+
+This starter uses Nunjucks (`.njk` files) for layouts and partials. Nunjucks offers:
+- Template inheritance (extending base layouts)
+- Includes (reusable partials)
+- Filters (data transformation)
+- Macros (reusable template functions)
+- Async support
+
+To learn Nunjucks:
+- [Official Nunjucks Documentation](https://mozilla.github.io/nunjucks/)
+- [Nunjucks Getting Started](https://mozilla.github.io/nunjucks/getting-started.html)
+- [Nunjucks Template Engine Tutorial](https://tutorial.techaltum.com/nunjucks.html)
+
+If you prefer another language, you can switch by updating `eleventy.config.js` and renaming your template files. See [Eleventy's template language documentation](https://www.11ty.dev/docs/languages/) for details.
+
+## 8. Webmentions
+
+Register your domain at [webmention.io](https://webmention.io) (or my mirror, [webmention.folk.zone](https://folk.zone). The API is identical), then:
+
+1. Copy `.env.example` to `.env` and set `WEBMENTION_IO_TOKEN`
+2. In production (Netlify), set the same env var in the site's dashboard.
+   Never commit it
+
+Sending a webmention needs no JS or build step. The
+`<link rel="webmention">` tag in `<head>`. Receiving them involves a build-time
+fetch in `src/_data/webmentions.js`, cached for 12 hours so repeated builds
+don't hit rate limits.
+
+For a detailed walkthrough of how webmentions work in practice, see [my guide on how webmentions work on brennan.day](https://brennan.day/how-webmentions-work-on-brennan-day/).
+
+## 9. Search
+
+This starter ships [Pagefind](https://pagefind.app/). It indexes your
+built `_site/` at build time and needs no running server or API
+credentials. `npm run build` handles it, and `/search.md` wires up the
+UI. A hosted engine like Elasticsearch is an alternative. It needs
+a running server somewhere (Elastic Cloud, Bonsai, self-hosted) plus API
+credentials. Usually proxied through a serverless function so the key
+never reaches the client. Pagefind ships as the default here
+instead.
+
+## 10. Build performance
+
+This starter is designed to be fast. A typical build takes under a second:
+
+- **Starter build:** ~0.7 seconds (19 files, 29 assets)
+- **brennan.day comparison:** ~14.7 seconds (593 files, 649 assets)
+
+My site [brennan.day](https://brennan.day) has hundreds more posts, tag pages, and features. This starter keeps the essentials while staying performant.
+
+For optimizing your own Eleventy build times, see:
+- [My guide on cutting Eleventy build times in half](https://brennan.day/300-minutes-a-month-cutting-my-eleventy-netlify-build-time-in-half/)
+- [My post on making Eleventy builds 5x faster](https://brennan.day/i-made-my-eleventy-build-5-faster-with-five-changes/)
+
+## 11. Deploying
+
+### Netlify (recommended)
+
+`netlify.toml` is set up for [Netlify](https://netlify.com):
+
+1. Fork/clone the repo
+2. `npm install`
+3. Connect the repo in Netlify (or `netlify deploy` via CLI)
+4. Set `WEBMENTION_IO_TOKEN` (and any other secrets) in Netlify's
+   dashboard
+5. Deploy
+
+### GitHub Actions to Netlify
+
+The starter includes GitHub Actions workflows:
+- `.github/workflows/ci.yml`: Runs on every push/PR to verify the build succeeds
+- `.github/workflows/deploy.yml`: Deploys to Netlify on main branch pushes
+
+To enable Netlify deployment via GitHub Actions:
+1. Fork the repo
+2. In your fork's Settings → Secrets and variables → Actions, add:
+  : `NETLIFY_AUTH_TOKEN`: Your Netlify personal access token
+  : `NETLIFY_SITE_ID`: Your Netlify site ID
+3. Push to main to trigger deployment
+
+### Other platforms
+
+Vercel, Cloudflare Pages, GitHub Pages, or self-hosting all work with a standard Eleventy build. `netlify.toml` represents the path of least resistance here.
+
+## 12. Learning resources
+
+If you're new to the technologies this starter uses, here are beginner-friendly resources to get you started:
+
+- **This starter**: [GUIDE.md](./GUIDE.md): Comprehensive setup and user guide
+- **Markdown**: [Markdown Guide](https://www.markdownguide.org/) or [CommonMark Tutorial](https://commonmark.org/help/tutorial/)
+- **JavaScript**: [The Modern JavaScript Tutorial](https://javascript.info/) or [LearningJavaScript.org](https://learningjavascript.org/lessons)
+- **Eleventy**: [Official Getting Started](https://www.11ty.dev/docs/) or [Learn Eleventy](https://learneleventy.dev/)
+- **Nunjucks**: [Official Documentation](https://mozilla.github.io/nunjucks/) or [Getting Started](https://mozilla.github.io/nunjucks/getting-started.html)
+- **Git**: [Git for Beginners Tutorial](https://deployn.de/en/blog/git-tutorial/) or [freeCodeCamp Git Handbook](https://www.freecodecamp.org/news/learn-how-to-use-git-and-github-a-beginner-friendly-handbook/)
+- **GitHub**: [GitHub Hello World](https://docs.github.com/en/get-started/using-github/hello-world) or [GitHub for Beginners](https://github.blog/developer-skills/github/github-for-beginners-your-roadmap-to-mastering-the-github-essentials/)
+- **Netlify**: [Netlify Quickstart](https://docs.netlify.com/start/overview/) or [How to Deploy on Netlify](https://dev.to/md-mostafa-niloy/how-to-deploy-a-website-on-netlify-5fh2)
+
+## 13. Extending this starter
+
+This starter is intentionally minimal to provide a solid foundation without unnecessary complexity. However, it's designed to be easily extended. Here are common features you can add yourself:
+
+### Additional Content Types
+Add new collections in `config/collections.js` for:
+- Notes, journal entries, poetry, microformats, etc.
+- Create corresponding layouts in `src/_includes/layouts/`
+- Add content directories in `src/` (e.g., `src/notes/`, `src/journal/`)
+
+### Tag Archive Pages
+The `tagList` collection already exists in `config/collections.js`. To create individual tag pages:
+1. Create `src/tags.njk` with pagination
+2. Use `pagination.data: tagList` and `pagination.size: 1`
+3. Template will render one page per tag
+
+### Custom Comments/Guestbook
+Currently links out to hosted services (`src/_data/comments.js` and `guestbooks.js`). To build your own:
+- Add a form (Netlify Forms, Formspree, or similar)
+- Add a backend (Netlify Function + database, or Supabase)
+- Implement moderation and spam protection
+- See the IndieWeb comments specification for guidance
+- For a detailed guide on building an IndieAuth comment system, see [my post on building an IndieAuth comment system](https://brennan.day/building-an-indieauth-comment-system-for-your-static-site/)
+- For bringing back the classic guestbook experience, see [my guide on 90s guestbooks with JAMstack](https://brennan.day/bring-back-the-90s-guestbook-with-jamstack-how-i-added-dynamic-comments-to-my-static-11ty-site/)
+
+### Analytics
+Add privacy-friendly analytics to `src/_includes/partials/head.njk`:
+- Plausible Analytics: `<script defer data-domain="yourdomain.com" src="https://plausible.io/js/script.js"></script>`
+- Fathom Analytics: `<script src="https://cdn.usefathom.com/script.js" data-site="YOUR_ID" defer></script>`
+- Simple Analytics: `<script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"></script>`
+
+### Sitemap.xml
+Add a `sitemap.njk` template:
+```njk
+---
+permalink: /sitemap.xml
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="utf-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  {% for item in collections.all %}
+  <url>
+    <loc>{{ site.url }}{{ item.url }}</loc>
+    <lastmod>{{ item.date | htmlDateString }}</lastmod>
+  </url>
+  {% endfor %}
+</urlset>
+```
+
+### IndieAuth / Self-Hosted Auth
+Not included in this starter. If you need it, reference implementations like:
+- [IndieAuth.com](https://indieauth.com/)
+- Existing implementations on personal IndieWeb sites
+
+### Post-Type Discovery
+This starter uses manual categorization. For automatic post-type discovery based on `in-reply-to`, `like-of`, `repost-of`, etc., implement the [IndieWeb post-type discovery algorithm](https://indieweb.org/post-type-discovery).
+
+### Badges & Webrings
+Add 88×31 buttons or webring navigation to your footer or sidebar for that classic web feel:
+- [88×31 button gallery](https://cyber.dabamos.de/88x31/)
+- [XXIIVV Webring](https://webring.xxiivv.com/)
+
+### Advanced Configuration & Deployment
+For more advanced Eleventy configuration and deployment options:
+- [My guide on refactoring Eleventy config into modules](https://brennan.day/cleaning-house-refactoring-my-eleventy-config-into-modules/)
+- [My tutorial on deploying Eleventy to Neocities with GitLab CI/CD](https://brennan.day/deploying-an-eleventy-site-to-neocities-with-gitlab-ci-cd/)
+
+## 14. More IndieWeb resources
+
+Once you've got this running, there's a much bigger world of personal-web
+tools, communities, and ideas worth exploring. A jumping-off point
+is this [resources list for the personal web](https://discourse.32bit.cafe/t/resources-list-for-the-personal-web/).
+
+## 15. Acknowledgements & Attributions
+
+This starter was inspired by and built with the help of many people and resources:
+
+- **Adam Newbold** ([omg.lol](https://omg.lol)): Mentorship and inspiration, with [weblog.lol](https://weblog.lol/) as original design inspiration
+- **Kat/Melo** ([girlonthemoon.xyz](https://girlonthemoon.xyz/)): Friend and fellow sysadmin
+- **Coyote** ([osteophage.neocities.org](https://osteophage.neocities.org/)): Friend and resource sharing
+- **[Modern Font Stacks](https://modernfontstacks.com/)**: Good typefaces without bloat
+- **Zach Leatherman** ([zachleat.com](https://www.zachleat.com/)): For creating Eleventy
+- **[Brutalist Websites](https://brutalistwebsites.com/)**: Design inspiration
+- **Xandra** ([goodinternetmagazine.com](https://www.goodinternetmagazine.com/)): Inspiration
+- **[Cool URIs don't change](https://www.w3.org/Provider/Style/URI)**: W3C URI style guide
+- **[Sublime Text](https://www.sublimetext.com/)**: For never changing or adding genAI features
+
+## 16. License & credits
+
+[AGPL-3.0-or-later](./LICENSE). Built by [Brennan Kenneth Brown](https://brennan.day) of [Berry House](https://berryhouse.ca).
+
+**Demo:** [indieweb-blog-starter.netlify.app](https://indieweb-blog-starter.netlify.app/)

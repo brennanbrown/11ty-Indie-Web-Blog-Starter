@@ -1,311 +1,392 @@
-# IndieWeb Blog Starter – Guide for Non‑Technical Creators
+# IndieWeb 11ty Starter: Setup & User Guide
 
-This guide helps you publish quickly, understand the IndieWeb, and customize your site’s vibe (including fun retro touches) without needing to be a developer.
+This guide helps you get your IndieWeb blog running quickly and understand how to make it yours. This starter is designed to be minimal, opinionated, and focused on IndieWeb principles.
 
----
+## 1. What this is
 
-## 1) What this is
-
-- Your own blog you control. No algorithm, no lock‑in.
+- Your own blog you control. No algorithm, no lock-in.
 - Write posts in plain text (Markdown).
 - Deploy to the open web with one click.
+- Built with IndieWeb principles: microformats, webmentions, and owning your content.
 
 If you can edit a text file, you can publish.
 
----
+## 2. Quick Setup (5 minutes)
 
-## 2) The absolute minimum to publish
+### Step 1: Clone & Install
 
-1. Open `src/_data/site.json` and change:
-   - `name`, `author`, `email`, `url`
-2. Start the site locally:
-   ```bash
-   npm install
-   npm run dev
-   ```
-3. Write your first post:
-   - Duplicate any file in `src/blog/` and edit the front matter at the top:
-     ```yaml
-     ---
-     layout: layouts/post.njk
-     title: My First Post
-     description: What this site is about
-     date: 2025-01-01
-     tags: [intro]
-     category: announcements
-     ---
-     ```
-   - Then write your content below the `---` line in normal text.
-4. Deploy (when ready):
-   ```bash
-   npm run build
-   ```
-   Upload the `_site/` folder to your host or use Netlify.
-
----
-
-## 3) Absolute beginner: tiny HTML/CSS primer (10 minutes)
-
-You’ll see two kinds of files:
-
-- `.md` (Markdown): easy writing format. `**bold**`, `*italic*`, links like `[text](https://example.com)`.
-- `.njk` (templates): page shells you rarely need to touch.
-
-Tiny HTML you might copy/paste:
-
-```html
-<h2>My heading</h2>
-<p>One short paragraph. <a href="https://example.com">A link</a>.</p>
+```bash
+git clone https://github.com/yourusername/indieweb-11ty-starter.git
+cd indieweb-11ty-starter
+npm install
 ```
 
-Tiny CSS you might copy/paste (in `src/assets/css/tailwind.css`):
+### Step 2: Configure Your Site
+
+Edit `src/_data/site.js`: this is the **main configuration file**:
+
+```javascript
+export default {
+  title: "Your Blog Name",
+  description: "Your blog description",
+  url: "https://yourdomain.com",
+  language: "en",
+  author: {
+    name: "Your Name",
+    url: "https://yourdomain.com",
+    email: "your@email.com",
+    bio: "A short bio about yourself"
+  },
+  // ... see the file for all options
+};
+```
+
+### Step 3: Start Writing
+
+```bash
+npm start        # dev server at http://localhost:8080
+```
+
+### Step 4: Add Your First Post
+
+Create a new file in `src/posts/` with this format:
+
+```markdown
+---
+title: "My First Post"
+date: 2024-01-01
+tags: ["hello", "blogging"]
+Hello world! This is my first post on my new blog.
+
+I'm excited to own my content and join the IndieWeb community.
+```
+
+### Step 5: Deploy
+
+```bash
+npm run build     # production build to _site/
+```
+
+Upload the `_site/` folder to your host or use Netlify/Vercel/GitHub Pages.
+
+## 3. IndieWeb Features
+
+### Microformats
+
+This starter includes IndieWeb microformats by default:
+
+- **h-card**: Your author information (in the footer/about section)
+- **h-entry**: Your blog posts (automatically included in post layout)
+
+These help other sites understand your content and enable features like webmentions.
+
+### Webmentions
+
+Webmentions let other sites reply/like/bookmark your posts—across the web.
+
+**To enable webmentions:**
+
+1. Register your domain at [webmention.io](https://webmention.io)
+2. Copy `.env.example` to `.env` and set `WEBMENTION_IO_TOKEN`
+3. In production (Netlify/Vercel), set the same env var in your dashboard
+4. Never commit the token
+
+The starter handles:
+- **Sending**: Automatic via `<link rel="webmention">` tag in `<head>`
+- **Receiving**: Build-time fetch in `src/_data/webmentions.js`, cached for 12 hours
+
+### RSS + JSON Feeds
+
+Feeds are automatically generated:
+- RSS: `/feed.xml`
+- JSON: `/feed.json`
+
+## 4. Configuration Reference (`src/_data/site.js`)
+
+Configuration lives in this one file. Here are the key fields:
+
+| Field | What it does |
+|-------|--------------|
+| `title`, `description`, `url`, `language` | Basic site identity |
+| `author.*` | Your h-card: name, url, photo, email, bio, relMe links |
+| `seo.*` | Default OG image, whether to emit Twitter Card tags. See below for customization. |
+| `nav` | Whether the nav (driven by `nav.js`) renders |
+| `sidebar` | Whether the optional `<aside>` renders |
+| `homepagePostsLimit` | Number of posts to show on homepage |
+| `webmention.*` | Endpoint URLs and your token (from environment) |
+| `feed.*` | Which feed formats to emit |
+| `fonts.*` | Font stacks (mirror changes to CSS variables too) |
+| `license.*`, `credits.*` | Rendered in the footer |
+
+### Open Graph Image
+
+The default Open Graph image is set in `seo.ogImageDefault` and defaults to `/assets/images/og-default.png`. This image is used when sharing your site on social media platforms (Twitter/X, Facebook, LinkedIn, etc.).
+
+**To customize it for your site:**
+
+1. Replace `/assets/images/og-default.png` with your own image (recommended size: 1200x630px for optimal display)
+2. Or update the path in `src/_data/site.js`:
+   ```javascript
+   seo: {
+     ogImageDefault: "/assets/images/your-custom-image.png"
+   }
+   ```
+
+Posts can also have their own featured images by adding `featured_image` to their front matter, which will override the default for that specific post.
+
+## 5. Post Front Matter
+
+Posts support optional featured images:
+
+| Field | What it does |
+|-------|--------------|
+| `featured_image` | Path to the featured image (e.g., `/assets/images/posts/example.jpg`) |
+| `featured_image_alt` | Alt text for the image (required for accessibility) |
+| `featured_image_caption` | Caption displayed below the image (supports Markdown links) |
+
+Example:
+```yaml
+---
+title: "My Post"
+date: 2026-03-01
+featured_image: /assets/images/posts/example.jpg
+featured_image_alt: "Description of the image for screen readers"
+featured_image_caption: "Photo by [Author](https://example.com)"
+---
+```
+
+## 6. Customization
+
+### Changing Colors & Fonts
+
+Edit CSS variables in `src/assets/css/01-variables.css`:
 
 ```css
-.note {
-  background: #fffbeb; /* soft yellow */
-  border-left: 4px solid #f59e0b; /* amber */
-  padding: 0.75rem 1rem;
+:root {
+  --color-primary: #3b82f6;
+  --color-text: #1f2937;
+  --font-family-sans: system-ui, -apple-system, sans-serif;
+  --font-family-heading: system-ui, -apple-system, sans-serif;
 }
 ```
 
-Then use it in Markdown by adding raw HTML:
+Then update `site.fonts` in `src/_data/site.js` to match.
 
-```md
-<div class="note">This is a friendly callout box.</div>
+### Adding Pages
+
+Create a new file in `src/` (e.g., `about.md`):
+
+```markdown
+---
+title: "About"
+layout: layouts/page.njk
+# About Me
+
+This is the about page.
 ```
 
-You don’t need to learn everything. Copy, paste, tweak one thing at a time.
+### Modifying Navigation
 
-Resources:
-- Markdown basics: https://www.markdownguide.org/basic-syntax/
-- Learn HTML (MDN): https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Structuring_content
-- Learn CSS (MDN): https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Styling_basics
+Edit `src/_data/nav.js` to add/remove navigation links.
 
----
+### Adding Assets
 
-## 4) The IndieWeb in plain language
+Put images in `src/assets/images/` and reference with `/assets/images/...` URLs.
 
-- IndieWeb is a people‑first approach to publishing.
-- You own your domain and content.
-- Your site speaks “microformats” so other sites can understand posts.
-- Webmentions let other sites reply/like/bookmark your posts—across the web.
+## 7. Search
 
-Minimum IndieWeb setup:
-- Set `site.url` in `src/_data/site.json` (your domain).
-- Optional webmentions: create an account on webmention.io and add to `site.json`:
-  ```json
-  "webmentions": { "enabled": true, "domain": "yourdomain.com" }
-  ```
-- Your posts already include h‑entry microformats. Nothing else to do.
+This starter uses [Pagefind](https://pagefind.app/) for search:
 
-Resources:
-- IndieWeb: Getting Started — https://indieweb.org/Getting_Started
-- IndieWebify Me — https://indiewebify.me/
-- Microformats h-entry — http://microformats.org/wiki/h-entry
-- Microformats h-card — https://microformats.org/wiki/h-card
-- Microformats on MDN — https://developer.mozilla.org/en-US/docs/Web/HTML/microformats
-- Webmention.io — https://webmention.io/
+- Build-time indexing (no server needed)
+- No API keys required
+- Runs automatically with `npm run build`
+- Search UI at `/search.md`
 
----
+## 8. Fonts
 
-## 5) Make it yours (without coding)
+The default fonts are system font stacks. Zero font loading, zero layout shift.
 
-- Edit `src/_data/site.json` – this single file controls:
-  - Name, bio, social links, analytics (optional), newsletter (optional)
-- Edit colors and fonts:
-  - Use the “A11y” menu in the header: Dark mode, font size, contrast, system/web fonts
-- Change the homepage text in `src/index.njk` (search for the hero section)
-- Add pages by duplicating a file in `src/` (e.g., `about.njk`) and editing the text
+**To use Google Fonts or Bunny Fonts:**
 
-Resources:
-- Eleventy docs — https://www.11ty.dev/docs/
-- Tailwind CSS docs — https://tailwindcss.com/docs
+1. Add the `<link>` tag to `src/_includes/partials/head.njk`
+2. Update `--font-family-sans` / `--font-family-heading` in `src/assets/css/01-variables.css`
+3. Update `site.fonts` in `src/_data/site.js` to match
 
----
+## 8.1 Favicons
 
-## 6) Tags, categories, and search
+The starter includes a comprehensive favicon set in `src/assets/images/favicon/`:
+- `favicon.ico`: Legacy browser support
+- `favicon-16x16.png`: Small icon for older browsers
+- `favicon-32x32.png`: Standard favicon size
+- `apple-touch-icon.png`: iOS home screen icon
+- `android-chrome-192x192.png`: Android home screen
+- `android-chrome-512x512.png`: Android splash screen
+- `site.webmanifest`: Web app manifest
 
-- Add tags: `tags: [thoughts, notes]` → your post appears on `/tags/thoughts/` automatically.
-- Add one category: `category: tutorials` → shows up on `/categories/tutorials/` and the index `/categories/`.
-- Search is automatic—no setup required.
+To generate your own favicon set:
+- **Easy option**: [favicon.io](https://favicon.io/emoji-favicons/): Generate emoji-based favicons quickly
+- **Comprehensive option**: [RealFaviconGenerator.net](https://realfavicongenerator.net/): Generate a complete favicon set from a single image with PWA support
 
-Resources:
-- Eleventy collections (tags) — https://www.11ty.dev/docs/collections/
+To replace the favicons:
+1. Generate your favicon set using one of the tools above
+2. Replace the files in `src/assets/images/favicon/`
+3. Update `site.webmanifest` if you change the manifest content
 
----
+## 10. Deployment
 
-## 7) Add badges (fun little labels)
+### Netlify (recommended)
 
-Badges are tiny images that show info (e.g., “Built with Eleventy”, “RSS”). They work anywhere you can put an image/link.
+1. Fork/clone the repo
+2. Connect the repo in Netlify
+3. Set `WEBMENTION_IO_TOKEN` (and any other secrets) in Netlify's dashboard
+4. Deploy
 
-Where to find badges:
-- Shields.io badge builder: https://shields.io/
-- Big list of ready‑made Markdown badges: https://ileriayo.github.io/markdown-badges/
+### GitHub Actions to Netlify
 
-Add a badge to `README.md` (Markdown):
+The starter includes GitHub Actions workflows:
+- `.github/workflows/ci.yml`: Runs on every push/PR to verify the build succeeds
+- `.github/workflows/deploy.yml`: Deploys to Netlify on main branch pushes
 
-```md
-[![RSS](https://img.shields.io/badge/RSS-Subscribe-orange?style=for-the-badge)](./_site/feed.xml)
+To enable Netlify deployment via GitHub Actions:
+1. Fork the repo
+2. In your fork's Settings → Secrets and variables → Actions, add:
+  : `NETLIFY_AUTH_TOKEN`: Your Netlify personal access token
+  : `NETLIFY_SITE_ID`: Your Netlify site ID
+3. Push to main to trigger deployment
+
+### Vercel
+
+1. Import the repo in Vercel
+2. Set environment variables in Vercel dashboard
+3. Deploy
+
+### GitHub Pages
+
+1. Push to GitHub
+2. Enable Pages in repository settings
+3. Configure build settings: `npm run build`, output directory `_site`
+
+### Advanced Deployment Options
+For alternative deployment methods and CI/CD setups:
+- [Deploying Eleventy to Neocities with GitLab CI/CD](https://brennan.day/deploying-an-eleventy-site-to-neocities-with-gitlab-ci-cd/)
+- [Refactoring Eleventy config into modules](https://brennan.day/cleaning-house-refactoring-my-eleventy-config-into-modules/)
+
+## 11. Environment Variables
+
+Copy `.env.example` to `.env` for local development:
+
+```bash
+cp .env.example .env
 ```
 
-Add a badge to a page (HTML):
+Required for webmentions:
+- `WEBMENTION_IO_TOKEN`: Your webmention.io token
 
-```html
-<a href="/feed.xml">
-  <img alt="RSS" src="https://img.shields.io/badge/RSS-Subscribe-orange?style=for-the-badge" />
-</a>
+## 13. Templating
+
+This starter uses Nunjucks (`.njk` files) for layouts and partials:
+
+- **Layouts**: `src/_includes/layouts/` (base.njk, page.njk, post.njk)
+- **Partials**: `src/_includes/partials/` (head, header, footer, etc.)
+- **Data**: `src/_data/` (site.js, nav.js, etc.)
+
+To learn Nunjucks:
+- [Official Nunjucks Documentation](https://mozilla.github.io/nunjucks/)
+- [Nunjucks Getting Started](https://mozilla.github.io/nunjucks/getting-started.html)
+
+## 15. Extending the Starter
+
+This starter is intentionally minimal. Here are common extensions you can add:
+
+### Additional Content Types
+Add new collections in `config/collections.js` for:
+- Notes, journal entries, poetry, etc.
+- Create corresponding layouts in `src/_includes/layouts/`
+
+### Tag Archive Pages
+The `tagList` collection already exists. Add a `src/tags.njk` pagination template to render one page per tag.
+
+### Custom Comments/Guestbook
+Currently links out to hosted services. To build your own:
+- Add a form (Netlify Forms or similar)
+- Add a backend (Netlify Function + database, or Supabase)
+- Implement moderation
+- For a detailed guide, see [Building an IndieAuth comment system](https://brennan.day/building-an-indieauth-comment-system-for-your-static-site/)
+- For the classic guestbook experience, see [Bring back the 90s guestbook with JAMstack](https://brennan.day/bring-back-the-90s-guestbook-with-jamstack-how-i-added-dynamic-comments-to-my-static-11ty-site/)
+
+### Analytics
+Add privacy-friendly analytics to `src/_includes/partials/head.njk`:
+- Plausible Analytics
+- Fathom Analytics
+- Simple Analytics
+
+### Sitemap.xml
+Add a `sitemap.njk` template looping through `collections.all`.
+
+### Badges & Webrings
+Add 88×31 buttons or webring navigation to your footer or sidebar.
+
+## 16. IndieWeb Philosophy
+
+This starter is built on these principles:
+
+1. **Good faith code. Good faith writing.** No invasive trackers, ads, or a11y-hostile design.
+2. **A pro-social attitude.** The web is meant to be social. Your site should have some social element.
+3. **Be fun. Be accessible. Be small.** Express yourself. Follow WCAG guidelines. Keep your site performant.
+
+The IndieWeb is a spectrum. There's no "perfect" IndieWeb site. This starter is one path, not the only one.
+
+## 18. Learning Resources
+
+If you're new to these technologies:
+
+- **Markdown**: [Markdown Guide](https://www.markdownguide.org/)
+- **JavaScript**: [The Modern JavaScript Tutorial](https://javascript.info/)
+- **Eleventy**: [Official Docs](https://www.11ty.dev/docs/)
+- **Nunjucks**: [Official Documentation](https://mozilla.github.io/nunjucks/)
+- **IndieWeb**: [Getting Started](https://indieweb.org/Getting_Started)
+- **Webmentions**: [Webmention.io](https://webmention.io/)
+
+## 20. Troubleshooting
+
+### Build fails
+- Run `npm run clean` then `npm run build`
+- Check that Node version is >=18
+
+### Webmentions not appearing
+- Verify `WEBMENTION_IO_TOKEN` is set correctly
+- Check that your domain is registered on webmention.io
+
+### Assets not loading
+- Check file paths in `src/assets/images/`
+- Verify passthrough copy in `eleventy.config.js`
+
+### Search not working
+- Ensure `npm run build` completed successfully
+- Check that `pagefind` indexed the `_site/` folder
+
+### Build performance issues
+- Run `npm run clean` before building
+- For optimizing build times, see [Cutting Eleventy build times in half](https://brennan.day/300-minutes-a-month-cutting-my-eleventy-netlify-build-time-in-half/)
+- For developer experience improvements, see [Making Eleventy builds 5x faster](https://brennan.day/i-made-my-eleventy-build-5-faster-with-five-changes/)
+
+## 21. Folder Structure
+
+```
+├── eleventy.config.js        # Eleventy config entry point
+├── config/                   # filters.js, markdown.js, shortcodes.js, collections.js
+├── netlify.toml              # Configuration for Netlify
+├── robots.txt                # Denying genAI crawlers
+├── src/
+│   ├── _data/                # site.js (central config), nav.js, webmentions.js
+│   ├── _includes/
+│   │   ├── layouts/          # base.njk, post.njk, page.njk
+│   │   └── partials/         # head, header, footer, h-card, webmentions
+│   ├── assets/
+│   │   ├── css/              # chota.css + your custom CSS
+│   │   └── images/           # Your images
+│   ├── posts/                # Your blog posts
+│   └── *.md, *.njk           # Pages (index, about, contact, etc.)
 ```
 
-Tip: Change the text and color directly in the Shields.io URL.
-
-Resources:
-- Shields.io — https://shields.io/
-- Markdown Badges list — https://ileriayo.github.io/markdown-badges/
-
----
-
-## 8) Make it “weird” (retro fun, MySpace/GeoCities vibe)
-
-No code required for these simple tweaks:
-
-- Emoji and ASCII art: add personality to headings and dividers.
-- Use the Style Guide page at `/style/` for color ideas and components you can copy.
-- Add playful copy and sections (e.g., a “Guestbook” page using a webmention list).
-
-Low‑code ideas (copy/paste):
-
-- Custom background image: open `src/assets/css/tailwind.css` and add:
-  ```css
-  .retro-bg {
-    background-image: url('/assets/retro-stars.png');
-    background-size: cover;
-    background-attachment: fixed;
-  }
-  ```
-  Then wrap your content in a div with `class="retro-bg"` in `src/_includes/layouts/base.njk` or any page.
-
-- Animated marquee (accessible flavor):
-  ```html
-  <div role="marquee" aria-label="Scrolling message" class="overflow-hidden whitespace-nowrap py-2">
-    <div class="inline-block animate-[marquee_18s_linear_infinite]">
-      🌟 Welcome to my corner of the open web • Built with love • Be kind on the internet 🌟
-    </div>
-  </div>
-  ```
-  And in `tailwind.css` add a keyframes block:
-  ```css
-  @keyframes marquee {
-    0% { transform: translateX(100%); }
-    100% { transform: translateX(-100%); }
-  }
-  ```
-
-- Pixel/retro font just for headings:
-  - Add a free font file to `src/assets/` and include via CSS, or use the System Fonts toggle for a simpler look.
-
-### Classic 88×31 buttons (old‑school GIF badges)
-
-These tiny 88×31 pixel buttons were everywhere in the 1990s/2000s. They’re a fun way to show your vibe.
-
-- Big gallery: https://cyber.dabamos.de/88x31/
-
-How to add them (simple):
-
-1) Put button images in `src/assets/buttons/` (create the folder).
-
-2) Add this HTML where you want them to appear (e.g., in a page or the footer template `src/_includes/layouts/base.njk`):
-
-```html
-<div class="badges">
-  <a href="/" title="Home">
-    <img src="/assets/buttons/my-site.gif" width="88" height="31" loading="lazy" alt="My Site" />
-  </a>
-  <a href="/feed.xml" title="RSS">
-    <img src="/assets/buttons/rss.gif" width="88" height="31" loading="lazy" alt="RSS Feed" />
-  </a>
-</div>
-```
-
-3) Optional CSS for neat layout and crisp pixels (add to `src/assets/css/tailwind.css`):
-
-```css
-.badges { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
-.badges img { image-rendering: pixelated; }
-```
-
-Tips:
-- Prefer hosting locally (`/assets/buttons/...`) so the images don’t disappear.
-- Always include `alt` text and `width/height` for accessibility and layout stability.
-- Use `loading="lazy"` so they don’t slow the page.
-
-More 88×31 resources:
-- Gallery: https://cyber.dabamos.de/88x31/
-- Button maker: https://websetsbylynn.neocities.org/88x31-button-maker/
-- Curated collections: https://anlucas.neocities.org/88x31Buttons
-
-### Join a Webring (share visitors with friendly sites)
-
-Webrings connect sites in a circle with simple “Previous/Next” links.
-
-Popular option:
-- XXIIVV Webring: https://webring.xxiivv.com/ (rules + join instructions in the repo)
-
-How to join (high level):
-1) Make a pull request to add your site to the webring list: https://github.com/XXIIVV/webring
-2) Choose an ID (often your domain without dots). You’ll use it in the links below.
-3) Add the webring links to your footer or a page.
-
-Copy/paste HTML (replace `your-id` with your chosen ID):
-
-```html
-<nav aria-label="Webring navigation" class="webring">
-  <a href="https://webring.xxiivv.com/prev/your-id" rel="nofollow" title="Previous site">← Prev</a>
-  <a href="https://webring.xxiivv.com/#your-id" rel="nofollow" title="Webring hub">
-    <img src="https://webring.xxiivv.com/icon.black.svg" alt="XXIIVV Webring" width="24" height="24" />
-  </a>
-  <a href="https://webring.xxiivv.com/next/your-id" rel="nofollow" title="Next site">Next →</a>
-  </nav>
-```
-
-Optional CSS (add to `src/assets/css/tailwind.css`):
-
-```css
-.webring { display: inline-flex; gap: 12px; align-items: center; }
-.webring a { text-decoration: none; }
-```
-
-Notes:
-- Keep the links visible so visitors can actually use the ring.
-- Use `rel="nofollow"` if you prefer; some rings recommend it.
-- If you leave the ring later, simply remove the links.
-
-Resources:
-- XXIIVV Webring — https://webring.xxiivv.com/
-- Join via GitHub — https://github.com/XXIIVV/webring
-
-Keep it accessible:
-- Ensure sufficient color contrast.
-- Don’t rely only on color to convey meaning.
-- Prefer CSS animations that respect “reduce motion”.
-
-Accessibility resources:
-- W3C WAI Accessibility Fundamentals — https://www.w3.org/WAI/fundamentals/
-- WAI Tutorials — https://www.w3.org/WAI/tutorials/
-
----
-
-## 9) Common questions
-
-- Where do images go? Put files in `src/assets/` and reference with `/assets/...` URLs.
-- Can I change the menu? Edit `src/_includes/layouts/base.njk` and update the nav links.
-- How do I add social links? Edit `social` in `src/_data/site.json`.
-
----
-
-## 10) Next steps
-
-- Write a welcome post: why your site exists and what you’ll write about.
-- Add a “Blogroll” (`src/blogroll.njk`) – link to sites you enjoy.
-- Explore the Categories page at `/categories/` and tag pages at `/tags/`.
-
-You’ve got this. The web needs more personal, weird, welcoming spaces.
+You've got this. The web needs more personal, thoughtful, welcoming spaces.
