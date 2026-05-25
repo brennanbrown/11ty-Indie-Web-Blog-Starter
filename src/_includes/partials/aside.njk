@@ -1,0 +1,99 @@
+{# partials/aside.njk. Optional sidebar, config-toggleable via
+   `site.sidebar` in site.js. Contains an about card, stats, recent posts,
+   a blogroll, webrings, and links to your other accounts. Each module is
+   its own block. Delete whichever don't fit your site, or add your own
+   following the same pattern. #}
+{% if site.sidebar %}
+  <aside class="sidebar">
+    <div class="module module-about">
+      <h2>About</h2>
+      {% set compact = false %}
+      {% include "partials/h-card.njk" %}
+      <p>
+        <a href="/about/">More about me →</a>
+      </p>
+    </div>
+    {% if collections.posts and collections.posts.length > 0 %}
+      <div class="module module-stats">
+        <h2>Stats</h2>
+        <ul class="icon-list">
+          <li>
+            <i class="fa-solid fa-file-lines" aria-hidden="true"></i>
+            {{ collections.posts.length }} post{{ 's' if collections.posts.length != 1 }} published</li>
+          <li>
+            <i class="fa-solid fa-pen-nib" aria-hidden="true"></i>
+            {{ collections.posts | totalWords }} words written</li>
+          <li>
+            <i class="fa-solid fa-layer-group" aria-hidden="true"></i>
+            {{ collections.all.length }} page{{ 's' if collections.all.length != 1 }} in total</li>
+          {% set allTags = [] %}
+          {% for post in collections.posts %}
+            {% if post.data.tags %}
+              {% for tag in post.data.tags %}
+                {% if tag not in allTags %}
+                  {% set _ = allTags.push(tag) %}
+                {% endif %}
+              {% endfor %}
+            {% endif %}
+          {% endfor %}
+          <li>
+            <i class="fa-solid fa-tags" aria-hidden="true"></i>
+            {{ allTags.length }} tag{{ 's' if allTags.length != 1 }}</li>
+        </ul>
+      </div>
+      <div class="module module-recent">
+        <h2>Recent posts</h2>
+        <ul class="plain-list">
+          {% for post in collections.posts | head(5) %}
+            <li>
+              <a href="{{ post.url }}">{{ post.data.title }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+    {% if site.author.relMe.length > 0 %}
+      <div class="module module-elsewhere">
+        <h2>Elsewhere</h2>
+        <ul class="icon-list">
+          {% for url in site.author.relMe %}
+            <li>
+              <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+              <a href="{{ url }}" rel="me">{{ url | replace("https://", "") | replace("http://", "") }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+    {% if blogroll.length > 0 %}
+      <div class="module module-blogroll">
+        <h2>Blogroll</h2>
+        <ul class="plain-list">
+          {% for blog in blogroll %}
+            <li>
+              <a href="{{ blog.url }}">{{ blog.name }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+        <p class="module-note">A personal list. See
+          <code>src/_data/blogroll.js</code>
+          to make it yours.</p>
+      </div>
+    {% endif %}
+    {% if webrings.length > 0 %}
+      <div class="module module-webrings">
+        <h2>Webrings</h2>
+        <ul class="plain-list">
+          {% for ring in webrings %}
+            <li>
+              <a href="{{ ring.url }}">{{ ring.name }}</a>
+              {% if ring.note %}
+                <span class="module-note">: {{ ring.note }}</span>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+  </aside>
+{% endif %}

@@ -1,0 +1,14 @@
+<div class="h-card{% if compact %} h-card--compact{% endif %}">
+  <img class="u-photo" src="{{ site.author.photo }}" alt="{{ site.author.name }}" width="{% if compact %}48{% else %}64{% endif %}" height="{% if compact %}48{% else %}64{% endif %}">
+    <div>
+      <p class="p-name">
+        <a class="u-url" href="{{ site.author.url }}" rel="me">{{ site.author.name }}</a>
+      </p>
+      {% if not compact %}
+        <p>{{ site.author.bio }}</p>
+        <p>
+          <a class="u-email" href="mailto:{{ site.author.email }}">{{ site.author.email }}</a>
+        </p>
+      {% endif %}
+    </div>
+  </div>
