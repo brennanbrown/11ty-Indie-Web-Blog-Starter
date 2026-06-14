@@ -1,0 +1,22 @@
+{
+  "rootSelector": "main",
+  "excludeSelectors": [
+    "header",
+    "footer",
+    "nav",
+    ".sidebar",
+    ".hero",
+    ".webmentions"
+  ],
+  "forceWeight": {
+    "h1.p-name": 1000,
+    ".post-title": 1000,
+    "h1": 800,
+    "h2": 600
+  },
+  "ranking": {
+    "pageLength": 0.5,
+    "termFrequency": 1.5,
+    "termSaturation": 1.2
+  }
+}
