@@ -1,0 +1,23 @@
+{# partials/hero.njk. A dismissible intro banner, config-driven via
+   `site.hero` in site.js. Ships on by default to explain this starter to a
+   first-time visitor; turn it off (`site.hero.enabled = false`) or rewrite
+   the copy once your own homepage content replaces it.
+
+   Dismissal is remembered in localStorage via assets/js/hero.js. This is
+   the one place in the starter that isn't pure progressive enhancement,
+   since there's no server-side way to remember a preference. Without JS,
+   the hero always shows and the dismiss button is hidden (see the
+   `.no-js` rule in 14-progressive-enhancement.css). #}
+<section class="hero container" id="hero-section" aria-label="Introduction">
+  <button type="button" class="hero-close js-required" aria-label="Dismiss this introduction" onclick="dismissHero()">
+    <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+  </button>
+  <h2>{{ site.hero.title }}</h2>
+  <p>{{ site.hero.body }}</p>
+  <p class="hero-features">
+    <strong>What's included:</strong>
+    IndieWeb microformats (h-card/h-entry) · sending &amp; receiving webmentions · RSS + JSON feeds · build-time search via
+    Pagefind · CSS-only dark mode · no client-side JavaScript.
+  </p>
+  <a class="button" href="{{ site.hero.ctaUrl }}">{{ site.hero.ctaText }}</a>
+</section>
