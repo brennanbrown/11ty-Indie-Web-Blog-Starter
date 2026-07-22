@@ -56,7 +56,7 @@ lerna-debug.log*
 # ----------------------------
 # Eleventy / Build Outputs
 # ----------------------------
-# Default Eleventy output (change if custom in .eleventy.js)
+# Default Eleventy output (change if custom in eleventy.config.js)
 _site/
 
 # Common dist directories if you export elsewhere
@@ -91,12 +91,6 @@ nx-out/
 coverage/
 nyc_output/
 .nyc_output/
-
-# Playwright
-playwright-report/
-test-results/
-.playwright/
-.cache/ms-playwright/
 
 # Vitest / Jest (if used)
 .vitest/
