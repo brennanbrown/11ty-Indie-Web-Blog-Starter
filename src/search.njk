@@ -1,9 +1,0 @@
----
-permalink: /search.json
-eleventyExcludeFromCollections: true
----
-{%- if collections.searchIndex -%}
-{{ collections.searchIndex | json | safe }}
-{%- else -%}
-[]
-{%- endif -%}
