@@ -1,0 +1,49 @@
+---
+title: Posts
+permalink: /posts/
+---
+
+<article class="h-entry page">
+  <div class="e-content">
+    <p>All {{ collections.posts.length }} posts, newest first.</p>
+<div class="h-feed">
+  {% set groupedPosts = collections.posts | groupPostsByMonth %}
+  {% for month in groupedPosts %}
+    <section class="archive-month">
+      <h2 class="archive-month-heading">{{ month.monthYear }}</h2>
+      <ul class="post-list">
+        {% for post in month.posts %}
+          <li class="h-entry">
+            <div class="post-content">
+              <h2>
+                <a class="u-url p-name post-title-archive" href="{{ post.url }}" data-pagefind-meta="title">{{ post.data.title }}</a>
+              </h2>
+              <div class="post-meta post-meta-archive">
+                <time class="dt-published post-date" datetime="{{ post.date | isoDate }}">{{ post.date | readableDate }}</time>
+                <span class="separator">·</span>
+                <span class="post-type">Article by {{ site.author.name }}</span>
+                <span class="separator">·</span>
+                <span class="post-stats">{{ post.templateContent | readingTime }}</span>
+                <span class="separator">·</span>
+                <span class="post-stats">{{ post.templateContent | wordCount }} words</span>
+              </div>
+              {% if post.data.tags %}
+                <p class="post-tags-small">
+                  {% set taglist = post.data.tags | filterTagList %}
+                  {% for tag in taglist %}
+                    <a class="p-category tag tag-small" href="/tags/#{{ tag | slugify }}">#{{ tag }}</a>
+                  {% endfor %}
+                </p>
+              {% endif %}
+              {% if post.data.description %}
+                <p class="post-description">{{ post.data.description }}</p>
+              {% endif %}
+            </div>
+          </li>
+        {%- endfor %}
+      </ul>
+    </section>
+  {% endfor %}
+</div>
+  </div>
+</article>
