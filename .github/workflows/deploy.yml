@@ -1,43 +1,55 @@
-# This workflow is disabled by default. To enable GitHub Actions deployment to Netlify:
-# 1. Uncomment the entire workflow below
-# 2. Add NETLIFY_AUTH_TOKEN and NETLIFY_SITE_ID as repository secrets in GitHub
-#    (Settings → Secrets and variables → Actions)
-# 3. Get your credentials: https://app.netlify.com/user/applications (token) and site settings (ID)
-#
-# Alternatively, use Netlify's Git integration for automatic deployments without GitHub Actions.
+name: Deploy to Netlify
 
-# name: Deploy to Netlify
-#
-# on:
-#   push:
-#     branches: [ "main" ]
-#   workflow_dispatch:
-#
-# jobs:
-#   deploy:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout
-#         uses: actions/checkout@v4
-#
-#       - name: Setup Node.js
-#         uses: actions/setup-node@v4
-#         with:
-#           node-version: '20'
-#           cache: 'npm'
-#
-#       - name: Install dependencies
-#         run: npm ci
-#
-#       - name: Build site
-#         run: npm run build
-#
-#       - name: Install Netlify CLI
-#         run: npm i -g netlify-cli
-#
-#       - name: Deploy to Netlify (production)
-#         env:
-#           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-#           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-#         run: |
-#           netlify deploy --dir=_site --prod --site "$NETLIFY_SITE_ID" --auth "$NETLIFY_AUTH_TOKEN" --message "GitHub Actions deploy ${{ github.sha }}"
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build site
+        run: npm run build
+
+      - name: Test build output
+        run: |
+          if [ ! -d "_site" ]; then
+            echo "Build directory _site not found"
+            exit 1
+          fi
+          if [ ! -f "_site/index.html" ]; then
+            echo "index.html not found in build output"
+            exit 1
+          fi
+          echo "Build validation passed"
+
+      # Deployment is disabled by default. To enable:
+      # 1. Uncomment the Netlify CLI and deploy steps below
+      # 2. Add NETLIFY_AUTH_TOKEN and NETLIFY_SITE_ID as repository secrets in GitHub
+      #    (Settings → Secrets and variables → Actions)
+      # 3. Get your credentials: https://app.netlify.com/user/applications (token) and site settings (ID)
+      #
+      # Alternatively, use Netlify's Git integration for automatic deployments without GitHub Actions.
+
+      # - name: Install Netlify CLI
+      #   run: npm i -g netlify-cli
+      #
+      # - name: Deploy to Netlify (production)
+      #   env:
+      #     NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+      #     NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+      #   run: |
+      #     netlify deploy --dir=_site --prod --site "$NETLIFY_SITE_ID" --auth "$NETLIFY_AUTH_TOKEN" --message "GitHub Actions deploy ${{ github.sha }}"
