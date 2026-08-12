@@ -54,7 +54,7 @@
         </li>
         {% if site.hero.enabled and page.url == "/" %}
           <li>
-            <button type="button" class="link-button js-required" onclick="restoreHero()">Show Hero</button>
+            <button type="button" class="link-button js-required" id="show-hero-button" onclick="restoreHero()" style="display:none;">Show Hero</button>
           </li>
         {% endif %}
       </ul>

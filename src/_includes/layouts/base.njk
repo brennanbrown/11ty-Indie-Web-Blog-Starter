@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="{{ site.language }}">
+<html lang="{{ site.language }}" class="no-js">
 <head>
   {% include "partials/head.njk" %}
 </head>
 <body>
+  <script>document.documentElement.classList.remove('no-js');</script>
   {% include "partials/header.njk" %}
   <main>
     {% if site.hero.enabled and page.url == "/" %}

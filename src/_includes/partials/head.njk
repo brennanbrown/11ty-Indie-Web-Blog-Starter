@@ -59,6 +59,21 @@
 <link rel="stylesheet" href="{{ '/assets/css/15-pagefind.css' | assetHash }}">
 <link rel="stylesheet" href="{{ '/assets/css/syntax-highlighting.css' | assetHash }}">
 
+<!-- JavaScript -->
+{% if site.hero.enabled %}
+  <script>
+    (function() {
+      var HERO_ID = "hero-section";
+      var STORAGE_KEY = "heroDismissed";
+      if (localStorage.getItem(STORAGE_KEY) === "true") {
+        document.write('<style>#' + HERO_ID + '{display:none;}</style>');
+        document.write('<style>#show-hero-button{display:inline-block !important;}</style>');
+      }
+    })();
+  </script>
+  <script src="{{ '/assets/js/hero.js' | assetHash }}"></script>
+{% endif %}
+
 {% if site.author.relMe %}
   {% for relMeUrl in site.author.relMe %}
     <link rel="me" href="{{ relMeUrl }}">

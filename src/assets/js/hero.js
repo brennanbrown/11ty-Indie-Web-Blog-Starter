@@ -21,6 +21,10 @@
     if (hero) {
       hero.style.display = "none";
       localStorage.setItem(STORAGE_KEY, "true");
+      var showHeroButton = document.getElementById("show-hero-button");
+      if (showHeroButton) {
+        showHeroButton.style.display = "";
+      }
     }
   };
 
@@ -29,6 +33,10 @@
     if (hero) {
       hero.style.display = "";
       localStorage.removeItem(STORAGE_KEY);
+      var showHeroButton = document.getElementById("show-hero-button");
+      if (showHeroButton) {
+        showHeroButton.style.display = "none";
+      }
       hero.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
