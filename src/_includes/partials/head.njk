@@ -66,8 +66,8 @@
       var HERO_ID = "hero-section";
       var STORAGE_KEY = "heroDismissed";
       if (localStorage.getItem(STORAGE_KEY) === "true") {
-        document.write('<style>#' + HERO_ID + '{display:none;}</style>');
-        document.write('<style>#show-hero-button{display:inline-block !important;}</style>');
+        document.write('<style id="hero-hide-style">#' + HERO_ID + '{display:none;}</style>');
+        document.write('<style id="show-hero-button-style">#show-hero-button{display:inline-block !important;}</style>');
       }
     })();
   </script>

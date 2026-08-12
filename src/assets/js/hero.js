@@ -37,6 +37,15 @@
       if (showHeroButton) {
         showHeroButton.style.display = "none";
       }
+      // Remove the inline styles that were added by the head script
+      var heroHideStyle = document.getElementById("hero-hide-style");
+      if (heroHideStyle) {
+        heroHideStyle.remove();
+      }
+      var showHeroButtonStyle = document.getElementById("show-hero-button-style");
+      if (showHeroButtonStyle) {
+        showHeroButtonStyle.remove();
+      }
       hero.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
