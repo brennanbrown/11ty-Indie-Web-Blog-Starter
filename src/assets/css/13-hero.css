@@ -24,8 +24,8 @@
 
 .hero-close {
   position: absolute;
-  top: 0.75rem;
-  right: 0.75rem;
+  top: 0;
+  right: 0;
   background: none;
   border: none;
   cursor: pointer;

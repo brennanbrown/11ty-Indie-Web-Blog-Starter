@@ -60,11 +60,8 @@ p {
 /* Blockquotes */
 blockquote {
   margin: 1.5rem 0;
-  padding: 1rem 1.5rem;
-  border-left: 4px solid var(--color-primary);
-  background: var(--bg-secondary-color);
-  font-style: italic;
-  font-size: 1.1rem;
+  padding: 0 1rem;
+  border-left: 3px solid var(--color-lightGrey);
   line-height: 1.6;
 }
 
@@ -83,14 +80,12 @@ samp {
 pre {
   background: var(--bg-secondary-color);
   padding: 1rem;
-  border-radius: 4px;
   overflow-x: auto;
 }
 
 code {
   background: var(--bg-secondary-color);
   padding: 0.2rem 0.4rem;
-  border-radius: 3px;
   font-size: 0.9em;
 }
 
@@ -103,7 +98,6 @@ pre code {
 kbd {
   background: var(--bg-secondary-color);
   border: 1px solid var(--color-lightGrey);
-  border-radius: 3px;
   padding: 0.2rem 0.4rem;
   font-size: 0.9em;
 }

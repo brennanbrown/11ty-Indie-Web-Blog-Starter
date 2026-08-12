@@ -11,7 +11,6 @@
   margin-top: 3rem;
   padding-top: 2rem;
   border-top: 1px solid var(--color-lightGrey);
-  background: var(--bg-secondary-color);
   font-family: var(--font-family-sans);
   max-width: 100%;
   overflow-wrap: break-word;
@@ -38,8 +37,6 @@
 
 .site-footer-heading {
   font-size: 1rem;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
   margin: 0 0 0.75rem;
 }
 
@@ -50,7 +47,7 @@
 }
 
 .site-footer-list li {
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.25rem;
 }
 
 .site-footer-list a {

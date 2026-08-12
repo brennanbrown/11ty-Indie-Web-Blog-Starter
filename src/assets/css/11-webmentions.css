@@ -4,7 +4,7 @@
  */
 
 .webmentions {
-  margin-top: 3rem;
+  margin-top: 2rem;
   padding-top: 1.5rem;
   border-top: 1px solid var(--color-lightGrey);
 }
@@ -37,8 +37,8 @@
 }
 
 .webmention-author img {
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   object-fit: cover;
 }
@@ -66,7 +66,7 @@
 }
 
 .webmention-content {
-  margin-left: 3.25rem;
+  margin-left: 2.5rem;
 }
 
 .webmention-content .p-content {
