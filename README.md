@@ -98,28 +98,28 @@ npm run build     # production build to _site/, then indexes it with Pagefind
 
 Configuration a beginner should touch lives in this one file:
 
-| Field                                     | What it does                                                                                                                      |
-| ----------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| `title`, `description`, `url`, `language` | Basic site identity                                                                                                               |
-| `author.*`                                | Your [h-card](https://indieweb.org/h-card): name, url, photo, email, bio, `relMe` links                                           |
-| `seo.*`                                   | Default OG image, whether to also emit Twitter Card tags                                                                          |
-| `nav`                                     | Whether the nav (driven by `nav.js`) renders                                                                                      |
-| `sidebar`                                 | Whether the optional `<aside>` renders (about card, stats, recent posts, elsewhere, blogroll, webrings. See `partials/aside.njk`) |
-| `homepagePostsLimit`                     | Number of posts to show on the homepage                                                                                           |
-| `webmention.*`                            | Endpoint URLs and your token (from the environment, never hardcoded)                                                              |
-| `feed.*`                                  | Which feed formats to emit                                                                                                        |
-| `fonts.*`                                 | Font stacks. Mirror any change into `assets/css/01-variables.css` too                                                                |
-| `license.*`, `credits.*`                  | Rendered in the footer                                                                                                            |
+| Field | What it does |
+|-------|--------------|
+| `title`, `description`, `url`, `language` | Basic site identity |
+| `author.*` | Your [h-card](https://indieweb.org/h-card): name, url, photo, email, bio, `relMe` links |
+| `seo.*` | Default OG image, whether to also emit Twitter Card tags |
+| `nav` | Whether the nav (driven by `nav.js`) renders |
+| `sidebar` | Whether the optional `<aside>` renders (about card, stats, recent posts, elsewhere, blogroll, webrings. See `partials/aside.njk`) |
+| `homepagePostsLimit` | Number of posts to show on the homepage |
+| `webmention.*` | Endpoint URLs and your token (from the environment, never hardcoded) |
+| `feed.*` | Which feed formats to emit |
+| `fonts.*` | Font stacks. Mirror any change into `assets/css/01-variables.css` too |
+| `license.*`, `credits.*` | Rendered in the footer |
 
 ## 6.1 Post front matter
 
 Posts support optional featured images with alt text and captions:
 
-|| Field                        | What it does                                                                 |
-|| ---------------------------- | --------------------------------------------------------------------------- |
-|| `featured_image`             | Path to the featured image (e.g., `/assets/images/posts/example.jpg`)       |
-|| `featured_image_alt`         | Alt text for the image (required for accessibility)                        |
-|| `featured_image_caption`    | Caption displayed below the image (supports Markdown links)                 |
+| Field | What it does |
+|-------|--------------|
+| `featured_image` | Path to the featured image (e.g., `/assets/images/posts/example.jpg`) |
+| `featured_image_alt` | Alt text for the image (required for accessibility) |
+| `featured_image_caption` | Caption displayed below the image (supports Markdown links) |
 
 Example:
 ```yaml
