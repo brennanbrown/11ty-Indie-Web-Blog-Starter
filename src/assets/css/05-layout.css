@@ -72,7 +72,7 @@ article {
 /* Override chota's container class for mobile responsiveness */
 .container {
   max-width: 100%;
-  padding: 0 1rem;
+  padding: 0 1.5rem;
   margin: 0 auto;
 }
 
