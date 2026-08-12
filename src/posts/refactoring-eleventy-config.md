@@ -394,10 +394,12 @@ The site works as it did before. It's just a little easier for me to work with n
 
 After writing the post above, the dev server threw a build error:
 
+{% raw %}
 ```
 [11ty] ./src/pages/charts.md contains a circular reference
        (using collections) to its own templateContent.
 ```
+{% endraw %}
 
 This is an issue I've had before: the culprit turned out to be a code example inside this very post! Since `markdownTemplateEngine: "njk"` is set in the Eleventy config, Nunjucks processes every `.md` file **before** the markdown renderer runs. Nunjucks expressions inside backtick code blocks are still executed, not protected by markdown fencing at all.
 
@@ -405,4 +407,4 @@ The code block example was the Nunjucks expression that called `charts.generate(
 
 The fix was wrapping the offending code block in `{% raw %}` and `{% endraw %}` tags. Those tell Nunjucks to pass the content through as literal text without evaluating it, so the expression appears in the rendered post as code rather than being executed.
 
-If you write technical posts about Eleventy, wrap every code example containing `{{ }}` or `{% %}` in raw tags. The backticks (like the goggles) do nothing to stop the template engine.
+If you write technical posts about Eleventy, wrap every code example containing Nunjucks syntax in raw tags. The backticks (like the goggles) do nothing to stop the template engine.
