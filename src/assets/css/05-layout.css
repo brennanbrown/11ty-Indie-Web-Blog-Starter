@@ -26,12 +26,26 @@ main {
   width: 100%;
 }
 
+/* Ensure articles and content areas respect viewport */
+article {
+  max-width: 100%;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+.content {
+  max-width: 100%;
+  overflow-x: hidden;
+  width: 100%;
+}
+
 .e-content {
   max-width: 100%;
   overflow-wrap: break-word;
   word-wrap: break-word;
   word-break: break-word;
   hyphens: auto;
+  width: 100%;
 }
 
 /* Responsive tables - allow horizontal scroll on mobile */

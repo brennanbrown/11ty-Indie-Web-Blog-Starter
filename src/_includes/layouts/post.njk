@@ -4,7 +4,7 @@ layout: base.njk
 <article class="h-entry">
   {% if featured_image %}
     <figure class="featured-image">
-      <img src="{{ featured_image }}" alt="{{ featured_image_alt }}" width="1200" height="630" loading="lazy">
+      <img src="{{ featured_image }}" alt="{{ featured_image_alt }}" loading="lazy">
       {% if featured_image_caption %}
         <figcaption>{{ featured_image_caption | markdown | safe }}</figcaption>
       {% endif %}
