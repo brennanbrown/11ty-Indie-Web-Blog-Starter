@@ -2,6 +2,8 @@
 
 ![Screenshot](https://raw.githubusercontent.com/brennanbrown/11ty-Indie-Web-Blog-Starter/refs/heads/main/src/assets/images/og-default.png)
 
+**A minimal, performant, and accessible Eleventy starter for the IndieWeb.**
+
 **Demo:** [indieweb-blog-starter.netlify.app](https://indieweb-blog-starter.netlify.app/)
 
 A minimal [Eleventy](https://11ty.dev) starter for people
