@@ -1,6 +1,6 @@
 # IndieWeb 11ty Starter
 
-![Screenshot](/assets/images/og-default.png)
+![Screenshot](https://raw.githubusercontent.com/brennanbrown/11ty-Indie-Web-Blog-Starter/refs/heads/main/src/assets/images/og-default.png)
 
 **Demo:** [indieweb-blog-starter.netlify.app](https://indieweb-blog-starter.netlify.app/)
 
