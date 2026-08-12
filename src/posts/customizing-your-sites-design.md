@@ -1,7 +1,7 @@
 ---
 title: "Customizing Your Site's Design"
 date: 2026-08-12
-description: "A comprehensive guide to customizing the IndieWeb 11ty Starter's design, from color palettes and typography to layout and animations."
+description: "An in-depth guide to customizing the IndieWeb 11ty Starter's design, from colour palettes and typography to layout and animations."
 postType: article
 tags: ["11ty", "css", "design", "tutorial"]
 ---
@@ -10,46 +10,51 @@ The IndieWeb 11ty Starter uses a minimal design with chota.css as the base frame
 
 For the basic setup steps (deleting demo content, updating configuration, deployment), see [A Guide to Forking this Starter](/posts/forking-the-starter/).
 
-## Color Palette via CSS Variables
+## Colour Palette via `site.js`
 
-The main CSS variables live in `src/assets/css/01-variables.css`. This is where you define your color scheme:
+The IndieWeb 11ty Starter now centralizes all design tokens in `src/_data/site.js`. This is the single source of truth for your site's appearance - edit the `theme` section to customise colours:
 
-```css
-:root {
-  /* Base colors */
-  --color-primary: #0074d9;
-  --color-secondary: #7f8c8d;
-  --color-accent: #ff6b6b;
-  
-  /* Background colors */
-  --color-bg: #ffffff;
-  --color-bg-alt: #f8f9fa;
-  --color-card: #ffffff;
-  
-  /* Text colors */
-  --color-text: #2c3e50;
-  --color-text-muted: #7f8c8d;
-  --color-text-light: #95a5a6;
-  
-  /* Border colors */
-  --color-border: #e1e4e8;
-  --color-border-light: #f1f3f5;
-  
-  /* Link colors */
-  --color-link: #0074d9;
-  --color-link-hover: #0056b3;
-  --color-link-visited: #6c5ce7;
+```javascript
+theme: {
+  light: {
+    bg: "#ffffff",
+    bgSecondary: "#f4f4f5",
+    font: "#18181b",
+    primary: "#3563e9",
+    lightGrey: "#e4e4e7",
+    grey: "#a1a1aa",
+    darkGrey: "#52525b",
+    error: "#dc2626",
+    success: "#16a34a",
+    linkVisited: "#7c5cbf",
+    linkHover: "#1d4ed8"
+  },
+  dark: {
+    bg: "#18181b",
+    bgSecondary: "#27272a",
+    font: "#f4f4f5",
+    primary: "#6d8cf0",
+    lightGrey: "#3f3f46",
+    grey: "#52525b",
+    darkGrey: "#a1a1aa",
+    error: "#f87171",
+    success: "#4ade80",
+    linkVisited: "#a68df0",
+    linkHover: "#93b4ff"
+  }
 }
 ```
 
-### Color Palette Ideas
+The CSS file `src/assets/css/01-variables.css.njk` is a Nunjucks template that automatically references these values. When you build the site, Eleventy processes the template and generates the final CSS with your colours from `site.js`.
+
+### Colour Palette Ideas
 
 - **Warm & cozy**: Earth tones (browns, oranges, creams)
 - **Cool & minimal**: Blues, grays, whites
 - **Bold & vibrant**: Bright primaries with high contrast
 - **Dark mode**: Dark backgrounds with light text
-- **Pastel**: Soft, muted colors for a gentle feel
-- **Monochrome**: Single color with varying shades
+- **Pastel**: Soft, muted colours for a gentle feel
+- **Monochrome**: Single colour with varying shades
 
 ### Tools for Generating Palettes
 
@@ -63,13 +68,13 @@ The starter uses system font stacks by default for performance. You can customiz
 
 ### Keep System Fonts (Recommended)
 
-Update the font stacks in `src/assets/css/01-variables.css`:
+Update the font stacks in `src/_data/site.js`:
 
-```css
-:root {
-  --font-family-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-  --font-family-heading: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-  --font-family-mono: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace;
+```javascript
+fonts: {
+  body: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif",
+  heading: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif",
+  monospace: "ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace"
 }
 ```
 
@@ -87,37 +92,27 @@ Add this to `src/_includes/partials/head.njk`:
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 ```
 
-#### 2. Update CSS Variables
+#### 2. Update Site Configuration
 
-Update `src/assets/css/01-variables.css`:
-
-```css
-:root {
-  --font-family-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-family-heading: "Merriweather", Georgia, serif;
-  --font-family-mono: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", monospace;
-}
-```
-
-#### 3. Update Site Configuration
-
-Update `src/_data/site.js` for documentation purposes:
+Update `src/_data/site.js`:
 
 ```javascript
 fonts: {
-  sans: '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+  body: '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
   heading: '"Merriweather", Georgia, serif',
-  mono: '"SF Mono", Monaco, "Cascadia Code", "Roboto Mono", monospace'
+  monospace: '"JetBrains Mono", "Fira Code", ui-monospace, monospace'
 }
 ```
 
+The CSS will automatically pick up these changes on the next build.
+
 ### Font Pairing Ideas
 
-- **Modern clean**: Inter + Space Grotesk
-- **Classic editorial**: Merriweather + Open Sans
-- **Tech minimal**: JetBrains Mono + Inter
-- **Playful**: Poppins + Nunito
-- **Elegant**: Playfair Display + Lato
+- **Modern clean**: Inter + Space Grotesk + JetBrains Mono
+- **Classic editorial**: Merriweather + Open Sans + Fira Code
+- **Tech minimal**: Inter + JetBrains Mono + JetBrains Mono
+- **Playful**: Poppins + Nunito + Fira Code
+- **Elegant**: Playfair Display + Lato + IBM Plex Mono
 
 ## Visual Interest & Layout
 
@@ -310,25 +305,21 @@ Experiment with different post layouts:
 
 ## Dark Mode Enhancements
 
-The starter includes basic dark mode support. Change it in `src/assets/css/15-dark-mode.css`:
+The starter includes basic dark mode support. Customise dark mode colours in the `theme.dark` section of `src/_data/site.js`:
 
-```css
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-bg: #1a1a1a;
-    --color-bg-alt: #2d2d2d;
-    --color-text: #e0e0e0;
-    --color-text-muted: #a0a0a0;
-    --color-border: #404040;
-    --color-card: #2d2d2d;
-  }
-  
-  /* Enhance dark mode with custom colors */
-  .hero {
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+```javascript
+theme: {
+  dark: {
+    bg: "#1a1a1a",
+    bgSecondary: "#2d2d2d",
+    font: "#e0e0e0",
+    primary: "#6d8cf0",
+    // ... more colors
   }
 }
 ```
+
+For custom dark mode CSS beyond the colour palette (like the hero background example), you can still add styles in `src/assets/css/01-variables.css.njk` within the `@media (prefers-color-scheme: dark)` block.
 
 ## Animation & Micro-interactions
 
@@ -387,13 +378,13 @@ The key to good design is iteration:
 3. **Get feedback**: Ask others what they think
 4. **Refine gradually**: Polish your design over time
 
-Don't try to do everything at once. Pick one area (colors, typography, layout) and master it before moving to the next.
+Don't try to do everything at once. Pick one area (colours, typography, layout) and master it before moving to the next.
 
 ## Summary
 
 Customizing your site's design is about making it feel like yours while keeping the solid foundation the starter provides. The main areas to focus on:
 
-1. **Color palette**: Define your brand through CSS variables
+1. **Colour palette**: Define your brand through CSS variables
 2. **Typography**: Choose fonts that reflect your style
 3. **Visual elements**: Add personality with cards, borders, and patterns
 4. **Layout**: Adjust spacing and positioning to suit your content

@@ -69,12 +69,12 @@ blockquote p {
   margin: 0;
 }
 
-/* Code blocks and inline code */
+/* Code blocks and inline code - uses monospace font from site.js */
 code,
 pre,
 kbd,
 samp {
-  font-family: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+  font-family: var(--font-family-mono);
 }
 
 pre {

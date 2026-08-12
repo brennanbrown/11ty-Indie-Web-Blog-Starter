@@ -1,16 +1,17 @@
+---
+permalink: "/assets/css/01-variables.css"
+layout: null
+---
 /* assets/css/01-variables.css
  *
  * Overrides chota's CSS custom properties rather than writing new
  * selectors. "Work with chota, not against it." Full list of chota's
  * variables: https://jenil.github.io/chota/#colors
  *
- * A deliberately plain, mostly-greyscale palette with exactly one
- * accent color (`--color-primary` / `--link-color`). The idea is that
- * this file should be the very first thing you touch. Swap the accent
- * for your own brand color, or replace the whole palette with something
- * like Nord (https://www.nordtheme.com/) or Dracula
- * (https://draculatheme.com/) if you'd rather start from an existing
- * theme than build your own.
+ * This file is a Nunjucks template that pulls all design tokens from
+ * src/_data/site.js (fonts and theme sections). To customize your site's
+ * appearance, edit site.js instead of this file. The CSS will automatically
+ * pick up your changes on the next build.
  */
 
 /* chota sets the <html> root font-size to 62.5% (so 1rem = 10px) and then
@@ -42,29 +43,30 @@ img {
 }
 
 :root {
-  --font-family-serif: 'Iowan Old Style', 'Palatino Linotype', 'URW Palladio L', P052, serif;
-  --font-family-sans: Seravek, 'Gill Sans Nova', Ubuntu, Calibri, 'DejaVu Sans', sans-serif;
+  --font-family-serif: {{ site.fonts.body | safe }};
+  --font-family-sans: {{ site.fonts.heading | safe }};
+  --font-family-mono: {{ site.fonts.monospace | safe }};
   --font-size: 1rem;
 
-  --bg-color: #ffffff;
-  --bg-secondary-color: #f4f4f5;
-  --font-color: #18181b;
+  --bg-color: {{ site.theme.light.bg }};
+  --bg-secondary-color: {{ site.theme.light.bgSecondary }};
+  --font-color: {{ site.theme.light.font }};
 
   /* The one accent color in this file. */
-  --color-primary: #3563e9;
+  --color-primary: {{ site.theme.light.primary }};
 
-  --color-lightGrey: #e4e4e7;
-  --color-grey: #a1a1aa;
-  --color-darkGrey: #52525b;
-  --color-error: #dc2626;
-  --color-success: #16a34a;
+  --color-lightGrey: {{ site.theme.light.lightGrey }};
+  --color-grey: {{ site.theme.light.grey }};
+  --color-darkGrey: {{ site.theme.light.darkGrey }};
+  --color-error: {{ site.theme.light.error }};
+  --color-success: {{ site.theme.light.success }};
 
   /* Not chota variables. chota doesn't expose separate visited/hover
      link colors of its own, so these are used directly in the split CSS files.
      `--color-lightGrey` doubles as the border color throughout. */
   --link-color: var(--color-primary);
-  --link-visited-color: #7c5cbf;
-  --link-hover-color: #1d4ed8;
+  --link-visited-color: {{ site.theme.light.linkVisited }};
+  --link-hover-color: {{ site.theme.light.linkHover }};
 }
 
 h1,
@@ -94,20 +96,20 @@ a:hover {
    layer a manual localStorage-backed toggle on top if you want one. */
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg-color: #18181b;
-    --bg-secondary-color: #27272a;
-    --font-color: #f4f4f5;
+    --bg-color: {{ site.theme.dark.bg }};
+    --bg-secondary-color: {{ site.theme.dark.bgSecondary }};
+    --font-color: {{ site.theme.dark.font }};
 
-    --color-primary: #6d8cf0;
+    --color-primary: {{ site.theme.dark.primary }};
 
-    --color-lightGrey: #3f3f46;
-    --color-grey: #52525b;
-    --color-darkGrey: #a1a1aa;
-    --color-error: #f87171;
-    --color-success: #4ade80;
+    --color-lightGrey: {{ site.theme.dark.lightGrey }};
+    --color-grey: {{ site.theme.dark.grey }};
+    --color-darkGrey: {{ site.theme.dark.darkGrey }};
+    --color-error: {{ site.theme.dark.error }};
+    --color-success: {{ site.theme.dark.success }};
 
     --link-color: var(--color-primary);
-    --link-visited-color: #a68df0;
-    --link-hover-color: #93b4ff;
+    --link-visited-color: {{ site.theme.dark.linkVisited }};
+    --link-hover-color: {{ site.theme.dark.linkHover }};
   }
 }

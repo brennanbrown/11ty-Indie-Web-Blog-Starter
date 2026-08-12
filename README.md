@@ -22,7 +22,7 @@ This starter includes IndieWeb microformats and webmentions because they're usef
 
 The IndieWeb is a spectrum. There's no "perfect" IndieWeb site. This starter is one path into the IndieWeb, not the only one.
 
-**Note:** This is a complete overhaul of the original starter. If you prefer the previous version with different features (multiple content types, related posts, social sharing, enhanced tag colors, testing infrastructure), you can still use the [v1 branch](https://github.com/brennanbrown/11ty-Indie-Web-Blog-Starter/tree/v1).
+**Note:** This is a complete overhaul of the original starter. If you prefer the previous version with different features (multiple content types, related posts, social sharing, enhanced tag colours, testing infrastructure), you can still use the [v1 branch](https://github.com/brennanbrown/11ty-Indie-Web-Blog-Starter/tree/v1).
 
 ## 1. Who this is for
 
@@ -156,9 +156,11 @@ Configuration a beginner should touch lives in this one file:
 | `nav` | Whether the nav (driven by `nav.js`) renders |
 | `sidebar` | Whether the optional `<aside>` renders (about card, stats, recent posts, elsewhere, blogroll, webrings. See `partials/aside.njk`) |
 | `homepagePostsLimit` | Number of posts to show on the homepage |
+| `hero.*` | Dismissible intro banner configuration (title, body, features, CTA) |
 | `webmention.*` | Endpoint URLs and your token (from the environment, never hardcoded) |
 | `feed.*` | Which feed formats to emit |
-| `fonts.*` | Font stacks. Mirror any change into `assets/css/01-variables.css` too |
+| `fonts.*` | Font stacks for body, heading, and monospace (used by CSS variables in `01-variables.css.njk`) |
+| `theme.*` | Colour palette and design tokens for light/dark modes (used by CSS variables in `01-variables.css.njk`) |
 | `license.*`, `credits.*` | Rendered in the footer |
 
 ## 6.1 Post front matter
@@ -182,18 +184,46 @@ featured_image_caption: "Photo by [Author](https://example.com)"
 ---
 ```
 
-## 7. Fonts
+## 7. Fonts & Colours
 
 The default fonts are system font stacks. Zero font loading, zero layout
-shift. The tradeoff is not controlling exact rendering across devices. To
-swap in a Google Fonts or [Bunny Fonts](https://fonts.bunny.net/) stack
-instead:
+shift. The tradeoff is not controlling exact rendering across devices.
+
+All design tokens (fonts, colours, etc.) are centralized in `src/_data/site.js` under the `fonts` and `theme` sections. The CSS file `src/assets/css/01-variables.css.njk` is a Nunjucks template that references these values, making `site.js` the single source of truth for your site's appearance.
+
+### Changing Fonts
+
+To swap in a Google Fonts or [Bunny Fonts](https://fonts.bunny.net/) stack instead:
 
 1. Add the `<link>` tag to `src/_includes/partials/head.njk`
-2. Update `--font-family-sans` / `--font-family-heading` in
-   `src/assets/css/01-variables.css`
-3. Update `site.fonts` in `src/_data/site.js` to match (used for
-   documentation purposes / future automation)
+2. Update `site.fonts.body`, `site.fonts.heading`, and `site.fonts.monospace` in `src/_data/site.js`
+
+The CSS will automatically pick up the changes on the next build.
+
+### Changing Colours
+
+To customize your color palette, edit the `theme.light` and `theme.dark` sections in `src/_data/site.js`:
+
+```javascript
+theme: {
+  light: {
+    bg: "#ffffff",
+    bgSecondary: "#f4f4f5",
+    font: "#18181b",
+    primary: "#3563e9",
+    // ... more colors
+  },
+  dark: {
+    bg: "#18181b",
+    bgSecondary: "#27272a",
+    font: "#f4f4f5",
+    primary: "#6d8cf0",
+    // ... more colors
+  }
+}
+```
+
+The CSS variables in `01-variables.css.njk` will automatically use these values.
 
 ## 7.1 Favicons
 

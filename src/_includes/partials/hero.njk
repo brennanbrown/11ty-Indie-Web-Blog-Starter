@@ -16,8 +16,7 @@
   <p>{{ site.hero.body }}</p>
   <p class="hero-features">
     <strong>What's included:</strong>
-    IndieWeb microformats (h-card/h-entry) · sending &amp; receiving webmentions · RSS + JSON feeds · build-time search via
-    Pagefind · CSS-only dark mode · no client-side JavaScript.
+    {{ site.hero.features | safe }}
   </p>
   <a class="button" href="{{ site.hero.ctaUrl }}">{{ site.hero.ctaText }}</a>
 </section>

@@ -50,6 +50,7 @@ export default {
     enabled: true,
     title: "Welcome to the IndieWeb 11ty Starter",
     body: "This is a minimal Eleventy starter for getting into the IndieWeb: microformats, webmentions, RSS, and build-time search, with no client-side JavaScript. Replace this hero and the rest of src/_data/site.js with your own once you're ready.",
+    features: "IndieWeb microformats (h-card/h-entry) · sending &amp; receiving webmentions · RSS + JSON feeds · build-time search via Pagefind · CSS-only dark mode · no client-side JavaScript.",
     ctaText: "Read the README",
     ctaUrl: "https://github.com/brennanbrown/11ty-Indie-Web-Blog-Starter#readme"
   },
@@ -76,7 +77,39 @@ export default {
     // zero font loading and zero layout shift. See README.md "Fonts" for
     // how to swap in a Google/Bunny Fonts stack instead.
     body: "'Iowan Old Style', 'Palatino Linotype', 'URW Palladio L', P052, serif",
-    heading: "Seravek, 'Gill Sans Nova', Ubuntu, Calibri, 'DejaVu Sans', sans-serif"
+    heading: "Seravek, 'Gill Sans Nova', Ubuntu, Calibri, 'DejaVu Sans', sans-serif",
+    monospace: "ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace"
+  },
+
+  theme: {
+    // Color palette and design tokens. Edit these to customize your site's
+    // appearance. All CSS variables in 01-variables.css.njk reference these values.
+    light: {
+      bg: "#ffffff",
+      bgSecondary: "#f4f4f5",
+      font: "#18181b",
+      primary: "#3563e9",
+      lightGrey: "#e4e4e7",
+      grey: "#a1a1aa",
+      darkGrey: "#52525b",
+      error: "#dc2626",
+      success: "#16a34a",
+      linkVisited: "#7c5cbf",
+      linkHover: "#1d4ed8"
+    },
+    dark: {
+      bg: "#18181b",
+      bgSecondary: "#27272a",
+      font: "#f4f4f5",
+      primary: "#6d8cf0",
+      lightGrey: "#3f3f46",
+      grey: "#52525b",
+      darkGrey: "#a1a1aa",
+      error: "#f87171",
+      success: "#4ade80",
+      linkVisited: "#a68df0",
+      linkHover: "#93b4ff"
+    }
   },
 
   license: {
