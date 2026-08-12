@@ -352,8 +352,7 @@ Two npm packages had been dead for a while:
 
 **`chart.js`** was listed in `dependencies`, but the charts page loads it from a CDN:
 
-{% raw %}
-```html
+{% raw %}```html
 <!-- src/pages/charts.md -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
@@ -404,6 +403,6 @@ This is an issue I've had before: the culprit turned out to be a code example in
 
 The code block example was the Nunjucks expression that called `charts.generate(collections)`. Nunjucks actually ran it. That call accessed `collections`, which needed `charts.md`'s `templateContent`, which needed `charts.md` to finish building first. Circular!
 
-{% raw %}The fix was wrapping the offending code block in `{% raw %}` and `{% endraw %}` tags. Those tell Nunjucks to pass the content through as literal text without evaluating it, so the expression appears in the rendered post as code rather than being executed.
+The fix was wrapping the offending code block in `{% raw %}` and `{% endraw %}` tags. Those tell Nunjucks to pass the content through as literal text without evaluating it, so the expression appears in the rendered post as code rather than being executed.
 
-If you write technical posts about Eleventy, wrap every code example containing `{{ }}` or `{% %}` in raw tags. The backticks (like the goggles) do nothing to stop the template engine.{% endraw %}
+If you write technical posts about Eleventy, wrap every code example containing `{{ }}` or `{% %}` in raw tags. The backticks (like the goggles) do nothing to stop the template engine.

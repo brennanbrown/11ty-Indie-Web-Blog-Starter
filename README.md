@@ -149,7 +149,7 @@ instead:
 
 ## 7.1 Favicons
 
-The starter includes a comprehensive favicon set in `src/assets/images/favicon/`:
+The starter includes a in-depth favicon set in `src/assets/images/favicon/`:
 - `favicon.ico`: Legacy browser support
 - `favicon-16x16.png`: Small icon for older browsers
 - `favicon-32x32.png`: Standard favicon size
@@ -160,7 +160,7 @@ The starter includes a comprehensive favicon set in `src/assets/images/favicon/`
 
 To generate your own favicon set:
 - **Easy option**: [favicon.io](https://favicon.io/emoji-favicons/): Generate emoji-based favicons quickly
-- **Comprehensive option**: [RealFaviconGenerator.net](https://realfavicongenerator.net/): Generate a complete favicon set from a single image with PWA support
+- **In-depth option**: [RealFaviconGenerator.net](https://realfavicongenerator.net/): Generate a complete favicon set from a single image with PWA support
 
 To replace the favicons:
 1. Generate your favicon set using one of the tools above
@@ -258,7 +258,7 @@ Vercel, Cloudflare Pages, GitHub Pages, or self-hosting all work with a standard
 
 If you're new to the technologies this starter uses, here are beginner-friendly resources to get you started:
 
-- **This starter**: [GUIDE.md](./GUIDE.md): Comprehensive setup and user guide
+- **This starter**: [GUIDE.md](./GUIDE.md): In-depth setup and user guide
 - **Markdown**: [Markdown Guide](https://www.markdownguide.org/) or [CommonMark Tutorial](https://commonmark.org/help/tutorial/)
 - **JavaScript**: [The Modern JavaScript Tutorial](https://javascript.info/) or [LearningJavaScript.org](https://learningjavascript.org/lessons)
 - **Eleventy**: [Official Getting Started](https://www.11ty.dev/docs/) or [Learn Eleventy](https://learneleventy.dev/)

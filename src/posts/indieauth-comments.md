@@ -51,7 +51,7 @@ These tell IndieAuth providers where to send authentication requests and where t
 
 The comment form starts simple, just asking for the user's website:
 
-```html
+{% raw %}```html
 <form id="indieauth-form" action="https://indieauth.com/auth" method="get">
   <input id="me" type="url" name="me" placeholder="https://yourdomain.com" required />
   <!-- Hidden fields for OAuth -->
@@ -62,6 +62,7 @@ The comment form starts simple, just asking for the user's website:
   <input type="hidden" name="code_challenge_method" value="S256" />
 </form>
 ```
+{% endraw %}
 
 ### Step 2: PKCE - Keeping Things Secure
 
@@ -209,11 +210,12 @@ setTimeout(() => {
 
 I tried to use `getenv()` in my Nunjucks template to check if we were in development:
 
-```njk
-{% raw %}{% if getenv("NETLIFY_DEV") == "true" %}{% endraw %}
+{% raw %}```njk
+{% if getenv("NETLIFY_DEV") == "true" %}
 <!-- do something different for dev -->
-{% raw %}{% endif %}{% endraw %}
+{% endif %}
 ```
+{% endraw %}
 
 This results in a build error because Nunjucks doesn't have a `getenv()` function by default. The fix was to handle environment-specific logic in JavaScript instead of the template.
 
@@ -282,8 +284,8 @@ const newComment = {
 
 **Template:** Two passes over the same flat array — root comments first, then their replies nested inside:
 
-```njk
-{% raw %}{% for comment in postComments %}
+{% raw %}```njk
+{% for comment in postComments %}
 {% if not comment.replyTo %}
 <article class="comment" id="comment-{{ comment.id }}">
   ...
@@ -296,8 +298,9 @@ const newComment = {
   </div>
 </article>
 {% endif %}
-{% endfor %}{% endraw %}
+{% endfor %}
 ```
+{% endraw %}
 
 **Frontend:** The reply form POSTs to the same endpoint with the `replyTo` id in the body:
 

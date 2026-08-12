@@ -84,7 +84,7 @@ export const handler = async (event, context) => {
 
 During build time, Eleventy fetches all submissions from Netlify's API:
 
-```javascript
+{% raw %}```javascript
 // src/_data/guestbook.js
 import EleventyFetch from "@11ty/eleventy-fetch";
 import site from "./site.js";
@@ -92,12 +92,12 @@ import site from "./site.js";
 export default async function () {
   const siteId = process.env.NETLIFY_SITE_ID;
   const token = process.env.NETLIFY_FORMS_ACCESS_TOKEN;
-  
+
   if (!token || !siteId) {
     console.warn("No Netlify API credentials found. Using sample data.");
     return getSampleEntries();
   }
-  
+
   // Get form ID first
   const formsUrl = `https://api.netlify.com/api/v1/sites/${siteId}/forms`;
   const formsResponse = await EleventyFetch(formsUrl, {
@@ -109,17 +109,17 @@ export default async function () {
       }
     }
   });
-  
+
   const forms = await formsResponse;
   const guestbookForm = forms.find(form => form.name === 'guestbook');
-  
+
   // Fetch submissions with retry logic
   const url = `https://api.netlify.com/api/v1/sites/${siteId}/forms/${guestbookForm.id}/submissions`;
-  
+
   let response;
   let retries = 3;
   let delay = 2000;
-  
+
   while (retries > 0) {
     const submissionsResponse = await EleventyFetch(url, {
       duration: "1h",
@@ -130,7 +130,7 @@ export default async function () {
         }
       }
     });
-    
+
     if (submissionsResponse) {
       response = submissionsResponse;
       break;
@@ -141,7 +141,7 @@ export default async function () {
       retries--;
     }
   }
-  
+
   // Transform and return entries
   return response.map(submission => ({
     name: submission.data.name,
@@ -152,6 +152,7 @@ export default async function () {
   }));
 }
 ```
+{% endraw %}
 
 ## Handling Race Conditions
 

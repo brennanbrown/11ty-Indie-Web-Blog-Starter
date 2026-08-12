@@ -214,7 +214,7 @@ The default fonts are system font stacks. Zero font loading, zero layout shift.
 
 ## 8.1 Favicons
 
-The starter includes a comprehensive favicon set in `src/assets/images/favicon/`:
+The starter includes a in-depth favicon set in `src/assets/images/favicon/`:
 - `favicon.ico`: Legacy browser support
 - `favicon-16x16.png`: Small icon for older browsers
 - `favicon-32x32.png`: Standard favicon size
@@ -225,7 +225,7 @@ The starter includes a comprehensive favicon set in `src/assets/images/favicon/`
 
 To generate your own favicon set:
 - **Easy option**: [favicon.io](https://favicon.io/emoji-favicons/): Generate emoji-based favicons quickly
-- **Comprehensive option**: [RealFaviconGenerator.net](https://realfavicongenerator.net/): Generate a complete favicon set from a single image with PWA support
+- **In-depth option**: [RealFaviconGenerator.net](https://realfavicongenerator.net/): Generate a complete favicon set from a single image with PWA support
 
 To replace the favicons:
 1. Generate your favicon set using one of the tools above

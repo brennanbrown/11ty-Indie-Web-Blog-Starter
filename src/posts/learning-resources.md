@@ -14,7 +14,7 @@ If you're new to the technologies this starter uses, the learning curve can feel
 
 Markdown is a lightweight markup language that lets you write formatted text using plain text. It's what you'll use to write your blog posts. It's simple enough to learn in an afternoon, but powerful enough for most writing needs.
 
-- [Markdown Guide](https://www.markdownguide.org/): Comprehensive guide with examples
+- [Markdown Guide](https://www.markdownguide.org/): In-depth guide with examples
 - [CommonMark Tutorial](https://commonmark.org/help/tutorial/): Interactive tutorial with exercises
 - [Daring Fireball: Markdown Basics](https://daringfireball.net/projects/markdown/basics): Original Markdown documentation
 
@@ -25,7 +25,7 @@ You'll use Markdown immediately to write posts, so start here. The basics are en
 Git is version control software. It tracks changes to your files so you can see history, undo mistakes, and collaborate with others. It's essential for any modern development workflow, not just for this starter.
 
 - [Git for Beginners Tutorial](https://deployn.de/en/blog/git-tutorial/): Step-by-step from installation to first project
-- [freeCodeCamp Git Handbook](https://www.freecodecamp.org/news/learn-how-to-use-git-and-github-a-beginner-friendly-handbook/): Comprehensive beginner-friendly handbook
+- [freeCodeCamp Git Handbook](https://www.freecodecamp.org/news/learn-how-to-use-git-and-github-a-beginner-friendly-handbook/): In-depth beginner-friendly handbook
 - [How to Use Git: A Beginner's Guide](https://realpython.com/how-to-use-git/): Practical guide with examples
 
 Focus on the basics: `git add`, `git commit`, `git push`, and `git pull`. That's enough to get started. Branching and merging can come later when you need them.

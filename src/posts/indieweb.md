@@ -63,7 +63,7 @@ Corporate social media platforms are designed to extract value from you, not ser
 
 **Platforms extract value from creators.** Whether it's YouTube taking 45% of ad revenue, Substack taking 10% of subscriptions, or Medium paying pennies per view, corporate platforms capture the value creators generate.
 
-**Surveillance is the business model.** Corporate platforms track you across the internet, building comprehensive profiles of your behavior, interests, and relationships. This surveillance capitalism fuels advertising and influences what you see.
+**Surveillance is the business model.** Corporate platforms track you across the internet, building in-depth profiles of your behavior, interests, and relationships. This surveillance capitalism fuels advertising and influences what you see.
 
 **Communities are disposable.** When corporate platforms change policies, shut down features, or close entirely, communities built over years can disappear overnight. Your connections exist only at the platform's pleasure.
 
@@ -169,7 +169,7 @@ You don't need to be a developer to own your corner of the internet. Here are re
 
 #### Philosophy & Principles
 
-- [IndieWeb Wiki](https://indieweb.org/): Comprehensive documentation
+- [IndieWeb Wiki](https://indieweb.org/): In-depth documentation
 - [IndieWeb Guide](https://indieweb.guide/join/): How to join the movement
 - [Yesterweb Manifesto](https://yesterweb.org/): Philosophy behind the independent web
 - [Internet is Fun](https://projects.kwon.nyc/internet-is-fun/): Collection of thinkpieces

@@ -50,9 +50,10 @@ Never commit this to git. Add .env to your .gitignore if you haven't already.
 
 For other sites to know where to send webmentions, you need to declare your endpoint in your HTML head. In your `src/_includes/partials/head.njk`:
 
-```html
+{% raw %}```html
 <link rel="webmention" href="{{ site.webmention.endpoint }}">
 ```
+{% endraw %}
 
 This tells webmention senders where to send notifications. The spec supports three methods of discovery: HTTP Link headers, `<link>` elements, and `<a>` elements. The `<link rel="webmention">` in the head is the most common.
 
@@ -60,7 +61,7 @@ This tells webmention senders where to send notifications. The spec supports thr
 
 This starter includes a data file at `src/_data/webmentions.js` that Eleventy runs during the build:
 
-```javascript
+{% raw %}```javascript
 import EleventyFetch from "@11ty/eleventy-fetch";
 import site from "./site.js";
 
@@ -72,6 +73,7 @@ export default async function () {
   return data.children ?? [];
 };
 ```
+{% endraw %}
 
 This uses [Eleventy Fetch](https://www.11ty.dev/docs/plugins/fetch/) to cache network requests locally. The `duration: "12h"` means the response is cached for twelve hours, so you can rebuild locally without hitting the API on every build.
 
@@ -119,9 +121,10 @@ eleventyConfig.addFilter("webmentionsForUrl", (webmentions, url) => {
 
 In templates, use it like this:
 
-```njk raw
+{% raw %}```njk
 {% set mentions = webmentions | webmentionsForUrl(site.url + page.url) %}
 ```
+{% endraw %}
 
 ### Grouping by Type
 
@@ -142,11 +145,12 @@ The types worth knowing:
 
 In templates, split them out:
 
-```njk raw
+{% raw %}```njk
 {% set likes = mentions | webmentionsByType("like-of") %}
 {% set reposts = mentions | webmentionsByType("repost-of") %}
 {% set replies = mentions | webmentionsByType("in-reply-to") %}
 ```
+{% endraw %}
 
 ## Displaying Mentions
 
