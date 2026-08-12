@@ -1,6 +1,6 @@
 ---
 title: "Transitioning from CMS and SSI to Static Sites"
-date: 2026-03-02
+date: 2026-07-02
 description: "A guide for experienced developers moving from WordPress, SSIs, and rsync to static site generators like Eleventy."
 postType: article
 tags: ["transition", "static-sites", "eleventy", "tutorial"]

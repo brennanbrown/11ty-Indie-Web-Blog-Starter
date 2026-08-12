@@ -76,6 +76,54 @@ npm run build     # production build to _site/, then indexes it with Pagefind
 
 **For detailed setup and customization instructions, see [GUIDE.md](./GUIDE.md).**
 
+## 4.1 Forking this starter
+
+If you fork this repo to create your own site, here are the steps to customize it:
+
+### Delete demo content
+- Remove all posts in `src/posts/` (these are example posts)
+- Delete or update `src/about.md`, `src/contact.md`, and other placeholder pages
+- Remove or update the demo images in `src/assets/images/posts/`
+
+### Update site configuration
+Edit `src/_data/site.js` and update:
+- `title`, `description`, `url`, `language`: Your site's basic identity
+- `author.*`: Your h-card information (name, url, photo, email, bio, relMe links)
+- `seo.*`: Update the default OG image path
+- `license.*`, `credits.*`: Update footer content with your own license/attribution
+
+### Update navigation and sidebar
+- Edit `src/_data/nav.js` to customize your navigation links
+- Edit `src/_data/blogroll.js` to update the blogroll or remove it
+- Edit `src/_data/webrings.js` to update webrings or remove it
+- Set `sidebar: false` in `site.js` if you don't want the aside section
+
+### Replace favicons
+- Generate your own favicon set using [favicon.io](https://favicon.io/) or [RealFaviconGenerator.net](https://realfavicongenerator.net/)
+- Replace files in `src/assets/images/favicon/`
+- Update `site.webmanifest` if you change the manifest content
+
+### Update guestbook and comments
+- Edit `src/_data/guestbooks.js` to link to your preferred guestbook service
+- Edit `src/_data/comments.js` to link to your preferred comment service
+- Or delete these data files and remove the guestbook/comments pages if not needed
+
+### Webmentions (optional)
+- If you want webmentions, sign up at [webmention.io](https://webmention.io) or [webmention.folk.zone](https://folk.zone)
+- Copy `.env.example` to `.env` and set `WEBMENTION_IO_TOKEN`
+- Set the same environment variable in your deployment platform
+- If you don't want webmentions, you can remove the webmention-related code from `src/_data/webmentions.js` and the templates
+
+### Update deployment configuration
+- Update `netlify.toml` with your site name if using Netlify
+- Update GitHub Actions workflows if using CI/CD
+- Update any platform-specific configuration files
+
+### Remove demo-specific content
+- Check for any hardcoded references to the demo site in templates
+- Update the RSS feed description in `src/feed.njk` and `src/feed.json.njk`
+- Remove or update any demo-specific comments in the code
+
 ## 5. Folder structure
 
 ```
@@ -167,7 +215,7 @@ To replace the favicons:
 2. Replace the files in `src/assets/images/favicon/`
 3. Update `site.webmanifest` if you change the manifest content
 
-## 7.3 Templating languages
+## 7.2 Templating languages
 
 Eleventy supports many templating languages: HTML, Markdown, WebC, JavaScript (.11ty.js), Liquid, Nunjucks, Handlebars, Mustache, EJS, Haml, Pug, and more. Each has its own syntax and tradeoffs.
 

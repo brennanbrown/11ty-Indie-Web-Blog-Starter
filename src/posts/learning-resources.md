@@ -1,6 +1,6 @@
 ---
 title: "Learning Resources for the IndieWeb"
-date: 2026-03-02
+date: 2026-06-02
 description: "A curated list of beginner-friendly resources for Markdown, JavaScript, Eleventy, Git, GitHub, and Netlify."
 postType: article
 tags: ["learning", "resources", "indieweb", "tutorial"]
