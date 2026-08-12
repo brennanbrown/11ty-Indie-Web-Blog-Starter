@@ -6,6 +6,9 @@
 .sidebar {
   font-size: 0.95rem;
   font-family: var(--font-family-sans);
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 .sidebar .module {

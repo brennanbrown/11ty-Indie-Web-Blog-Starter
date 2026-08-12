@@ -23,6 +23,7 @@
 main {
   max-width: 100%;
   overflow-x: hidden;
+  width: 100%;
 }
 
 .e-content {
@@ -30,6 +31,7 @@ main {
   overflow-wrap: break-word;
   word-wrap: break-word;
   word-break: break-word;
+  hyphens: auto;
 }
 
 /* Responsive tables - allow horizontal scroll on mobile */
@@ -37,15 +39,19 @@ main {
   display: block;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
-  white-space: nowrap;
 }
 
 /* Ensure code blocks don't overflow on mobile */
-.e-content pre,
-.e-content code {
+.e-content pre {
   max-width: 100%;
   overflow-x: auto;
   white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.e-content code {
+  max-width: 100%;
+  overflow-x: auto;
   word-wrap: break-word;
 }
 

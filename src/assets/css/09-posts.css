@@ -129,6 +129,8 @@ h4:hover .header-anchor,
 /* --- Figures and captions --- */
 figure {
   margin: 2rem 0;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 figcaption {
@@ -142,10 +144,11 @@ figcaption {
 /* --- Featured image --- */
 .featured-image {
   margin: 0 0 2rem;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .featured-image img {
   width: 100%;
-  height: auto;
   border-radius: 4px;
 }
